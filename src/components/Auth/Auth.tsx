@@ -3,7 +3,9 @@ import { Component } from 'react';
 import Login from './Login/Login';
 import Signup from './Signup/Signup';
 
-interface AuthProps {}
+interface AuthProps {
+  updateLocalStorage: (newToken: string) => void;
+}
 
 interface AuthState {}
 
@@ -16,7 +18,7 @@ class Auth extends React.Component<AuthProps, AuthState> {
     return (
       <div>
         <Login />
-        <Signup />
+        <Signup updateLocalStorage={this.props.updateLocalStorage} />
       </div>
     );
   }
