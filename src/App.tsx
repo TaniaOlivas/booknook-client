@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import Auth from './components/Auth/Auth';
+import Sidebar from './components/Sidebar/Sidebar';
 
 function App() {
   const [token, setToken] = useState('');
@@ -24,7 +25,10 @@ function App() {
   };
   return (
     <div>
-      <Auth updateLocalStorage={updateLocalStorage} />
+      <div className="container">
+        <Sidebar clearLocalStorage={clearLocalStorage} />
+        <Auth updateLocalStorage={updateLocalStorage} />
+      </div>
     </div>
   );
 }
