@@ -126,10 +126,11 @@ class Signup extends Component<SignupProps, SignupState> {
                 </FormGroup>
               </div>
             </FormGroup>
-            <div className="row ps-3 pe-3">
+            <div className="row ps-3 pe-3 pb-3">
               <Button className="col">Sign Up</Button>
             </div>
           </Form>
+          <p style={{ textAlign: 'center' }}>Already a User?</p>
         </div>
       </div>
     );
