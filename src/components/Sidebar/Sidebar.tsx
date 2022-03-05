@@ -1,5 +1,5 @@
-import * as React from 'react';
 import { Component } from 'react';
+import { Route, Link, Routes } from 'react-router-dom';
 import {
   ProSidebar,
   Menu,
@@ -15,9 +15,15 @@ import { BiCog } from 'react-icons/bi';
 import { GiAbstract050 } from 'react-icons/gi';
 import { HiLogin } from 'react-icons/hi';
 import 'react-pro-sidebar/dist/css/styles.css';
+import CreateReview from '../Reviews/CreateReview/CreateReview';
+import ReviewFeed from '../Reviews/Feed/ReviewFeed';
+import CreatePost from '../Postings/CreatePost/CreatePost';
+import SearchIndex from '../Postings/SearchPost/SearchIndex';
 
 interface SidebarProps {
   clearLocalStorage: () => void;
+  token: string;
+  user: string;
 }
 
 interface SidebarState {
@@ -58,21 +64,57 @@ class Sidebar extends Component<SidebarProps, SidebarState> {
             </SidebarHeader>
             <SidebarContent>
               <Menu iconShape="square">
-                <MenuItem active={true} icon={<FaHome />}>
-                  Home
+                <MenuItem icon={<FaHome />}>
+                  <Link to="/feed">Review Feed</Link>
                 </MenuItem>
-                <MenuItem icon={<FaList />}>Category</MenuItem>
-                <MenuItem icon={<FaRegHeart />}>Favourite</MenuItem>
-                <MenuItem icon={<RiPencilLine />}>Author</MenuItem>
+                <MenuItem icon={<FaList />}>
+                  <Link to="/review">Create Review</Link>
+                </MenuItem>
+                {this.props.user === 'Author' ? (
+                  <MenuItem icon={<FaRegHeart />}>
+                    <Link to="/post">Create Post</Link>
+                  </MenuItem>
+                ) : (
+                  <></>
+                )}
+
+                <MenuItem icon={<RiPencilLine />}>
+                  <Link to="/search">Search</Link>
+                </MenuItem>
                 <MenuItem icon={<BiCog />}>Settings</MenuItem>
               </Menu>
             </SidebarContent>
             <SidebarFooter>
               <Menu iconShape="square">
-                <MenuItem icon={<FiLogOut />}>Logout</MenuItem>
+                <MenuItem
+                  icon={<FiLogOut />}
+                  onClick={this.props.clearLocalStorage}
+                >
+                  Logout
+                </MenuItem>
               </Menu>
             </SidebarFooter>
           </ProSidebar>
+        </div>
+        <div>
+          <Routes>
+            <Route
+              path="/feed"
+              element={<ReviewFeed token={this.props.token} />}
+            ></Route>
+            <Route
+              path="/review"
+              element={<CreateReview token={this.props.token} />}
+            ></Route>
+            <Route
+              path="/post"
+              element={<CreatePost token={this.props.token} />}
+            ></Route>
+            <Route
+              path="/search"
+              element={<SearchIndex token={this.props.token} />}
+            ></Route>
+          </Routes>
         </div>
       </>
     );

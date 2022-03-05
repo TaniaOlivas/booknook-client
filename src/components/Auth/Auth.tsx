@@ -6,13 +6,14 @@ import Signup from './Signup/Signup';
 
 interface AuthProps {
   updateLocalStorage: (newToken: string) => void;
+  userLocalStorage: (newUser: string) => void;
 }
 
 interface AuthState {
   isLoginVisible: boolean;
 }
 
-class Auth extends React.Component<AuthProps, AuthState> {
+class Auth extends Component<AuthProps, AuthState> {
   constructor(props: AuthProps) {
     super(props);
     this.state = { isLoginVisible: true };
@@ -28,12 +29,18 @@ class Auth extends React.Component<AuthProps, AuthState> {
 
   render() {
     return (
-      <div className="container">
+      <div>
         <div>
           {this.state.isLoginVisible === true ? (
-            <Login updateLocalStorage={this.props.updateLocalStorage} />
+            <Login
+              updateLocalStorage={this.props.updateLocalStorage}
+              userLocalStorage={this.props.userLocalStorage}
+            />
           ) : (
-            <Signup updateLocalStorage={this.props.updateLocalStorage} />
+            <Signup
+              updateLocalStorage={this.props.updateLocalStorage}
+              userLocalStorage={this.props.userLocalStorage}
+            />
           )}
         </div>
 

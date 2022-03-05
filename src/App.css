@@ -2,7 +2,7 @@ body {
   background-color: #889eaf;
 }
 #header {
-  position: absolute;
+  position: fixed;
   left: 0;
   width: 220px;
 }

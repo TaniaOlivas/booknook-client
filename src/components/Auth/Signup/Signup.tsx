@@ -4,6 +4,7 @@ import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 
 interface SignupProps {
   updateLocalStorage: (newToken: string) => void;
+  userLocalStorage: (newUser: string) => void;
 }
 
 interface SignupState {
@@ -44,6 +45,7 @@ class Signup extends Component<SignupProps, SignupState> {
       .then((res) => res.json())
       .then((data) => {
         this.props.updateLocalStorage(data.token);
+        this.props.userLocalStorage(data.user.userType);
       })
       .catch((err) => {
         console.error('Error:', err);
