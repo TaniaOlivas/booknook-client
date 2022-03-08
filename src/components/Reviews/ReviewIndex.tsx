@@ -89,7 +89,10 @@ class ReviewIndex extends Component<ReviewIndexProps, ReviewIndexState> {
         <div className="container">
           <div className="row">
             <div className="col-md-6">
-              <CreateReview token={this.props.token} />
+              <CreateReview
+                token={this.props.token}
+                fetchReviews={this.fetchReviews}
+              />
             </div>
             <div className="col-md-6">{reviews}</div>
           </div>

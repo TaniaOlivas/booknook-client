@@ -6,17 +6,20 @@ import UpdateComment from './UpdateComment';
 interface CommentIndexProps {
   token: string;
   review: number;
+  userId: string | number;
 }
 
 interface CommentIndexState {
   comments: comment[];
   updateActive: boolean;
   commentToUpdate: comment;
+  refreshComments: boolean;
 }
 
 export interface comment {
   id: number;
   content: string;
+  userId: number;
   bookReviewId: number;
 }
 
@@ -27,6 +30,7 @@ class CommentIndex extends Component<CommentIndexProps, CommentIndexState> {
       comments: [],
       updateActive: false,
       commentToUpdate: {} as comment,
+      refreshComments: true,
     };
   }
 
@@ -75,6 +79,8 @@ class CommentIndex extends Component<CommentIndexProps, CommentIndexState> {
           token={this.props.token}
           updateOn={this.updateOn}
           editUpdateComment={this.editUpdateComment}
+          refreshComments={this.state.refreshComments}
+          userId={this.props.userId}
         />
       ) : (
         <h5>No Comments</h5>
@@ -87,19 +93,21 @@ class CommentIndex extends Component<CommentIndexProps, CommentIndexState> {
             <CreateComment
               review={this.props.review}
               token={this.props.token}
+              refreshComments={this.state.refreshComments}
+              fetchComments={this.fetchComments}
             />
           </div>
+          {this.state.updateActive ? (
+            <UpdateComment
+              commentToUpdate={this.state.commentToUpdate}
+              updateOff={this.updateOff}
+              token={this.props.token}
+              fetchComments={this.fetchComments}
+            />
+          ) : (
+            <div></div>
+          )}
         </div>
-        {this.state.updateActive ? (
-          <UpdateComment
-            commentToUpdate={this.state.commentToUpdate}
-            updateOff={this.updateOff}
-            token={this.props.token}
-            fetchComments={this.fetchComments}
-          />
-        ) : (
-          <div></div>
-        )}
       </div>
     );
   }

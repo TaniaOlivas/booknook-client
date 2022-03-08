@@ -7,6 +7,7 @@ import Signup from './Signup/Signup';
 interface AuthProps {
   updateLocalStorage: (newToken: string) => void;
   userLocalStorage: (newUser: string) => void;
+  idLocalStorage: Function;
 }
 
 interface AuthState {
@@ -35,11 +36,13 @@ class Auth extends Component<AuthProps, AuthState> {
             <Login
               updateLocalStorage={this.props.updateLocalStorage}
               userLocalStorage={this.props.userLocalStorage}
+              idLocalStorage={this.props.idLocalStorage}
             />
           ) : (
             <Signup
               updateLocalStorage={this.props.updateLocalStorage}
               userLocalStorage={this.props.userLocalStorage}
+              idLocalStorage={this.props.idLocalStorage}
             />
           )}
         </div>

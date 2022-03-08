@@ -4,6 +4,7 @@ import CommentIndex from './Comments/CommentIndex';
 
 interface ReviewFeedProps {
   token: string;
+  userId: string | number;
 }
 
 interface ReviewFeedState {
@@ -54,7 +55,7 @@ class ReviewFeed extends Component<ReviewFeedProps, ReviewFeedState> {
   reviewMapper = () => {
     return this.state.reviews.map((review, index) => {
       return (
-        <Card key={index} className="mb-3" style={{ maxWidth: '540px' }}>
+        <Card key={index} className="mb-3" style={{ maxWidth: '800px' }}>
           <div className="row g-0">
             <CardBody className="col-md-4">
               <img
@@ -72,9 +73,11 @@ class ReviewFeed extends Component<ReviewFeedProps, ReviewFeedState> {
                   <small className="text-muted">{review.rating}</small>
                 </CardText>
                 <CardText>{review.content}</CardText>
-                <div>
-                  <CommentIndex token={this.props.token} review={review.id} />
-                </div>
+                <CommentIndex
+                  token={this.props.token}
+                  review={review.id}
+                  userId={this.props.userId}
+                />
               </CardBody>
             </div>
           </div>
@@ -86,7 +89,7 @@ class ReviewFeed extends Component<ReviewFeedProps, ReviewFeedState> {
     return (
       <div style={{ textAlign: 'center' }}>
         <h1>Hello from ReviewFeed</h1>
-        {this.reviewMapper()}
+        <div style={{ right: '1' }}>{this.reviewMapper()}</div>
       </div>
     );
   }

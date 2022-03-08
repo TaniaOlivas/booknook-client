@@ -81,7 +81,7 @@ class MyReviewFeed extends Component<MyReviewFeedProps, MyReviewFeedState> {
   render() {
     return (
       <div style={{ textAlign: 'center' }}>
-        <h1>Hello from PostFeed</h1>
+        <h3>Hello from MyReviewFeed</h3>
         {this.reviewMapper()}
       </div>
     );

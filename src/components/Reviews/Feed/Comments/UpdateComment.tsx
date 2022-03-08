@@ -34,7 +34,7 @@ class UpdateComment extends Component<UpdateCommentProps, UpdateCommentState> {
 
   commentUpdate = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    fetch(`http://localhost:4000/post/${this.props.commentToUpdate.id}`, {
+    fetch(`http://localhost:4000/comment/${this.props.commentToUpdate.id}`, {
       method: 'PUT',
       body: JSON.stringify({
         content: this.state.editContent,

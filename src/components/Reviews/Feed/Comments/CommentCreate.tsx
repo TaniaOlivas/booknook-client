@@ -1,10 +1,12 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import { Form, FormGroup, Input, Button } from 'reactstrap';
 
 interface CreateCommentProps {
   token: string;
   review: number;
+  refreshComments: boolean;
+  fetchComments: Function;
 }
 
 interface review {
@@ -43,8 +45,8 @@ class CreateComment extends Component<CreateCommentProps, CreateCommentState> {
     })
       .then((res) => res.json())
       .then((data) => {
+        this.props.fetchComments();
         console.log(data);
-
         this.setState({
           content: '',
         });
@@ -53,6 +55,7 @@ class CreateComment extends Component<CreateCommentProps, CreateCommentState> {
         console.error('Error:', err);
       });
   };
+
   render() {
     return (
       <div>

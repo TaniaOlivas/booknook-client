@@ -9,6 +9,8 @@ interface CommentFeedProps {
   token: string;
   updateOn: Function;
   editUpdateComment: Function;
+  refreshComments: boolean;
+  userId: string | number;
 }
 
 interface CommentFeedState {}
@@ -21,7 +23,8 @@ class CommentFeed extends Component<CommentFeedProps, CommentFeedState> {
   }
 
   commentDelete = (comment: comment) => {
-    fetch(`http://localhost:4000/post/${comment.id}`, {
+    debugger;
+    fetch(`http://localhost:4000/comment/${comment.id}`, {
       method: 'DELETE',
       headers: new Headers({
         'Content-Type': 'application/json',
@@ -33,23 +36,35 @@ class CommentFeed extends Component<CommentFeedProps, CommentFeedState> {
   commentsMapper = () => {
     return this.props.comments.map((comment, index) => {
       return (
-        <div key={index}>
-          <p>{comment.content}</p>
-          {/* <Button
-            onClick={() => {
-              this.props.editUpdateComment(comment);
-              this.props.updateOn();
-            }}
-          >
-            Update
-          </Button>{' '} */}
-          <Button
-            onClick={() => {
-              this.commentDelete(comment);
-            }}
-          >
-            Delete
-          </Button>
+        <div key={index} className="row" style={{ textAlign: 'center' }}>
+          <div className="col-md-10">
+            <p>{comment.content}</p>
+          </div>
+          <div className="col-md-2">
+            {this.props.userId === comment.userId ? (
+              <Button
+                onClick={() => {
+                  this.commentDelete(comment);
+                }}
+              >
+                Delete
+              </Button>
+            ) : (
+              <></>
+            )}
+            {this.props.userId === comment.userId ? (
+              <Button
+                onClick={() => {
+                  this.props.editUpdateComment(comment);
+                  this.props.updateOn();
+                }}
+              >
+                Update
+              </Button>
+            ) : (
+              <></>
+            )}
+          </div>
         </div>
       );
     });

@@ -4,6 +4,7 @@ import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 
 interface CreateReviewProps {
   token: string;
+  fetchReviews: Function;
 }
 
 interface CreateReviewState {
@@ -46,6 +47,7 @@ class CreateReview extends Component<CreateReviewProps, CreateReviewState> {
     })
       .then((res) => res.json())
       .then((data) => {
+        this.props.fetchReviews();
         console.log(data);
 
         this.setState({

@@ -3,6 +3,7 @@ import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 
 interface CreatePostProps {
   token: string;
+  fetchPosts: Function;
 }
 
 interface CreatePostState {
@@ -39,6 +40,7 @@ class CreatePost extends Component<CreatePostProps, CreatePostState> {
     })
       .then((res) => res.json())
       .then((data) => {
+        this.props.fetchPosts();
         console.log(data);
 
         this.setState({

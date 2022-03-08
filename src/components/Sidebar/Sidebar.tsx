@@ -24,6 +24,7 @@ interface SidebarProps {
   clearLocalStorage: () => void;
   token: string;
   user: string;
+  userId: string | number;
 }
 
 interface SidebarState {
@@ -96,11 +97,16 @@ class Sidebar extends Component<SidebarProps, SidebarState> {
             </SidebarFooter>
           </ProSidebar>
         </div>
-        <div>
+        <div style={{ textAlign: 'center', marginLeft: '20%' }}>
           <Routes>
             <Route
               path="/feed"
-              element={<ReviewFeed token={this.props.token} />}
+              element={
+                <ReviewFeed
+                  userId={this.props.userId}
+                  token={this.props.token}
+                />
+              }
             ></Route>
             <Route
               path="/review"

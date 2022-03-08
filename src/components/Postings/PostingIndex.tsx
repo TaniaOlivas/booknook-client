@@ -83,7 +83,10 @@ class PostIndex extends Component<PostIndexProps, PostIndexState> {
         <div className="container">
           <div className="row">
             <div className="col-md-6">
-              <CreatePost token={this.props.token} />
+              <CreatePost
+                token={this.props.token}
+                fetchPosts={this.fetchPosts}
+              />
             </div>
             <div className="col-md-6">{posts}</div>
           </div>
