@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import ImageUpload from '../../ImageUpload/ImageUpload';
 
 interface CreateReviewProps {
   token: string;
@@ -63,6 +64,9 @@ class CreateReview extends Component<CreateReviewProps, CreateReviewState> {
         console.error('Error:', err);
       });
   };
+  imageSet = (image: string) => {
+    this.setState({ picture: image });
+  };
   render() {
     return (
       <div>
@@ -113,13 +117,10 @@ class CreateReview extends Component<CreateReviewProps, CreateReviewState> {
               />
             </FormGroup>
             <FormGroup className="col-md-6 mt-0">
-              <Label for="image">File</Label>
-              <Input
-                id="image"
-                name="image"
-                type="file"
-                value={this.state.picture}
-                onChange={(e) => this.setState({ picture: e.target.value })}
+              <ImageUpload
+                token={this.props.token}
+                imageSet={this.imageSet}
+                picture={this.state.picture}
               />
             </FormGroup>
             <FormGroup className="mt-0">

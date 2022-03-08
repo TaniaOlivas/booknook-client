@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import ImageUpload from '../../ImageUpload/ImageUpload';
 
 interface CreatePostProps {
   token: string;
@@ -93,14 +94,10 @@ class CreatePost extends Component<CreatePostProps, CreatePostState> {
               />
             </FormGroup>
             <FormGroup className="col-md-10 mt-0">
-              <Label for="image">File</Label>
-              <Input
-                id="image"
-                name="image"
-                type="file"
-                value={this.state.picture}
-                onChange={(e) => this.setState({ picture: e.target.value })}
-              />
+              {/* <ImageUpload
+                token={this.props.token} */}
+              // picture={this.state.picture}
+              {/* /> */}
             </FormGroup>
             <div className="col-md-2 mt-4 pt-2 ps-3">
               <Button>Submit</Button>
