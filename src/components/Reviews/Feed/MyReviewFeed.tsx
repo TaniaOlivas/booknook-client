@@ -1,58 +1,44 @@
 import { Component } from 'react';
-import { Card, CardBody, CardText, CardTitle, CardSubtitle } from 'reactstrap';
-import CommentIndex from './Comments/CommentIndex';
+import {
+  Card,
+  CardBody,
+  CardText,
+  CardLink,
+  CardTitle,
+  CardSubtitle,
+  Button,
+} from 'reactstrap';
+import { review } from '../ReviewIndex';
 
-interface ReviewFeedProps {
-  token: string;
-}
-
-interface ReviewFeedState {
+interface MyReviewFeedProps {
   reviews: review[];
+  fetchReviews: Function;
+  token: string;
+  updateOn: Function;
+  editUpdateReview: Function;
 }
 
-export interface review {
-  id: number;
-  title: string;
-  genre: string;
-  pageLength: number | string;
-  picture: string;
-  content: string;
-  rating: string;
-}
+interface MyReviewFeedState {}
 
-class ReviewFeed extends Component<ReviewFeedProps, ReviewFeedState> {
-  constructor(props: ReviewFeedProps) {
+class MyReviewFeed extends Component<MyReviewFeedProps, MyReviewFeedState> {
+  constructor(props: MyReviewFeedProps) {
     super(props);
     this.state = { reviews: [] };
     this.reviewMapper = this.reviewMapper.bind(this);
   }
 
-  fetchReviews = () => {
-    fetch('http://localhost:4000/review/all', {
-      method: 'GET',
+  reviewDelete = (review: review) => {
+    fetch(`http://localhost:4000/review/${review.id}`, {
+      method: 'DELETE',
       headers: new Headers({
         'Content-Type': 'application/json',
         Authorization: this.props.token,
       }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        this.setState({
-          reviews: data,
-        });
-      })
-      .catch((err) => {
-        console.error('Error:', err);
-      });
+    }).then((res) => this.props.fetchReviews());
   };
 
-  componentDidMount() {
-    this.fetchReviews();
-  }
-
   reviewMapper = () => {
-    return this.state.reviews.map((review, index) => {
+    return this.props.reviews.map((review, index) => {
       return (
         <Card key={index} className="mb-3" style={{ maxWidth: '540px' }}>
           <div className="row g-0">
@@ -69,12 +55,22 @@ class ReviewFeed extends Component<ReviewFeedProps, ReviewFeedState> {
                 <CardSubtitle>{review.genre}</CardSubtitle>
                 <CardText className="card-text">
                   <small className="text-muted">{review.pageLength}</small>{' '}
-                  <small className="text-muted">{review.rating}</small>
                 </CardText>
-                <CardText>{review.content}</CardText>
-                <div>
-                  <CommentIndex token={this.props.token} review={review.id} />
-                </div>
+                <Button
+                  onClick={() => {
+                    this.props.editUpdateReview(review);
+                    this.props.updateOn();
+                  }}
+                >
+                  Update
+                </Button>{' '}
+                <Button
+                  onClick={() => {
+                    this.reviewDelete(review);
+                  }}
+                >
+                  Delete
+                </Button>
               </CardBody>
             </div>
           </div>
@@ -85,11 +81,11 @@ class ReviewFeed extends Component<ReviewFeedProps, ReviewFeedState> {
   render() {
     return (
       <div style={{ textAlign: 'center' }}>
-        <h1>Hello from ReviewFeed</h1>
+        <h1>Hello from PostFeed</h1>
         {this.reviewMapper()}
       </div>
     );
   }
 }
 
-export default ReviewFeed;
+export default MyReviewFeed;

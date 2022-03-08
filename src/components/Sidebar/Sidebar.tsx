@@ -15,10 +15,10 @@ import { BiCog } from 'react-icons/bi';
 import { GiAbstract050 } from 'react-icons/gi';
 import { HiLogin } from 'react-icons/hi';
 import 'react-pro-sidebar/dist/css/styles.css';
-import CreateReview from '../Reviews/CreateReview/CreateReview';
 import ReviewFeed from '../Reviews/Feed/ReviewFeed';
-import CreatePost from '../Postings/CreatePost/CreatePost';
 import SearchIndex from '../Postings/SearchPost/SearchIndex';
+import PostIndex from '../Postings/PostingIndex';
+import ReviewIndex from '../Reviews/ReviewIndex';
 
 interface SidebarProps {
   clearLocalStorage: () => void;
@@ -50,7 +50,7 @@ class Sidebar extends Component<SidebarProps, SidebarState> {
             <SidebarHeader>
               <div className="logotext" onClick={this.menuIconClick}>
                 {/* Icon change using menucollapse state */}
-                <p>
+                <div>
                   {this.state.menuCollapse ? (
                     <GiAbstract050 />
                   ) : (
@@ -59,20 +59,20 @@ class Sidebar extends Component<SidebarProps, SidebarState> {
                       <HiLogin className="icon" />
                     </p>
                   )}
-                </p>
+                </div>
               </div>
             </SidebarHeader>
             <SidebarContent>
               <Menu iconShape="square">
                 <MenuItem icon={<FaHome />}>
-                  <Link to="/feed">Review Feed</Link>
+                  <Link to="/feed">Feed</Link>
                 </MenuItem>
                 <MenuItem icon={<FaList />}>
                   <Link to="/review">Create Review</Link>
                 </MenuItem>
                 {this.props.user === 'Author' ? (
                   <MenuItem icon={<FaRegHeart />}>
-                    <Link to="/post">Create Post</Link>
+                    <Link to="/posts">Create Post</Link>
                   </MenuItem>
                 ) : (
                   <></>
@@ -104,11 +104,11 @@ class Sidebar extends Component<SidebarProps, SidebarState> {
             ></Route>
             <Route
               path="/review"
-              element={<CreateReview token={this.props.token} />}
+              element={<ReviewIndex token={this.props.token} />}
             ></Route>
             <Route
-              path="/post"
-              element={<CreatePost token={this.props.token} />}
+              path="/posts"
+              element={<PostIndex token={this.props.token} />}
             ></Route>
             <Route
               path="/search"

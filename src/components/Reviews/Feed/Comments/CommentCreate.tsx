@@ -4,11 +4,21 @@ import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 
 interface CreateCommentProps {
   token: string;
+  review: number;
+}
+
+interface review {
+  id: number;
+  title: string;
+  genre: string;
+  pageLength: number | string;
+  picture: string;
+  content: string;
+  rating: string;
 }
 
 interface CreateCommentState {
   content: string;
-  bookReviewId: string | number;
 }
 
 class CreateComment extends Component<CreateCommentProps, CreateCommentState> {
@@ -16,7 +26,6 @@ class CreateComment extends Component<CreateCommentProps, CreateCommentState> {
     super(props);
     this.state = {
       content: '',
-      bookReviewId: '',
     };
   }
   handleSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
@@ -25,7 +34,7 @@ class CreateComment extends Component<CreateCommentProps, CreateCommentState> {
       method: 'POST',
       body: JSON.stringify({
         content: this.state.content,
-        bookReviewId: this.state.bookReviewId,
+        bookReviewId: this.props.review,
       }),
       headers: new Headers({
         'Content-Type': 'application/json',
@@ -38,7 +47,6 @@ class CreateComment extends Component<CreateCommentProps, CreateCommentState> {
 
         this.setState({
           content: '',
-          bookReviewId: '',
         });
       })
       .catch((err) => {
@@ -46,7 +54,28 @@ class CreateComment extends Component<CreateCommentProps, CreateCommentState> {
       });
   };
   render() {
-    return <div></div>;
+    return (
+      <div>
+        {' '}
+        <div className="container" style={{ width: '60%' }}>
+          <Form className="row g-3" onSubmit={this.handleSubmit}>
+            <FormGroup className="col-md-10">
+              <Input
+                id="comment"
+                name="comment"
+                placeholder="Comment"
+                type="text"
+                value={this.state.content}
+                onChange={(e) => this.setState({ content: e.target.value })}
+              />
+            </FormGroup>
+            <div className="col-md-2 mt-3 ps-3">
+              <Button>Comment</Button>
+            </div>
+          </Form>
+        </div>
+      </div>
+    );
   }
 }
 
