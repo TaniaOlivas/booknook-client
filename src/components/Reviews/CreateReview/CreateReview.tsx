@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
-import ImageUpload from '../../ImageUpload/ImageUpload';
 
 interface CreateReviewProps {
   token: string;
@@ -15,6 +14,8 @@ interface CreateReviewState {
   picture: string;
   content: string;
   rating: string;
+  image: string;
+  loading: boolean;
 }
 
 class CreateReview extends Component<CreateReviewProps, CreateReviewState> {
@@ -23,12 +24,36 @@ class CreateReview extends Component<CreateReviewProps, CreateReviewState> {
     this.state = {
       title: '',
       genre: '',
-      pageLength: 0,
+      pageLength: '',
       picture: '',
       content: '',
       rating: '',
+      image: '',
+      loading: false,
     };
   }
+  uploadImage = async (
+    e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFormElement>
+  ) => {
+    const target = e.target as HTMLInputElement;
+    const files: File = (target.files as FileList)[0];
+    const data = new FormData();
+    data.append('file', files);
+    data.append('upload_preset', 'BookNook');
+    this.setState({ loading: true });
+    const res = await fetch(
+      'https://api.cloudinary.com/v1_1/tolivas/image/upload',
+      {
+        method: 'POST',
+        body: data,
+      }
+    );
+    const File = await res.json();
+    console.log(File.secure_url);
+    this.setState({ image: File.secure_url });
+    this.setState({ picture: File.secure_url });
+    this.setState({ loading: false });
+  };
   handleSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
     event.preventDefault();
     fetch('http://localhost:4000/review/create', {
@@ -54,26 +79,31 @@ class CreateReview extends Component<CreateReviewProps, CreateReviewState> {
         this.setState({
           title: '',
           genre: '',
-          pageLength: 0,
+          pageLength: '',
           picture: '',
           rating: '',
           content: '',
+          image: '',
         });
       })
       .catch((err) => {
         console.error('Error:', err);
       });
   };
-  imageSet = (image: string) => {
-    this.setState({ picture: image });
-  };
+
   render() {
     return (
       <div>
-        <h2 style={{ textAlign: 'center' }}>Create Review</h2>
-        <div className="container" style={{ width: '60%' }}>
+        <div
+          className="container"
+          style={{
+            borderRadius: '1%',
+            backgroundColor: 'white',
+          }}
+        >
+          <h3 style={{ textAlign: 'center' }}>Create Review</h3>
           <Form className="row g-3" onSubmit={this.handleSubmit}>
-            <FormGroup className="col-md-5">
+            <FormGroup className="col-md-6">
               <Label for="title">Title</Label>
               <Input
                 id="title"
@@ -84,7 +114,7 @@ class CreateReview extends Component<CreateReviewProps, CreateReviewState> {
                 onChange={(e) => this.setState({ title: e.target.value })}
               />
             </FormGroup>
-            <FormGroup className="col-md-5">
+            <FormGroup className="col-md-6">
               <Label for="genre">Genre</Label>
               <Input
                 id="genre"
@@ -95,12 +125,13 @@ class CreateReview extends Component<CreateReviewProps, CreateReviewState> {
                 onChange={(e) => this.setState({ genre: e.target.value })}
               />
             </FormGroup>
-            <FormGroup className="col-md-2">
+            <FormGroup className="col-md-6 mt-0">
               <Label for="pageLength">Pages</Label>
               <Input
                 id="pageLength"
                 name="pageLength"
                 type="text"
+                placeholder="Pages"
                 value={this.state.pageLength}
                 onChange={(e) => this.setState({ pageLength: e.target.value })}
               />
@@ -116,23 +147,32 @@ class CreateReview extends Component<CreateReviewProps, CreateReviewState> {
                 onChange={(e) => this.setState({ rating: e.target.value })}
               />
             </FormGroup>
-            <FormGroup className="col-md-6 mt-0">
-              <ImageUpload
-                token={this.props.token}
-                imageSet={this.imageSet}
-                picture={this.state.picture}
-              />
-            </FormGroup>
             <FormGroup className="mt-0">
-              <Label for="content">Text Area</Label>
+              <Label for="content">Review</Label>
               <Input
                 id="content"
                 name="content"
                 type="textarea"
-                placeholder="Post"
+                placeholder="Review"
                 value={this.state.content}
                 onChange={(e) => this.setState({ content: e.target.value })}
               />
+            </FormGroup>
+            <FormGroup className="mt-0">
+              <Label for="content">Picture</Label>
+              <Input
+                type="file"
+                name="file"
+                placeholder="Choose Image"
+                onChange={this.uploadImage}
+                value=""
+              />{' '}
+              <br />
+              {this.state.loading ? (
+                <h5>Loading...</h5>
+              ) : (
+                <img src={this.state.image} style={{ width: '200px' }} />
+              )}
             </FormGroup>
             <div
               className="container"

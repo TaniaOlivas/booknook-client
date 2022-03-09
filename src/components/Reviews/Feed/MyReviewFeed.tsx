@@ -40,7 +40,11 @@ class MyReviewFeed extends Component<MyReviewFeedProps, MyReviewFeedState> {
   reviewMapper = () => {
     return this.props.reviews.map((review, index) => {
       return (
-        <Card key={index} className="mb-3" style={{ maxWidth: '540px' }}>
+        <Card
+          key={index}
+          className="m-3"
+          style={{ maxWidth: '540px', backgroundColor: 'tan' }}
+        >
           <div className="row g-0">
             <CardBody className="col-md-4">
               <img
@@ -51,8 +55,12 @@ class MyReviewFeed extends Component<MyReviewFeedProps, MyReviewFeedState> {
             </CardBody>
             <div className="col-md-8">
               <CardBody className="card-body">
-                <CardTitle tag="h5">{review.title}</CardTitle>
-                <CardSubtitle>{review.genre}</CardSubtitle>
+                <div className="row">
+                  <CardTitle tag="h5" className="col-md-6">
+                    {review.title}
+                  </CardTitle>
+                  <CardTitle className="col-md-6">{review.genre}</CardTitle>
+                </div>
                 <CardText className="card-text">
                   <small className="text-muted">{review.pageLength}</small>{' '}
                 </CardText>
@@ -80,8 +88,12 @@ class MyReviewFeed extends Component<MyReviewFeedProps, MyReviewFeedState> {
   };
   render() {
     return (
-      <div style={{ textAlign: 'center' }}>
-        <h3>Hello from MyReviewFeed</h3>
+      <div
+        style={{
+          textAlign: 'center',
+          backgroundColor: 'white',
+        }}
+      >
         {this.reviewMapper()}
       </div>
     );

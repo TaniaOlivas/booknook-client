@@ -19,6 +19,7 @@ import ReviewFeed from '../Reviews/Feed/ReviewFeed';
 import SearchIndex from '../Postings/SearchPost/SearchIndex';
 import PostIndex from '../Postings/PostingIndex';
 import ReviewIndex from '../Reviews/ReviewIndex';
+import BooksIndex from '../BookList/BooksIndex';
 
 interface SidebarProps {
   clearLocalStorage: () => void;
@@ -78,11 +79,13 @@ class Sidebar extends Component<SidebarProps, SidebarState> {
                 ) : (
                   <></>
                 )}
+                <MenuItem icon={<BiCog />}>
+                  <Link to="/books">Book List</Link>
+                </MenuItem>
 
                 <MenuItem icon={<RiPencilLine />}>
                   <Link to="/search">Search</Link>
                 </MenuItem>
-                <MenuItem icon={<BiCog />}>Settings</MenuItem>
               </Menu>
             </SidebarContent>
             <SidebarFooter>
@@ -119,6 +122,10 @@ class Sidebar extends Component<SidebarProps, SidebarState> {
             <Route
               path="/search"
               element={<SearchIndex token={this.props.token} />}
+            ></Route>
+            <Route
+              path="/books"
+              element={<BooksIndex token={this.props.token} />}
             ></Route>
           </Routes>
         </div>

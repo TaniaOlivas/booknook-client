@@ -5,7 +5,6 @@ import { Input } from 'reactstrap';
 interface ImageUploadProps {
   token: string;
   imageSet: Function;
-  picture: string;
 }
 
 interface ImageUploadState {
@@ -41,6 +40,7 @@ class ImageUpload extends Component<ImageUploadProps, ImageUploadState> {
     this.setState({ loading: false });
     this.props.imageSet(this.state.image);
   };
+
   render() {
     return (
       <div>

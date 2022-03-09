@@ -1,6 +1,5 @@
 import { Component } from 'react';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
-import ImageUpload from '../../ImageUpload/ImageUpload';
 
 interface CreatePostProps {
   token: string;
@@ -12,6 +11,8 @@ interface CreatePostState {
   genre: string;
   pageLength: number | string;
   picture: string;
+  image: string;
+  loading: boolean;
 }
 
 class CreatePost extends Component<CreatePostProps, CreatePostState> {
@@ -20,10 +21,34 @@ class CreatePost extends Component<CreatePostProps, CreatePostState> {
     this.state = {
       title: '',
       genre: '',
-      pageLength: 0,
+      pageLength: '',
       picture: '',
+      image: '',
+      loading: false,
     };
   }
+  uploadImage = async (
+    e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFormElement>
+  ) => {
+    const target = e.target as HTMLInputElement;
+    const files: File = (target.files as FileList)[0];
+    const data = new FormData();
+    data.append('file', files);
+    data.append('upload_preset', 'BookNook');
+    this.setState({ loading: true });
+    const res = await fetch(
+      'https://api.cloudinary.com/v1_1/tolivas/image/upload',
+      {
+        method: 'POST',
+        body: data,
+      }
+    );
+    const File = await res.json();
+    console.log(File.secure_url);
+    this.setState({ image: File.secure_url });
+    this.setState({ picture: File.secure_url });
+    this.setState({ loading: false });
+  };
   handleSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
     event.preventDefault();
     fetch('http://localhost:4000/post/publish', {
@@ -47,14 +72,16 @@ class CreatePost extends Component<CreatePostProps, CreatePostState> {
         this.setState({
           title: '',
           genre: '',
-          pageLength: 0,
+          pageLength: '',
           picture: '',
+          image: '',
         });
       })
       .catch((err) => {
         console.error('Error:', err);
       });
   };
+
   render() {
     return (
       <div>
@@ -89,15 +116,26 @@ class CreatePost extends Component<CreatePostProps, CreatePostState> {
                 id="pageLength"
                 name="pageLength"
                 type="text"
+                placeholder="Pages"
                 value={this.state.pageLength}
                 onChange={(e) => this.setState({ pageLength: e.target.value })}
               />
             </FormGroup>
             <FormGroup className="col-md-10 mt-0">
-              {/* <ImageUpload
-                token={this.props.token} */}
-              // picture={this.state.picture}
-              {/* /> */}
+              <Label for="content">Picture</Label>
+              <Input
+                type="file"
+                name="file"
+                placeholder="Choose Image"
+                onChange={this.uploadImage}
+                value=""
+              />{' '}
+              <br />
+              {this.state.loading ? (
+                <h5>Loading...</h5>
+              ) : (
+                <img src={this.state.image} style={{ width: '200px' }} />
+              )}
             </FormGroup>
             <div className="col-md-2 mt-4 pt-2 ps-3">
               <Button>Submit</Button>

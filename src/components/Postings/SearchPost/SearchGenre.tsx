@@ -1,61 +1,62 @@
 import { Component } from 'react';
-import { Button } from 'reactstrap';
+import {
+  Button,
+  Col,
+  Card,
+  CardBody,
+  CardText,
+  CardSubtitle,
+  CardTitle,
+  Input,
+  Row,
+} from 'reactstrap';
+import { genre } from './SearchIndex';
 
 interface SearchGenreProps {
   token: string;
+  searchGenres: genre[];
+  fetchGenre: Function;
 }
 
-interface SearchGenreState {
-  searchGenres: title[];
-  searchItem: string;
-}
-
-interface title {
-  title: string;
-}
+interface SearchGenreState {}
 
 class SearchGenre extends Component<SearchGenreProps, SearchGenreState> {
   constructor(props: SearchGenreProps) {
     super(props);
-    this.state = { searchGenres: [], searchItem: '' };
+    this.state = { searchGenres: [] };
+    this.genreMapper = this.genreMapper.bind(this);
   }
-  fetchGenre = () => {
-    fetch(`http://localhost:4000/post/genre/${this.state.searchItem}`, {
-      method: 'GET',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        Authorization: this.props.token,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        this.setState({
-          searchGenres: data,
-        });
-      })
-      .catch((err) => {
-        console.error('Error:', err);
-      });
+
+  genreMapper = () => {
+    return this.props.searchGenres.map((genre, index) => {
+      return (
+        <Card key={index} className="mb-3" style={{ maxWidth: '540px' }}>
+          <div className="row g-0">
+            <CardBody className="col-md-4">
+              <img
+                src={genre.picture}
+                className="img-fluid rounded-start"
+                alt="Card Image Cap"
+              />
+            </CardBody>
+            <div className="col-md-8">
+              <CardBody className="card-body">
+                <CardTitle tag="h5">{genre.title}</CardTitle>
+                <CardSubtitle>{genre.genre}</CardSubtitle>
+                <CardText className="card-text">
+                  <small className="text-muted">{genre.pageLength}</small>{' '}
+                </CardText>
+                <Button>Add to Book List</Button>
+              </CardBody>
+            </div>
+          </div>
+        </Card>
+      );
+    });
   };
 
-  componentDidMount() {
-    this.fetchGenre();
-  }
-
   render() {
-    return (
-      <div>
-        <h1>Hello From SearchGenre</h1>
-        <Button onClick={this.fetchGenre}>Click To Fetch</Button>
-        <input
-          type="text"
-          placeholder="Search"
-          value={this.state.searchItem}
-          onChange={(e) => this.setState({ searchItem: e.target.value })}
-        />
-      </div>
-    );
+    return <div>{this.genreMapper()}</div>;
   }
 }
 

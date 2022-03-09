@@ -9,6 +9,7 @@ import {
   ModalHeader,
   ModalBody,
 } from 'reactstrap';
+import ImageUpload from '../../ImageUpload/ImageUpload';
 import { post } from '../PostingIndex';
 
 interface UpdatePostProps {
@@ -63,7 +64,9 @@ class UpdatePost extends Component<UpdatePostProps, UpdatePostState> {
   toggle = () => {
     this.props.updateOff();
   };
-
+  imageSet = (image: string) => {
+    this.setState({ editPicture: image });
+  };
   render() {
     return (
       <div>
@@ -108,16 +111,10 @@ class UpdatePost extends Component<UpdatePostProps, UpdatePostState> {
               </FormGroup>
               <FormGroup>
                 <Label for="picture">Picture</Label>
-                {/* <Input
-                  id="picture"
-                  type="file"
-                  name="picture"
-                  value={this.state.editPicture}
-                  placeholder="Upload Image"
-                  onChange={(e) =>
-                    this.setState({ editPicture: e.target.value })
-                  }
-                /> */}
+                <ImageUpload
+                  token={this.props.token}
+                  imageSet={this.imageSet}
+                />
               </FormGroup>
               <Button type="submit"> Submit </Button>
             </Form>

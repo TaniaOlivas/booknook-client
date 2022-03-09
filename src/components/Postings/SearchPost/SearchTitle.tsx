@@ -1,61 +1,62 @@
 import { Component } from 'react';
-import { Button } from 'reactstrap';
+import {
+  Button,
+  Col,
+  Container,
+  Input,
+  Row,
+  Card,
+  CardBody,
+  CardText,
+  CardSubtitle,
+  CardTitle,
+} from 'reactstrap';
+import { title } from './SearchIndex';
 
 interface SearchTitleProps {
   token: string;
-}
-
-interface SearchTitleState {
   searchTitles: title[];
-  searchItem: string;
+  fetchTitle: Function;
 }
 
-interface title {
-  title: string;
-}
+interface SearchTitleState {}
 
 class SearchTitle extends Component<SearchTitleProps, SearchTitleState> {
   constructor(props: SearchTitleProps) {
     super(props);
-    this.state = { searchTitles: [], searchItem: '' };
+    this.state = { searchTitles: [] };
+    this.titleMapper = this.titleMapper.bind(this);
   }
-  fetchTitle = () => {
-    fetch(`http://localhost:4000/post/title/${this.state.searchItem}`, {
-      method: 'GET',
-      headers: new Headers({
-        'Content-Type': 'application/json',
-        Authorization: this.props.token,
-      }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        this.setState({
-          searchTitles: data,
-        });
-      })
-      .catch((err) => {
-        console.error('Error:', err);
-      });
+
+  titleMapper = () => {
+    return this.props.searchTitles.map((title, index) => {
+      return (
+        <Card key={index} className="mb-3" style={{ maxWidth: '540px' }}>
+          <div className="row g-0">
+            <CardBody className="col-md-4">
+              <img
+                src={title.picture}
+                className="img-fluid rounded-start"
+                alt="Card Image Cap"
+              />
+            </CardBody>
+            <div className="col-md-8">
+              <CardBody className="card-body">
+                <CardTitle tag="h5">{title.title}</CardTitle>
+                <CardSubtitle>{title.genre}</CardSubtitle>
+                <CardText className="card-text">
+                  <small className="text-muted">{title.pageLength}</small>{' '}
+                </CardText>
+              </CardBody>
+            </div>
+          </div>
+        </Card>
+      );
+    });
   };
 
-  componentDidMount() {
-    this.fetchTitle();
-  }
-
   render() {
-    return (
-      <div>
-        <h1>Hello From SearchTitle</h1>
-        <Button onClick={this.fetchTitle}>Click To Fetch</Button>
-        <input
-          type="text"
-          placeholder="Search"
-          value={this.state.searchItem}
-          onChange={(e) => this.setState({ searchItem: e.target.value })}
-        />
-      </div>
-    );
+    return <div>{this.titleMapper()}</div>;
   }
 }
 
