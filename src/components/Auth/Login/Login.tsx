@@ -1,6 +1,14 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import {
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Button,
+  Container,
+  Row,
+} from 'reactstrap';
 
 interface LoginProps {
   updateLocalStorage: (newToken: string) => void;
@@ -45,10 +53,26 @@ class Signup extends Component<LoginProps, LoginState> {
       });
   };
 
+  enterBtn = (
+    e: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLInputElement>
+  ) => {
+    e.currentTarget.style.background = '#eeebe2';
+    e.currentTarget.style.color = '#181d31';
+  };
+  leaveBtn = (
+    e: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLInputElement>
+  ) => {
+    e.currentTarget.style.background = '#181d31';
+    e.currentTarget.style.color = '#eeebe2';
+  };
+
   render() {
     return (
-      <div>
-        <div className="container" style={{ width: '30%' }}>
+      <Container style={{ alignItems: 'center' }}>
+        <Row>
+          <h1 style={{ textAlign: 'center', fontSize: '45px' }}>BookNook</h1>
+        </Row>
+        <Row className="mt-4 ps-3 pe-3">
           <Form onSubmit={this.handleSubmit}>
             <FormGroup>
               <Label for="email">Email:</Label>
@@ -57,6 +81,7 @@ class Signup extends Component<LoginProps, LoginState> {
                 name="email"
                 placeholder="Email"
                 type="email"
+                style={{ backgroundColor: '#eeebe2', color: '#181d31' }}
                 value={this.state.email}
                 onChange={(e) => this.setState({ email: e.target.value })}
               />
@@ -68,18 +93,26 @@ class Signup extends Component<LoginProps, LoginState> {
                 name="password"
                 placeholder="Password"
                 type="password"
+                style={{ backgroundColor: '#eeebe2', color: '#181d31' }}
                 value={this.state.password}
                 onChange={(e) => this.setState({ password: e.target.value })}
               />
             </FormGroup>
 
             <div className="row ps-3 pe-3 pb-3">
-              <Button className="col">Login</Button>
+              <Button
+                style={{ backgroundColor: '#181D31', color: '#f5f1e5' }}
+                className="col"
+                onMouseEnter={this.enterBtn}
+                onMouseLeave={this.leaveBtn}
+              >
+                Login
+              </Button>
             </div>
           </Form>
           <p style={{ textAlign: 'center' }}>Not a User?</p>
-        </div>
-      </div>
+        </Row>
+      </Container>
     );
   }
 }

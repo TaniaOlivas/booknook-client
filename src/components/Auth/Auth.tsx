@@ -27,10 +27,21 @@ class Auth extends Component<AuthProps, AuthState> {
       this.setState({ isLoginVisible: true });
     }
   };
-
+  enterBtn = (
+    e: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLInputElement>
+  ) => {
+    e.currentTarget.style.background = '#eeebe2';
+    e.currentTarget.style.color = '#181d31';
+  };
+  leaveBtn = (
+    e: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLInputElement>
+  ) => {
+    e.currentTarget.style.background = '#181d31';
+    e.currentTarget.style.color = '#eeebe2';
+  };
   render() {
     return (
-      <div>
+      <div style={{ marginTop: '35%' }}>
         <div>
           {this.state.isLoginVisible === true ? (
             <Login
@@ -49,9 +60,23 @@ class Auth extends Component<AuthProps, AuthState> {
 
         <div style={{ textAlign: 'center' }}>
           {this.state.isLoginVisible === true ? (
-            <Button onClick={this.handleToggle}>Click Here to Sign Up</Button>
+            <Button
+              style={{ backgroundColor: '#181D31', color: '#f5f1e5' }}
+              onClick={this.handleToggle}
+              onMouseEnter={this.enterBtn}
+              onMouseLeave={this.leaveBtn}
+            >
+              Click Here to Sign Up
+            </Button>
           ) : (
-            <Button onClick={this.handleToggle}>Click Here to Login</Button>
+            <Button
+              style={{ backgroundColor: '#181D31', color: '#f5f1e5' }}
+              onClick={this.handleToggle}
+              onMouseEnter={this.enterBtn}
+              onMouseLeave={this.leaveBtn}
+            >
+              Click Here to Login
+            </Button>
           )}
         </div>
       </div>

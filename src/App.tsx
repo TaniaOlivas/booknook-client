@@ -4,6 +4,8 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Sidebar from './components/Sidebar/Sidebar';
 import { BrowserRouter as Router } from 'react-router-dom';
 import Auth from './components/Auth/Auth';
+import Navigation from './components/Navigation/Navigation';
+import { Nav, NavItem } from 'reactstrap';
 
 function App() {
   const [token, setToken] = useState('');
@@ -44,11 +46,11 @@ function App() {
     setUserId('');
   };
   return (
-    <div>
-      <div className="container">
+    <>
+      <div>
         <Router>
           {token ? (
-            <Sidebar
+            <Navigation
               token={token}
               clearLocalStorage={clearLocalStorage}
               user={user}
@@ -63,7 +65,7 @@ function App() {
           )}
         </Router>
       </div>
-    </div>
+    </>
   );
 }
 

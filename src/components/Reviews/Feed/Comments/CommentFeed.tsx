@@ -23,7 +23,6 @@ class CommentFeed extends Component<CommentFeedProps, CommentFeedState> {
   }
 
   commentDelete = (comment: comment) => {
-    debugger;
     fetch(`http://localhost:4000/comment/${comment.id}`, {
       method: 'DELETE',
       headers: new Headers({

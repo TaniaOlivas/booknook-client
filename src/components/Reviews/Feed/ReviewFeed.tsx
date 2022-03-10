@@ -1,5 +1,13 @@
 import { Component } from 'react';
-import { Card, CardBody, CardText, CardTitle, CardSubtitle } from 'reactstrap';
+import {
+  Card,
+  CardBody,
+  CardText,
+  CardTitle,
+  CardSubtitle,
+  Container,
+  Row,
+} from 'reactstrap';
 import CommentIndex from './Comments/CommentIndex';
 
 interface ReviewFeedProps {
@@ -55,31 +63,58 @@ class ReviewFeed extends Component<ReviewFeedProps, ReviewFeedState> {
   reviewMapper = () => {
     return this.state.reviews.map((review, index) => {
       return (
-        <Card key={index} className="mb-3" style={{ maxWidth: '800px' }}>
+        <Card key={index} className="mb-3">
+          <CardBody style={{ textAlign: 'left' }}>
+            <CardTitle tag="h4">{review.title}</CardTitle>
+            <CardSubtitle className="mb-0 text-muted" tag="h6">
+              {review.genre}
+            </CardSubtitle>
+          </CardBody>
           <div className="row g-0">
-            <CardBody className="col-md-4">
+            <CardBody /*style={{ textAlign: 'left' }}*/ className="col-md-2">
+              {/* <CardTitle tag="h4">{review.title}</CardTitle> */}
+              {/* <CardSubtitle className="mb-2 text-muted" tag="h6">
+              {review.genre}
+            </CardSubtitle> */}
+
               <img
                 src={review.picture}
                 className="img-fluid rounded-start"
                 alt="Card Image Cap"
+                width="200px"
               />
             </CardBody>
+            {/* <CardBody>
+            <img
+              style={{ textAlign: 'center' }}
+              src={review.picture}
+              // className="img-fluid rounded-start"
+              width="200px"
+              alt="Card Image Cap"
+            />
+          </CardBody> */}
+
             <div className="col-md-8">
               <CardBody className="card-body">
-                <CardTitle tag="h5">{review.title}</CardTitle>
-                <CardSubtitle>{review.genre}</CardSubtitle>
+                {/* <CardTitle tag="h4">{review.title}</CardTitle>
+                <CardSubtitle className="mb-2 text-muted" tag="h6">
+                  {review.genre}
+                </CardSubtitle> */}
                 <CardText className="card-text">
                   <small className="text-muted">{review.pageLength}</small>{' '}
                   <small className="text-muted">{review.rating}</small>
                 </CardText>
                 <CardText>{review.content}</CardText>
-                <CommentIndex
-                  token={this.props.token}
-                  review={review.id}
-                  userId={this.props.userId}
-                />
               </CardBody>
             </div>
+          </div>
+          <hr />
+          <div className="row g-0">
+            <CommentIndex
+              token={this.props.token}
+              review={review.id}
+              userId={this.props.userId}
+            />
           </div>
         </Card>
       );
@@ -87,9 +122,13 @@ class ReviewFeed extends Component<ReviewFeedProps, ReviewFeedState> {
   };
   render() {
     return (
-      <div style={{ textAlign: 'center' }}>
-        <h1>Hello from ReviewFeed</h1>
-        <div style={{ right: '1' }}>{this.reviewMapper()}</div>
+      <div
+        style={{ textAlign: 'center', marginTop: '70px', marginBottom: '50px' }}
+      >
+        <h1>Book Reviews</h1>
+        <Container>
+          <Row className="mx-1">{this.reviewMapper()}</Row>
+        </Container>
       </div>
     );
   }

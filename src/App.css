@@ -1,6 +1,13 @@
 body {
-  background-color: #889eaf;
+  background-color: #f5f1e5;
+  font-family: 'Noto Serif Display', serif;
+  color: #181d31;
 }
+
+Input[type='radio'] {
+  color: #181d31;
+}
+
 #header {
   position: fixed;
   left: 0;

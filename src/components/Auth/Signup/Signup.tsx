@@ -1,6 +1,14 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import {
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Button,
+  Container,
+  Row,
+} from 'reactstrap';
 
 interface SignupProps {
   updateLocalStorage: (newToken: string) => void;
@@ -54,33 +62,54 @@ class Signup extends Component<SignupProps, SignupState> {
       });
   };
 
+  enterBtn = (
+    e: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLInputElement>
+  ) => {
+    e.currentTarget.style.background = '#eeebe2';
+    e.currentTarget.style.color = '#181d31';
+  };
+  leaveBtn = (
+    e: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLInputElement>
+  ) => {
+    e.currentTarget.style.background = '#181d31';
+    e.currentTarget.style.color = '#eeebe2';
+  };
+
   render() {
     return (
-      <div>
-        <div className="container" style={{ width: '30%' }}>
+      <Container>
+        <Row>
+          <h1 style={{ textAlign: 'center', fontSize: '45px' }}>BookNook</h1>
+        </Row>
+        <Row className="mt-4 ps-3 pe-3">
           <Form onSubmit={this.handleSubmit}>
-            <FormGroup>
-              <Label for="firstName">First Name:</Label>
-              <Input
-                id="firstName"
-                name="firstName"
-                placeholder="First Name"
-                type="text"
-                value={this.state.firstName}
-                onChange={(e) => this.setState({ firstName: e.target.value })}
-              />
+            <FormGroup className="row">
+              <div className="col-6">
+                <Label for="firstName">First Name:</Label>
+                <Input
+                  id="firstName"
+                  name="firstName"
+                  placeholder="First Name"
+                  type="text"
+                  style={{ backgroundColor: '#eeebe2', color: '#181d31' }}
+                  value={this.state.firstName}
+                  onChange={(e) => this.setState({ firstName: e.target.value })}
+                />
+              </div>
+              <div className="col-6">
+                <Label for="lastName">Last Name:</Label>
+                <Input
+                  id="lastName"
+                  name="lastName"
+                  placeholder="Last Name"
+                  type="text"
+                  style={{ backgroundColor: '#eeebe2', color: '#181d31' }}
+                  value={this.state.lastName}
+                  onChange={(e) => this.setState({ lastName: e.target.value })}
+                />
+              </div>
             </FormGroup>
-            <FormGroup>
-              <Label for="lastName">Last Name:</Label>
-              <Input
-                id="lastName"
-                name="lastName"
-                placeholder="Last Name"
-                type="text"
-                value={this.state.lastName}
-                onChange={(e) => this.setState({ lastName: e.target.value })}
-              />
-            </FormGroup>
+
             <FormGroup>
               <Label for="email">Email:</Label>
               <Input
@@ -88,6 +117,7 @@ class Signup extends Component<SignupProps, SignupState> {
                 name="email"
                 placeholder="Email"
                 type="email"
+                style={{ backgroundColor: '#eeebe2', color: '#181d31' }}
                 value={this.state.email}
                 onChange={(e) => this.setState({ email: e.target.value })}
               />
@@ -99,6 +129,7 @@ class Signup extends Component<SignupProps, SignupState> {
                 name="password"
                 placeholder="Password"
                 type="password"
+                style={{ backgroundColor: '#eeebe2', color: '#181d31' }}
                 value={this.state.password}
                 onChange={(e) => this.setState({ password: e.target.value })}
               />
@@ -108,7 +139,7 @@ class Signup extends Component<SignupProps, SignupState> {
               <div style={{ textAlign: 'center' }}>
                 <FormGroup check className="form-check-inline">
                   <Input
-                    name="author"
+                    name="userType"
                     type="radio"
                     value="Author"
                     onChange={(e) =>
@@ -119,7 +150,7 @@ class Signup extends Component<SignupProps, SignupState> {
                 </FormGroup>
                 <FormGroup check className="form-check-inline">
                   <Input
-                    name="user"
+                    name="userType"
                     type="radio"
                     value="User"
                     onChange={(e) =>
@@ -131,12 +162,19 @@ class Signup extends Component<SignupProps, SignupState> {
               </div>
             </FormGroup>
             <div className="row ps-3 pe-3 pb-3">
-              <Button className="col">Sign Up</Button>
+              <Button
+                style={{ backgroundColor: '#181D31', color: '#f5f1e5' }}
+                className="col"
+                onMouseEnter={this.enterBtn}
+                onMouseLeave={this.leaveBtn}
+              >
+                Sign Up
+              </Button>
             </div>
           </Form>
           <p style={{ textAlign: 'center' }}>Already a User?</p>
-        </div>
-      </div>
+        </Row>
+      </Container>
     );
   }
 }

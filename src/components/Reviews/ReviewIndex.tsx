@@ -84,7 +84,9 @@ class ReviewIndex extends Component<ReviewIndexProps, ReviewIndexState> {
         <h2>Make a post!</h2>
       );
     return (
-      <div style={{ textAlign: 'center' }}>
+      <div
+        style={{ textAlign: 'center', marginTop: '70px', marginBottom: '50px' }}
+      >
         <h1>Hello from ReviewIndex</h1>
         <div className="container">
           <div className="row">
