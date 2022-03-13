@@ -80,7 +80,7 @@ class Navigation extends React.Component<NavigationProps, NavigationState> {
         </div>
         <div
           style={{
-            backgroundColor: '#f5f1e5',
+            backgroundColor: '#181D31',
             position: 'fixed',
             bottom: '0',
             width: '100%',
@@ -96,10 +96,10 @@ class Navigation extends React.Component<NavigationProps, NavigationState> {
                 style={{
                   border: '1px solid #181D31',
                   height: '50px',
-                  color: '#181D31',
+                  color: '#f5f1e5',
                 }}
-                onMouseEnter={this.leaveBtn}
-                onMouseLeave={this.enterBtn}
+                onMouseEnter={this.enterBtn}
+                onMouseLeave={this.leaveBtn}
               >
                 <FaHome style={{ height: '100%' }} />
               </NavLink>
@@ -110,10 +110,10 @@ class Navigation extends React.Component<NavigationProps, NavigationState> {
                 style={{
                   border: '1px solid #181D31',
                   height: '50px',
-                  color: '#181D31',
+                  color: '#f5f1e5',
                 }}
-                onMouseEnter={this.leaveBtn}
-                onMouseLeave={this.enterBtn}
+                onMouseEnter={this.enterBtn}
+                onMouseLeave={this.leaveBtn}
               >
                 <FaList style={{ height: '100%' }} />
               </NavLink>
@@ -125,10 +125,10 @@ class Navigation extends React.Component<NavigationProps, NavigationState> {
                   style={{
                     border: '1px solid #181D31',
                     height: '50px',
-                    color: '#181D31',
+                    color: '#f5f1e5',
                   }}
-                  onMouseEnter={this.leaveBtn}
-                  onMouseLeave={this.enterBtn}
+                  onMouseEnter={this.enterBtn}
+                  onMouseLeave={this.leaveBtn}
                 >
                   <FaRegHeart style={{ height: '100%' }} />
                 </NavLink>
@@ -142,10 +142,10 @@ class Navigation extends React.Component<NavigationProps, NavigationState> {
                 style={{
                   border: '1px solid #181D31',
                   height: '50px',
-                  color: '#181D31',
+                  color: '#f5f1e5',
                 }}
-                onMouseEnter={this.leaveBtn}
-                onMouseLeave={this.enterBtn}
+                onMouseEnter={this.enterBtn}
+                onMouseLeave={this.leaveBtn}
               >
                 <RiPencilLine style={{ height: '100%' }} />
               </NavLink>
@@ -156,10 +156,10 @@ class Navigation extends React.Component<NavigationProps, NavigationState> {
                 style={{
                   border: '1px solid #181D31',
                   height: '50px',
-                  color: '#181D31',
+                  color: '#f5f1e5',
                 }}
-                onMouseEnter={this.leaveBtn}
-                onMouseLeave={this.enterBtn}
+                onMouseEnter={this.enterBtn}
+                onMouseLeave={this.leaveBtn}
               >
                 <BiCog
                   style={{

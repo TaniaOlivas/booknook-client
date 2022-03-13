@@ -17,6 +17,7 @@ interface ReviewFeedProps {
 
 interface ReviewFeedState {
   reviews: review[];
+  isOpen: boolean;
 }
 
 export interface review {
@@ -32,8 +33,9 @@ export interface review {
 class ReviewFeed extends Component<ReviewFeedProps, ReviewFeedState> {
   constructor(props: ReviewFeedProps) {
     super(props);
-    this.state = { reviews: [] };
+    this.state = { reviews: [], isOpen: false };
     this.reviewMapper = this.reviewMapper.bind(this);
+    // this.toggle = this.toggle.bind(this);
   }
 
   fetchReviews = () => {
@@ -60,61 +62,110 @@ class ReviewFeed extends Component<ReviewFeedProps, ReviewFeedState> {
     this.fetchReviews();
   }
 
+  handleToggle = () => {
+    if (this.state.isOpen === true) {
+      this.setState({ isOpen: false });
+    } else {
+      this.setState({ isOpen: true });
+    }
+  };
+  enterBtn = (
+    e: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLInputElement>
+  ) => {
+    e.currentTarget.style.background = '#eeebe2';
+    e.currentTarget.style.color = '#181d31';
+  };
+  leaveBtn = (
+    e: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLInputElement>
+  ) => {
+    e.currentTarget.style.background = '#181d31';
+    e.currentTarget.style.color = '#eeebe2';
+  };
+
   reviewMapper = () => {
     return this.state.reviews.map((review, index) => {
       return (
         <Card key={index} className="mb-3">
-          <CardBody style={{ textAlign: 'left' }}>
-            <CardTitle tag="h4">{review.title}</CardTitle>
-            <CardSubtitle className="mb-0 text-muted" tag="h6">
-              {review.genre}
-            </CardSubtitle>
-          </CardBody>
-          <div className="row g-0">
-            <CardBody /*style={{ textAlign: 'left' }}*/ className="col-md-2">
-              {/* <CardTitle tag="h4">{review.title}</CardTitle> */}
-              {/* <CardSubtitle className="mb-2 text-muted" tag="h6">
-              {review.genre}
-            </CardSubtitle> */}
-
-              <img
-                src={review.picture}
-                className="img-fluid rounded-start"
-                alt="Card Image Cap"
-                width="200px"
-              />
+          <div className="row">
+            <CardBody style={{ textAlign: 'left' }} className="col-9">
+              <CardTitle tag="h4">{review.title}</CardTitle>
+              <CardSubtitle className="text-muted" tag="h6">
+                {review.genre}
+              </CardSubtitle>
             </CardBody>
-            {/* <CardBody>
+            <CardBody className="col-3">
+              <CardText className="card-text">
+                <small className="text-muted">Pages:</small>{' '}
+                <small className="text-muted">{review.pageLength}</small>
+              </CardText>
+            </CardBody>
+          </div>
+          <CardBody
+            className="my-0 rounded"
+            style={{ backgroundColor: '#eeebe2' }}
+          >
             <img
               style={{ textAlign: 'center' }}
               src={review.picture}
-              // className="img-fluid rounded-start"
+              className="img-fluid rounded"
               width="200px"
               alt="Card Image Cap"
             />
-          </CardBody> */}
+          </CardBody>
+          <CardBody className="card-body mb-3">
+            <CardText className="card-text">
+              <small className="text-muted">{review.rating}</small>
+            </CardText>
+            <CardText>{review.content}</CardText>
+          </CardBody>
 
-            <div className="col-md-8">
-              <CardBody className="card-body">
-                {/* <CardTitle tag="h4">{review.title}</CardTitle>
-                <CardSubtitle className="mb-2 text-muted" tag="h6">
-                  {review.genre}
-                </CardSubtitle> */}
-                <CardText className="card-text">
-                  <small className="text-muted">{review.pageLength}</small>{' '}
-                  <small className="text-muted">{review.rating}</small>
-                </CardText>
-                <CardText>{review.content}</CardText>
-              </CardBody>
-            </div>
-          </div>
-          <hr />
-          <div className="row g-0">
-            <CommentIndex
-              token={this.props.token}
-              review={review.id}
-              userId={this.props.userId}
-            />
+          <div className="mb-3 rounded">
+            <Card>
+              {this.state.isOpen === true ? (
+                <CardBody
+                  className="rounded"
+                  style={{ backgroundColor: '#eeebe2', color: '#181d31' }}
+                >
+                  <CardTitle
+                    onClick={this.handleToggle}
+                    tag="h6"
+                    className="mb-0"
+                    style={{ textAlign: 'left' }}
+                  >
+                    Comments
+                  </CardTitle>
+                </CardBody>
+              ) : (
+                <CardBody
+                  className="rounded"
+                  style={{ backgroundColor: '#181d31', color: '#eeebe2' }}
+                >
+                  <CardTitle
+                    onClick={this.handleToggle}
+                    tag="h6"
+                    className="mb-0"
+                    style={{ textAlign: 'left' }}
+                  >
+                    Comments
+                  </CardTitle>
+                </CardBody>
+              )}
+
+              {this.state.isOpen === true ? (
+                <CardBody
+                  className=""
+                  style={{ backgroundColor: '#f5f1e5', color: '#181d31' }}
+                >
+                  <CommentIndex
+                    token={this.props.token}
+                    review={review.id}
+                    userId={this.props.userId}
+                  />
+                </CardBody>
+              ) : (
+                <></>
+              )}
+            </Card>
           </div>
         </Card>
       );

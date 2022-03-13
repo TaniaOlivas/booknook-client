@@ -86,9 +86,9 @@ class CommentIndex extends Component<CommentIndexProps, CommentIndexState> {
         <h5>No Comments</h5>
       );
     return (
-      <div style={{ textAlign: 'center' }}>
+      <div>
         <div>
-          <div className="col-md-6">{comment}</div>
+          <div>{comment}</div>
           <div>
             <CreateComment
               review={this.props.review}

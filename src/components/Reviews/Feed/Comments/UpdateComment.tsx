@@ -52,16 +52,37 @@ class UpdateComment extends Component<UpdateCommentProps, UpdateCommentState> {
   toggle = () => {
     this.props.updateOff();
   };
+  enterBtn = (
+    e: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLInputElement>
+  ) => {
+    e.currentTarget.style.background = '#eeebe2';
+    e.currentTarget.style.color = '#181d31';
+  };
+  leaveBtn = (
+    e: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLInputElement>
+  ) => {
+    e.currentTarget.style.background = '#181d31';
+    e.currentTarget.style.color = '#eeebe2';
+  };
 
   render() {
     return (
       <div>
         <Modal isOpen={true} toggle={this.toggle}>
-          <ModalHeader toggle={this.toggle}>Update Comment</ModalHeader>
-          <ModalBody>
+          <ModalHeader
+            style={{
+              backgroundColor: '#eeebe2',
+              color: '#181d31',
+              borderBottomColor: '#181d31',
+            }}
+            toggle={this.toggle}
+          >
+            Update Comment
+          </ModalHeader>
+          <ModalBody style={{ backgroundColor: '#f5f1e5', color: '#181d31' }}>
             <Form onSubmit={(e) => this.commentUpdate(e)}>
               <FormGroup>
-                <Label for="content">Content</Label>
+                <Label for="content">Comment</Label>
                 <Input
                   id="content"
                   type="text"
@@ -73,7 +94,15 @@ class UpdateComment extends Component<UpdateCommentProps, UpdateCommentState> {
                   }
                 />
               </FormGroup>
-              <Button type="submit"> Submit </Button>
+              <Button
+                style={{ backgroundColor: '#181d31', color: '#eeebe2' }}
+                type="submit"
+                onMouseEnter={this.enterBtn}
+                onMouseLeave={this.leaveBtn}
+              >
+                {' '}
+                Submit{' '}
+              </Button>
             </Form>
           </ModalBody>
         </Modal>

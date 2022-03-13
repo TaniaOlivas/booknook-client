@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { Form, FormGroup, Input, Button } from 'reactstrap';
+import { Form, FormGroup, Input, Button, Row, Col } from 'reactstrap';
 
 interface CreateCommentProps {
   token: string;
@@ -56,27 +56,53 @@ class CreateComment extends Component<CreateCommentProps, CreateCommentState> {
       });
   };
 
+  enterBtn = (
+    e: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLInputElement>
+  ) => {
+    e.currentTarget.style.background = '#eeebe2';
+    e.currentTarget.style.color = '#181d31';
+  };
+  leaveBtn = (
+    e: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLInputElement>
+  ) => {
+    e.currentTarget.style.background = '#181d31';
+    e.currentTarget.style.color = '#eeebe2';
+  };
+
   render() {
     return (
       <div>
-        {' '}
-        <div className="container" style={{ width: '60%' }}>
-          <Form className="row g-3" onSubmit={this.handleSubmit}>
-            <FormGroup className="col-md-10">
+        <Form onSubmit={this.handleSubmit}>
+          <Row>
+            <FormGroup>
               <Input
                 id="comment"
                 name="comment"
-                placeholder="Comment"
+                style={{
+                  fontSize: '12px',
+                  color: '#181d31',
+                }}
+                placeholder="Leave a comment"
                 type="text"
                 value={this.state.content}
                 onChange={(e) => this.setState({ content: e.target.value })}
               />
             </FormGroup>
-            <div className="col-md-2 mt-3 ps-3">
-              <Button>Comment</Button>
-            </div>
-          </Form>
-        </div>
+          </Row>
+          <Row className="mx-0">
+            <Button
+              style={{
+                backgroundColor: '#181d31',
+                color: '#eeebe2',
+                fontSize: '12px',
+              }}
+              onMouseEnter={this.enterBtn}
+              onMouseLeave={this.leaveBtn}
+            >
+              Comment
+            </Button>
+          </Row>
+        </Form>
       </div>
     );
   }

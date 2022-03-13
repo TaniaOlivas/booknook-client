@@ -1,5 +1,14 @@
 import { Component } from 'react';
-import { Button } from 'reactstrap';
+import {
+  Button,
+  Card,
+  CardBody,
+  CardFooter,
+  CardText,
+  Col,
+  Container,
+  Row,
+} from 'reactstrap';
 
 import { comment } from './CommentIndex';
 
@@ -35,12 +44,50 @@ class CommentFeed extends Component<CommentFeedProps, CommentFeedState> {
   commentsMapper = () => {
     return this.props.comments.map((comment, index) => {
       return (
-        <div key={index} className="row" style={{ textAlign: 'center' }}>
-          <div className="col-md-10">
-            <p>{comment.content}</p>
-          </div>
-          <div className="col-md-2">
-            {this.props.userId === comment.userId ? (
+        <Row>
+          <Card
+            className="rounded"
+            key={index}
+            style={{ border: '0', paddingLeft: '0', paddingRight: '0' }}
+          >
+            <CardBody>
+              <CardText style={{ fontSize: '14px' }}>
+                {comment.content}
+              </CardText>
+            </CardBody>
+            <CardFooter
+              style={{
+                height: '30px',
+                padding: 0,
+                backgroundColor: '#f5f1e5',
+                border: '0',
+              }}
+            >
+              <div style={{ textAlign: 'right', paddingRight: '5px' }}>
+                <a
+                  style={{
+                    textDecoration: 'underline',
+                    fontSize: '12px',
+                  }}
+                  onClick={() => {
+                    this.commentDelete(comment);
+                  }}
+                >
+                  Delete
+                </a>{' '}
+                |{' '}
+                <a
+                  style={{ textDecoration: 'underline', fontSize: '12px' }}
+                  onClick={() => {
+                    this.props.editUpdateComment(comment);
+                    this.props.updateOn();
+                  }}
+                >
+                  Update
+                </a>
+              </div>
+            </CardFooter>
+            {/* {this.props.userId === comment.userId ? (
               <Button
                 onClick={() => {
                   this.commentDelete(comment);
@@ -62,14 +109,18 @@ class CommentFeed extends Component<CommentFeedProps, CommentFeedState> {
               </Button>
             ) : (
               <></>
-            )}
-          </div>
-        </div>
+            )} */}
+          </Card>
+        </Row>
       );
     });
   };
   render() {
-    return <div style={{ textAlign: 'center' }}>{this.commentsMapper()}</div>;
+    return (
+      <Container style={{ height: '150px', overflowY: 'scroll' }}>
+        {this.commentsMapper()}
+      </Container>
+    );
   }
 }
 
