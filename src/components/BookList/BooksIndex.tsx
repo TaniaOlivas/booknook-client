@@ -1,13 +1,12 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { Table } from 'reactstrap';
 interface BooksIndexProps {
   token: string;
 }
 
 interface BooksIndexState {}
 
-class BooksIndex extends React.Component<BooksIndexProps, BooksIndexState> {
+class BooksIndex extends Component<BooksIndexProps, BooksIndexState> {
   // constructor(props: BooksIndexProps) {
   //     super(props);
   //     this.state = { :  };

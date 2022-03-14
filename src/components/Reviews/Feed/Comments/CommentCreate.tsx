@@ -1,22 +1,12 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { Form, FormGroup, Input, Button, Row, Col } from 'reactstrap';
+import { Form, FormGroup, Input, Button, Row } from 'reactstrap';
 
 interface CreateCommentProps {
   token: string;
   review: number;
   refreshComments: boolean;
   fetchComments: Function;
-}
-
-interface review {
-  id: number;
-  title: string;
-  genre: string;
-  pageLength: number | string;
-  picture: string;
-  content: string;
-  rating: string;
 }
 
 interface CreateCommentState {

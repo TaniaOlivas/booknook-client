@@ -11,7 +11,6 @@ import {
   CarouselControl,
   CardSubtitle,
   Container,
-  Row,
 } from 'reactstrap';
 import { review } from '../ReviewIndex';
 
@@ -117,7 +116,7 @@ class MyReviewFeed extends Component<MyReviewFeedProps, MyReviewFeedState> {
                 src={review.picture}
                 className="img-fluid rounded"
                 width="200px"
-                alt="Card Image Cap"
+                alt="Book Cover"
               />
             </CardBody>
             <CardBody className="card-body mb-3">

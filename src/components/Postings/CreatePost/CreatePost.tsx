@@ -180,7 +180,11 @@ class CreatePost extends Component<CreatePostProps, CreatePostState> {
               {this.state.loading ? (
                 <h5>Loading...</h5>
               ) : (
-                <img src={this.state.image} style={{ width: '200px' }} />
+                <img
+                  src={this.state.image}
+                  alt="Book Cover"
+                  style={{ width: '200px' }}
+                />
               )}
             </FormGroup>
           </Row>

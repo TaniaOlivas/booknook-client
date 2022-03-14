@@ -12,7 +12,6 @@ import SearchIndex from '../Postings/SearchPost/SearchIndex';
 import PostIndex from '../Postings/PostingIndex';
 import ReviewIndex from '../Reviews/ReviewIndex';
 import BooksIndex from '../BookList/BooksIndex';
-import { FiLogOut } from 'react-icons/fi';
 
 interface NavigationProps {
   clearLocalStorage: () => void;
@@ -25,7 +24,7 @@ interface NavigationState {
   menuCollapse: boolean;
 }
 
-class Navigation extends React.Component<NavigationProps, NavigationState> {
+class Navigation extends Component<NavigationProps, NavigationState> {
   constructor(props: NavigationProps) {
     super(props);
     this.state = { menuCollapse: false };
@@ -94,7 +93,6 @@ class Navigation extends React.Component<NavigationProps, NavigationState> {
               <NavLink
                 href="/feed"
                 style={{
-                  border: '1px solid #181D31',
                   height: '50px',
                   color: '#f5f1e5',
                 }}
