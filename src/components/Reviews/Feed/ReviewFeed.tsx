@@ -27,7 +27,7 @@ export interface review {
   pageLength: number | string;
   picture: string;
   content: string;
-  rating: string;
+  rating: string | number;
 }
 
 class ReviewFeed extends Component<ReviewFeedProps, ReviewFeedState> {
@@ -114,7 +114,20 @@ class ReviewFeed extends Component<ReviewFeedProps, ReviewFeedState> {
           </CardBody>
           <CardBody className="card-body mb-3">
             <CardText className="card-text">
-              <small className="text-muted">{review.rating}</small>
+              <div className="star-rating">
+                {[...Array(5)].map((star, index) => {
+                  index += 1;
+                  return (
+                    <button
+                      type="button"
+                      key={index}
+                      className={index <= review.rating ? 'on' : 'off'}
+                    >
+                      <span className="star">&#9733;</span>
+                    </button>
+                  );
+                })}
+              </div>
             </CardText>
             <CardText>{review.content}</CardText>
           </CardBody>

@@ -13,9 +13,10 @@ interface CreateReviewState {
   pageLength: number | string;
   picture: string;
   content: string;
-  rating: string;
+  rating: number | string;
   image: string;
   loading: boolean;
+  hover: number | string;
 }
 
 class CreateReview extends Component<CreateReviewProps, CreateReviewState> {
@@ -27,11 +28,13 @@ class CreateReview extends Component<CreateReviewProps, CreateReviewState> {
       pageLength: '',
       picture: '',
       content: '',
-      rating: '',
+      rating: 0,
       image: '',
       loading: false,
+      hover: 0,
     };
   }
+
   uploadImage = async (
     e: React.ChangeEvent<HTMLInputElement> | React.FormEvent<HTMLFormElement>
   ) => {
@@ -81,7 +84,7 @@ class CreateReview extends Component<CreateReviewProps, CreateReviewState> {
           genre: '',
           pageLength: '',
           picture: '',
-          rating: '',
+          rating: 0,
           content: '',
           image: '',
         });
@@ -138,14 +141,25 @@ class CreateReview extends Component<CreateReviewProps, CreateReviewState> {
             </FormGroup>
             <FormGroup className="col-md-6 mt-0">
               <Label for="rating">Rating</Label>
-              <Input
-                id="rating"
-                name="rating"
-                placeholder="Rating"
-                type="text"
-                value={this.state.rating}
-                onChange={(e) => this.setState({ rating: e.target.value })}
-              />
+              <div className="star-rating">
+                {[...Array(5)].map((star, index) => {
+                  index += 1;
+                  return (
+                    <button
+                      type="button"
+                      key={index}
+                      className={index <= this.state.rating ? 'on' : 'off'}
+                      onClick={() => this.setState({ rating: index })}
+                      onMouseEnter={() => this.setState({ hover: index })}
+                      onMouseLeave={() =>
+                        this.setState({ hover: this.state.rating })
+                      }
+                    >
+                      <span className="star">&#9733;</span>
+                    </button>
+                  );
+                })}
+              </div>
             </FormGroup>
             <FormGroup className="mt-0">
               <Label for="content">Review</Label>

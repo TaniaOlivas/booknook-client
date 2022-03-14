@@ -10,6 +10,7 @@
     "@types/node": "^16.11.26",
     "@types/react": "^17.0.39",
     "@types/react-dom": "^17.0.12",
+    "@types/react-star-rating-component": "^1.4.1",
     "bootstrap": "^5.1.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
@@ -17,6 +18,7 @@
     "react-pro-sidebar": "^0.7.1",
     "react-router-dom": "^6.2.2",
     "react-scripts": "5.0.0",
+    "react-star-ratings": "^2.3.0",
     "reactstrap": "^9.0.1",
     "typescript": "^4.6.2",
     "web-vitals": "^2.1.4"
@@ -44,5 +46,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "react-ratings-declarative": "^3.4.1"
   }
 }

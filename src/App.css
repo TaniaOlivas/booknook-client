@@ -3,3 +3,16 @@ body {
   font-family: 'Noto Serif Display', serif;
   color: #181d31;
 }
+
+button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}
+.on {
+  color: gold;
+}
+.off {
+  color: #ccc;
+}

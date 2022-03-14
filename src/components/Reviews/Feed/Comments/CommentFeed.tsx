@@ -1,11 +1,9 @@
 import { Component } from 'react';
 import {
-  Button,
   Card,
   CardBody,
   CardFooter,
   CardText,
-  Col,
   Container,
   Row,
 } from 'reactstrap';
@@ -63,53 +61,34 @@ class CommentFeed extends Component<CommentFeedProps, CommentFeedState> {
                 border: '0',
               }}
             >
-              <div style={{ textAlign: 'right', paddingRight: '5px' }}>
-                <a
-                  style={{
-                    textDecoration: 'underline',
-                    fontSize: '12px',
-                  }}
-                  onClick={() => {
-                    this.commentDelete(comment);
-                  }}
-                >
-                  Delete
-                </a>{' '}
-                |{' '}
-                <a
-                  style={{ textDecoration: 'underline', fontSize: '12px' }}
-                  onClick={() => {
-                    this.props.editUpdateComment(comment);
-                    this.props.updateOn();
-                  }}
-                >
-                  Update
-                </a>
-              </div>
+              {this.props.userId == comment.userId ? (
+                <div style={{ textAlign: 'right', paddingRight: '5px' }}>
+                  <a
+                    style={{
+                      textDecoration: 'underline',
+                      fontSize: '12px',
+                    }}
+                    onClick={() => {
+                      this.commentDelete(comment);
+                    }}
+                  >
+                    Delete
+                  </a>{' '}
+                  |{' '}
+                  <a
+                    style={{ textDecoration: 'underline', fontSize: '12px' }}
+                    onClick={() => {
+                      this.props.editUpdateComment(comment);
+                      this.props.updateOn();
+                    }}
+                  >
+                    Update
+                  </a>
+                </div>
+              ) : (
+                <></>
+              )}
             </CardFooter>
-            {/* {this.props.userId === comment.userId ? (
-              <Button
-                onClick={() => {
-                  this.commentDelete(comment);
-                }}
-              >
-                Delete
-              </Button>
-            ) : (
-              <></>
-            )}
-            {this.props.userId === comment.userId ? (
-              <Button
-                onClick={() => {
-                  this.props.editUpdateComment(comment);
-                  this.props.updateOn();
-                }}
-              >
-                Update
-              </Button>
-            ) : (
-              <></>
-            )} */}
           </Card>
         </Row>
       );
