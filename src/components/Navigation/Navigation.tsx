@@ -2,9 +2,9 @@ import * as React from 'react';
 import { Component } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Button, Nav, Navbar, NavbarBrand, NavItem, NavLink } from 'reactstrap';
-import { FaHome, FaList, FaRegHeart } from 'react-icons/fa';
-import { RiPencilLine } from 'react-icons/ri';
-import { BiCog } from 'react-icons/bi';
+import { ImBooks } from 'react-icons/im';
+import { BiBookAdd, BiCommentAdd, BiSearchAlt } from 'react-icons/bi';
+import { BsViewList } from 'react-icons/bs';
 
 import 'react-pro-sidebar/dist/css/styles.css';
 import ReviewFeed from '../Reviews/Feed/ReviewFeed';
@@ -99,7 +99,7 @@ class Navigation extends Component<NavigationProps, NavigationState> {
                 onMouseEnter={this.enterBtn}
                 onMouseLeave={this.leaveBtn}
               >
-                <FaHome style={{ height: '100%' }} />
+                <BsViewList style={{ height: '100%' }} />
               </NavLink>
             </NavItem>
             <NavItem>
@@ -113,7 +113,7 @@ class Navigation extends Component<NavigationProps, NavigationState> {
                 onMouseEnter={this.enterBtn}
                 onMouseLeave={this.leaveBtn}
               >
-                <FaList style={{ height: '100%' }} />
+                <BiCommentAdd style={{ height: '100%' }} />
               </NavLink>
             </NavItem>
             {this.props.user === 'Author' ? (
@@ -128,7 +128,7 @@ class Navigation extends Component<NavigationProps, NavigationState> {
                   onMouseEnter={this.enterBtn}
                   onMouseLeave={this.leaveBtn}
                 >
-                  <FaRegHeart style={{ height: '100%' }} />
+                  <BiBookAdd style={{ height: '100%' }} />
                 </NavLink>
               </NavItem>
             ) : (
@@ -145,7 +145,7 @@ class Navigation extends Component<NavigationProps, NavigationState> {
                 onMouseEnter={this.enterBtn}
                 onMouseLeave={this.leaveBtn}
               >
-                <RiPencilLine style={{ height: '100%' }} />
+                <BiSearchAlt style={{ height: '100%' }} />
               </NavLink>
             </NavItem>
             <NavItem>
@@ -159,7 +159,7 @@ class Navigation extends Component<NavigationProps, NavigationState> {
                 onMouseEnter={this.enterBtn}
                 onMouseLeave={this.leaveBtn}
               >
-                <BiCog
+                <ImBooks
                   style={{
                     height: '100%',
                   }}
