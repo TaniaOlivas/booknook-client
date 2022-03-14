@@ -8,6 +8,9 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
+  ModalFooter,
+  Row,
+  Col,
 } from 'reactstrap';
 import ImageUpload from '../../ImageUpload/ImageUpload';
 import { post } from '../PostingIndex';
@@ -67,16 +70,38 @@ class UpdatePost extends Component<UpdatePostProps, UpdatePostState> {
   imageSet = (image: string) => {
     this.setState({ editPicture: image });
   };
+  enterBtn = (
+    e: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLInputElement>
+  ) => {
+    e.currentTarget.style.background = '#eeebe2';
+    e.currentTarget.style.color = '#181d31';
+  };
+  leaveBtn = (
+    e: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLInputElement>
+  ) => {
+    e.currentTarget.style.background = '#181d31';
+    e.currentTarget.style.color = '#eeebe2';
+  };
   render() {
     return (
       <div>
         <Modal isOpen={true} toggle={this.toggle}>
-          <ModalHeader toggle={this.toggle}>Update</ModalHeader>
-          <ModalBody>
+          <ModalHeader
+            style={{
+              backgroundColor: '#f5f1e5',
+              color: '#181d31',
+              borderBottomColor: '#181d31',
+            }}
+            toggle={this.toggle}
+          >
+            Update Book
+          </ModalHeader>
+          <ModalBody style={{ backgroundColor: '#eeebe2', color: '#181d31' }}>
             <Form onSubmit={(e) => this.postUpdate(e)}>
               <FormGroup>
                 <Label for="Title">Title</Label>
                 <Input
+                  style={{ borderColor: '#181d31' }}
                   id="Title"
                   type="text"
                   name="Title"
@@ -85,30 +110,41 @@ class UpdatePost extends Component<UpdatePostProps, UpdatePostState> {
                   onChange={(e) => this.setState({ editTitle: e.target.value })}
                 />
               </FormGroup>
-              <FormGroup>
-                <Label for="genre">Genre</Label>
-                <Input
-                  type="text"
-                  name="genre"
-                  id="genre"
-                  value={this.state.editGenre}
-                  onChange={(e) => this.setState({ editGenre: e.target.value })}
-                  placeholder="Genre"
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label for="pageLength">Page Length</Label>
-                <Input
-                  id="pageLength"
-                  type="text"
-                  name="pageLength"
-                  value={this.state.editPageLength}
-                  placeholder="Pages"
-                  onChange={(e) =>
-                    this.setState({ editPageLength: e.target.value })
-                  }
-                />
-              </FormGroup>
+              <Row>
+                <Col>
+                  <FormGroup>
+                    <Label for="genre">Genre</Label>
+                    <Input
+                      style={{ borderColor: '#181d31' }}
+                      type="text"
+                      name="genre"
+                      id="genre"
+                      value={this.state.editGenre}
+                      onChange={(e) =>
+                        this.setState({ editGenre: e.target.value })
+                      }
+                      placeholder="Genre"
+                    />
+                  </FormGroup>
+                </Col>
+                <Col>
+                  <FormGroup>
+                    <Label for="pageLength">Page Length</Label>
+                    <Input
+                      style={{ borderColor: '#181d31' }}
+                      id="pageLength"
+                      type="text"
+                      name="pageLength"
+                      value={this.state.editPageLength}
+                      placeholder="Pages"
+                      onChange={(e) =>
+                        this.setState({ editPageLength: e.target.value })
+                      }
+                    />
+                  </FormGroup>
+                </Col>
+              </Row>
+
               <FormGroup>
                 <Label for="picture">Picture</Label>
                 <ImageUpload
@@ -116,9 +152,25 @@ class UpdatePost extends Component<UpdatePostProps, UpdatePostState> {
                   imageSet={this.imageSet}
                 />
               </FormGroup>
-              <Button type="submit"> Submit </Button>
             </Form>
           </ModalBody>
+          <ModalFooter
+            style={{
+              backgroundColor: '#f5f1e5',
+              color: '#181d31',
+              borderTopColor: '#181d31',
+            }}
+          >
+            <Button
+              style={{ backgroundColor: '#181d31', color: '#eeebe2' }}
+              type="submit"
+              onMouseEnter={this.enterBtn}
+              onMouseLeave={this.leaveBtn}
+            >
+              {' '}
+              Submit{' '}
+            </Button>
+          </ModalFooter>
         </Modal>
       </div>
     );

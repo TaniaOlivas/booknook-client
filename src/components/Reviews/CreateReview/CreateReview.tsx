@@ -1,6 +1,15 @@
 import * as React from 'react';
 import { Component } from 'react';
-import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import {
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Button,
+  Container,
+  Row,
+  Col,
+} from 'reactstrap';
 
 interface CreateReviewProps {
   token: string;
@@ -94,89 +103,127 @@ class CreateReview extends Component<CreateReviewProps, CreateReviewState> {
       });
   };
 
+  enterBtn = (
+    e: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLInputElement>
+  ) => {
+    e.currentTarget.style.background = 'white';
+    e.currentTarget.style.color = '#181d31';
+  };
+  leaveBtn = (
+    e: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLInputElement>
+  ) => {
+    e.currentTarget.style.background = '#181d31';
+    e.currentTarget.style.color = 'white';
+  };
+
   render() {
     return (
-      <div>
-        <div
-          className="container"
+      <Container
+        className="rounded"
+        style={{
+          backgroundColor: 'white',
+          border: '1px solid #ccc',
+        }}
+      >
+        <Form
+          onSubmit={this.handleSubmit}
           style={{
-            borderRadius: '1%',
             backgroundColor: 'white',
           }}
         >
-          <h3 style={{ textAlign: 'center' }}>Create Review</h3>
-          <Form className="row g-3" onSubmit={this.handleSubmit}>
-            <FormGroup className="col-md-6">
-              <Label for="title">Title</Label>
-              <Input
-                id="title"
-                name="title"
-                placeholder="Title"
-                type="text"
-                value={this.state.title}
-                onChange={(e) => this.setState({ title: e.target.value })}
-              />
-            </FormGroup>
-            <FormGroup className="col-md-6">
-              <Label for="genre">Genre</Label>
-              <Input
-                id="genre"
-                name="genre"
-                placeholder="Genre"
-                type="text"
-                value={this.state.genre}
-                onChange={(e) => this.setState({ genre: e.target.value })}
-              />
-            </FormGroup>
-            <FormGroup className="col-md-6 mt-0">
-              <Label for="pageLength">Pages</Label>
-              <Input
-                id="pageLength"
-                name="pageLength"
-                type="text"
-                placeholder="Pages"
-                value={this.state.pageLength}
-                onChange={(e) => this.setState({ pageLength: e.target.value })}
-              />
-            </FormGroup>
-            <FormGroup className="col-md-6 mt-0">
-              <Label for="rating">Rating</Label>
-              <div className="star-rating">
-                {[...Array(5)].map((star, index) => {
-                  index += 1;
-                  return (
-                    <button
-                      type="button"
-                      key={index}
-                      className={index <= this.state.rating ? 'on' : 'off'}
-                      onClick={() => this.setState({ rating: index })}
-                      onMouseEnter={() => this.setState({ hover: index })}
-                      onMouseLeave={() =>
-                        this.setState({ hover: this.state.rating })
-                      }
-                    >
-                      <span className="star">&#9733;</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </FormGroup>
-            <FormGroup className="mt-0">
+          <Row xs="2">
+            <Col xs="8">
+              <FormGroup>
+                <Label for="title">Title</Label>
+                <Input
+                  style={{ borderColor: '#181d31' }}
+                  id="title"
+                  name="title"
+                  placeholder="Title"
+                  type="text"
+                  value={this.state.title}
+                  onChange={(e) => this.setState({ title: e.target.value })}
+                />
+              </FormGroup>
+            </Col>
+            <Col xs="4">
+              <FormGroup>
+                <Label for="pageLength">Pages</Label>
+                <Input
+                  style={{ borderColor: '#181d31' }}
+                  id="pageLength"
+                  name="pageLength"
+                  type="text"
+                  placeholder="Pages"
+                  value={this.state.pageLength}
+                  onChange={(e) =>
+                    this.setState({ pageLength: e.target.value })
+                  }
+                />
+              </FormGroup>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <FormGroup>
+                <Label for="genre">Genre</Label>
+                <Input
+                  id="genre"
+                  name="genre"
+                  style={{ borderColor: '#181d31' }}
+                  placeholder="Genre"
+                  type="text"
+                  value={this.state.genre}
+                  onChange={(e) => this.setState({ genre: e.target.value })}
+                />
+              </FormGroup>
+            </Col>
+            <Col>
+              <FormGroup>
+                <Label for="rating">Rating</Label>
+                <div className="star-rating">
+                  {[...Array(5)].map((star, index) => {
+                    index += 1;
+                    return (
+                      <button
+                        type="button"
+                        key={index}
+                        className={index <= this.state.rating ? 'on' : 'off'}
+                        onClick={() => this.setState({ rating: index })}
+                        onMouseEnter={() => this.setState({ hover: index })}
+                        onMouseLeave={() =>
+                          this.setState({ hover: this.state.rating })
+                        }
+                      >
+                        <span className="star">&#9733;</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </FormGroup>
+            </Col>
+          </Row>
+          <Row>
+            <FormGroup>
               <Label for="content">Review</Label>
               <Input
                 id="content"
                 name="content"
+                style={{ borderColor: '#181d31' }}
                 type="textarea"
                 placeholder="Review"
                 value={this.state.content}
                 onChange={(e) => this.setState({ content: e.target.value })}
               />
             </FormGroup>
-            <FormGroup className="mt-0">
+          </Row>
+          <Row>
+            <FormGroup>
               <Label for="content">Picture</Label>
               <Input
                 type="file"
                 name="file"
+                style={{ borderColor: '#181d31' }}
                 placeholder="Choose Image"
                 onChange={this.uploadImage}
                 value=""
@@ -188,15 +235,20 @@ class CreateReview extends Component<CreateReviewProps, CreateReviewState> {
                 <img src={this.state.image} style={{ width: '200px' }} />
               )}
             </FormGroup>
-            <div
-              className="container"
-              style={{ width: '60%', textAlign: 'right' }}
-            >
-              <Button>Submit</Button>
-            </div>
-          </Form>
-        </div>{' '}
-      </div>
+          </Row>
+          <Row>
+            <FormGroup>
+              <Button
+                style={{ backgroundColor: '#181d31', color: '#eeebe2' }}
+                onMouseEnter={this.enterBtn}
+                onMouseLeave={this.leaveBtn}
+              >
+                Submit
+              </Button>
+            </FormGroup>
+          </Row>
+        </Form>
+      </Container>
     );
   }
 }

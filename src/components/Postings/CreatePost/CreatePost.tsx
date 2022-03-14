@@ -1,5 +1,14 @@
 import { Component } from 'react';
-import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
+import {
+  Form,
+  FormGroup,
+  Label,
+  Input,
+  Button,
+  Container,
+  Row,
+  Col,
+} from 'reactstrap';
 
 interface CreatePostProps {
   token: string;
@@ -82,15 +91,39 @@ class CreatePost extends Component<CreatePostProps, CreatePostState> {
       });
   };
 
+  enterBtn = (
+    e: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLInputElement>
+  ) => {
+    e.currentTarget.style.background = 'white';
+    e.currentTarget.style.color = '#181d31';
+  };
+  leaveBtn = (
+    e: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLInputElement>
+  ) => {
+    e.currentTarget.style.background = '#181d31';
+    e.currentTarget.style.color = 'white';
+  };
+
   render() {
     return (
-      <div>
-        <h2 style={{ textAlign: 'center' }}>Create Post</h2>
-        <div className="container" style={{ width: '60%' }}>
-          <Form className="row g-3" onSubmit={this.handleSubmit}>
-            <FormGroup className="col-md-5">
+      <Container
+        className="rounded"
+        style={{
+          backgroundColor: 'white',
+          border: '1px solid #ccc',
+        }}
+      >
+        <Form
+          style={{
+            backgroundColor: 'white',
+          }}
+          onSubmit={this.handleSubmit}
+        >
+          <Row>
+            <FormGroup>
               <Label for="title">Title</Label>
               <Input
+                style={{ borderColor: '#181d31' }}
                 id="title"
                 name="title"
                 placeholder="Title"
@@ -99,31 +132,44 @@ class CreatePost extends Component<CreatePostProps, CreatePostState> {
                 onChange={(e) => this.setState({ title: e.target.value })}
               />
             </FormGroup>
-            <FormGroup className="col-md-5">
-              <Label for="genre">Genre</Label>
-              <Input
-                id="genre"
-                name="genre"
-                placeholder="Genre"
-                type="text"
-                value={this.state.genre}
-                onChange={(e) => this.setState({ genre: e.target.value })}
-              />
-            </FormGroup>
-            <FormGroup className="col-md-2">
-              <Label for="pageLength">Pages</Label>
-              <Input
-                id="pageLength"
-                name="pageLength"
-                type="text"
-                placeholder="Pages"
-                value={this.state.pageLength}
-                onChange={(e) => this.setState({ pageLength: e.target.value })}
-              />
-            </FormGroup>
-            <FormGroup className="col-md-10 mt-0">
+          </Row>
+          <Row>
+            <Col>
+              <FormGroup>
+                <Label for="genre">Genre</Label>
+                <Input
+                  style={{ borderColor: '#181d31' }}
+                  id="genre"
+                  name="genre"
+                  placeholder="Genre"
+                  type="text"
+                  value={this.state.genre}
+                  onChange={(e) => this.setState({ genre: e.target.value })}
+                />
+              </FormGroup>
+            </Col>
+            <Col>
+              <FormGroup>
+                <Label for="pageLength">Pages</Label>
+                <Input
+                  style={{ borderColor: '#181d31' }}
+                  id="pageLength"
+                  name="pageLength"
+                  type="text"
+                  placeholder="Pages"
+                  value={this.state.pageLength}
+                  onChange={(e) =>
+                    this.setState({ pageLength: e.target.value })
+                  }
+                />
+              </FormGroup>
+            </Col>
+          </Row>
+          <Row>
+            <FormGroup>
               <Label for="content">Picture</Label>
               <Input
+                style={{ borderColor: '#181d31' }}
                 type="file"
                 name="file"
                 placeholder="Choose Image"
@@ -137,12 +183,20 @@ class CreatePost extends Component<CreatePostProps, CreatePostState> {
                 <img src={this.state.image} style={{ width: '200px' }} />
               )}
             </FormGroup>
-            <div className="col-md-2 mt-4 pt-2 ps-3">
-              <Button>Submit</Button>
-            </div>
-          </Form>
-        </div>{' '}
-      </div>
+          </Row>
+          <Row>
+            <FormGroup>
+              <Button
+                style={{ backgroundColor: '#181d31', color: '#eeebe2' }}
+                onMouseEnter={this.enterBtn}
+                onMouseLeave={this.leaveBtn}
+              >
+                Submit
+              </Button>
+            </FormGroup>
+          </Row>
+        </Form>
+      </Container>
     );
   }
 }

@@ -84,6 +84,7 @@ class UpdateComment extends Component<UpdateCommentProps, UpdateCommentState> {
               <FormGroup>
                 <Label for="content">Comment</Label>
                 <Input
+                  style={{ borderColor: '#181d31' }}
                   id="content"
                   type="text"
                   name="content"

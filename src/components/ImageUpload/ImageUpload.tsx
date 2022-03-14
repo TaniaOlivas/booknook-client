@@ -45,6 +45,7 @@ class ImageUpload extends Component<ImageUploadProps, ImageUploadState> {
     return (
       <div>
         <Input
+          style={{ borderColor: '#181d31' }}
           type="file"
           name="file"
           placeholder="Choose Image"

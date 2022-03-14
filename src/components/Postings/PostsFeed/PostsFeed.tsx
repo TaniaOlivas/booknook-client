@@ -6,6 +6,11 @@ import {
   CardTitle,
   CardSubtitle,
   Button,
+  Container,
+  Carousel,
+  CarouselIndicators,
+  CarouselControl,
+  CarouselItem,
 } from 'reactstrap';
 import { post } from '../PostingIndex';
 
@@ -17,12 +22,16 @@ interface PostsFeedProps {
   editUpdatePost: Function;
 }
 
-interface PostsFeedState {}
+interface PostsFeedState {
+  activeIndex: number;
+  animating: boolean;
+}
 
 class PostsFeed extends Component<PostsFeedProps, PostsFeedState> {
   constructor(props: PostsFeedProps) {
     super(props);
-    this.state = { posts: [] };
+    this.state = { activeIndex: 0, animating: false };
+
     this.postsMapper = this.postsMapper.bind(this);
   }
 
@@ -36,53 +45,146 @@ class PostsFeed extends Component<PostsFeedProps, PostsFeedState> {
     }).then((res) => this.props.fetchPosts());
   };
 
+  next = () => {
+    if (this.state.animating) return;
+    const nextIndex =
+      this.state.activeIndex === this.props.posts.length - 1
+        ? 0
+        : this.state.activeIndex + 1;
+    this.setState({ activeIndex: nextIndex });
+  };
+
+  previous = () => {
+    if (this.state.animating) return;
+    const nextIndex =
+      this.state.activeIndex === 0
+        ? this.props.posts.length - 1
+        : this.state.activeIndex - 1;
+    this.setState({ activeIndex: nextIndex });
+  };
+
+  goToIndex = (newIndex: number) => {
+    if (this.state.animating) return;
+    this.setState({ activeIndex: newIndex });
+  };
+
+  enterBtn = (
+    e: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLInputElement>
+  ) => {
+    e.currentTarget.style.background = '#eeebe2';
+    e.currentTarget.style.color = '#181d31';
+  };
+  leaveBtn = (
+    e: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLInputElement>
+  ) => {
+    e.currentTarget.style.background = '#181d31';
+    e.currentTarget.style.color = '#eeebe2';
+  };
+
   postsMapper = () => {
     return this.props.posts.map((post, index) => {
       return (
-        <Card key={index} className="mb-3" style={{ maxWidth: '540px' }}>
-          <div className="row g-0">
-            <CardBody className="col-md-4">
+        <CarouselItem
+          onExiting={() => this.setState({ animating: true })}
+          onExited={() => this.setState({ animating: false })}
+        >
+          <Card
+            key={index}
+            style={{
+              borderColor: '#ccc',
+            }}
+          >
+            <div className="row">
+              <CardBody style={{ textAlign: 'left' }} className="col-9">
+                <CardTitle tag="h4">{post.title}</CardTitle>
+                <CardSubtitle className="text-muted" tag="h6">
+                  {post.genre}
+                </CardSubtitle>
+              </CardBody>
+              <CardBody className="col-3">
+                <CardText className="card-text">
+                  <small className="text-muted">Pages:</small>{' '}
+                  <small className="text-muted">{post.pageLength}</small>
+                </CardText>
+              </CardBody>
+            </div>
+            <CardBody
+              className="my-0 rounded"
+              style={{ backgroundColor: '#eeebe2' }}
+            >
               <img
+                style={{ textAlign: 'center' }}
                 src={post.picture}
-                className="img-fluid rounded-start"
+                className="img-fluid rounded"
+                width="200px"
                 alt="Card Image Cap"
               />
             </CardBody>
-            <div className="col-md-8">
-              <CardBody className="card-body">
-                <CardTitle tag="h5">{post.title}</CardTitle>
-                <CardSubtitle>{post.genre}</CardSubtitle>
-                <CardText className="card-text">
-                  <small className="text-muted">{post.pageLength}</small>{' '}
-                </CardText>
+            <CardBody className="card-body mb-3">
+              <CardBody>
                 <Button
+                  style={{ backgroundColor: '#181d31', color: '#eeebe2' }}
                   onClick={() => {
                     this.props.editUpdatePost(post);
                     this.props.updateOn();
                   }}
+                  onMouseEnter={this.enterBtn}
+                  onMouseLeave={this.leaveBtn}
                 >
                   Update
                 </Button>{' '}
                 <Button
+                  style={{ backgroundColor: '#181d31', color: '#eeebe2' }}
                   onClick={() => {
                     this.postDelete(post);
                   }}
+                  onMouseEnter={this.enterBtn}
+                  onMouseLeave={this.leaveBtn}
                 >
                   Delete
                 </Button>
               </CardBody>
-            </div>
-          </div>
-        </Card>
+            </CardBody>
+          </Card>
+        </CarouselItem>
       );
     });
   };
   render() {
     return (
-      <div style={{ textAlign: 'center' }}>
-        <h1>Hello from PostFeed</h1>
-        {this.postsMapper()}
-      </div>
+      <Container
+        className="rounded"
+        style={{
+          backgroundColor: 'white',
+
+          padding: 0,
+        }}
+      >
+        <Carousel
+          dark
+          activeIndex={this.state.activeIndex}
+          next={this.next}
+          previous={this.previous}
+        >
+          <CarouselIndicators
+            activeIndex={this.state.activeIndex}
+            items={this.props.posts}
+            onClickHandler={this.goToIndex}
+            className="mb-1"
+          />
+          {this.postsMapper()}
+          <CarouselControl
+            direction="prev"
+            directionText="Previous"
+            onClickHandler={this.previous}
+          />
+          <CarouselControl
+            direction="next"
+            directionText="Next"
+            onClickHandler={this.next}
+          />
+        </Carousel>
+      </Container>
     );
   }
 }

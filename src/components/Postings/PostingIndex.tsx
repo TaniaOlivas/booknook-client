@@ -78,17 +78,20 @@ class PostIndex extends Component<PostIndexProps, PostIndexState> {
         <h2>Make a post!</h2>
       );
     return (
-      <div style={{ textAlign: 'center' }}>
-        <h1>Hello from PostingIndex</h1>
+      <div style={{ textAlign: 'center', margin: '70px 0px 55px 0px' }}>
         <div className="container">
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-md-6 mb-1">
+              <h1>Add your Book</h1>
               <CreatePost
                 token={this.props.token}
                 fetchPosts={this.fetchPosts}
               />
             </div>
-            <div className="col-md-6">{posts}</div>
+            <div className="col-md-6 mb-1">
+              <h1>Your Books</h1>
+              {posts}
+            </div>
           </div>
           {this.state.updateActive ? (
             <UpdatePost

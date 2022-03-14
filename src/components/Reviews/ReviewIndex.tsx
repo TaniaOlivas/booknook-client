@@ -20,7 +20,7 @@ export interface review {
   pageLength: number | string;
   picture: string;
   content: string;
-  rating: string;
+  rating: string | number;
 }
 
 class ReviewIndex extends Component<ReviewIndexProps, ReviewIndexState> {
@@ -81,22 +81,24 @@ class ReviewIndex extends Component<ReviewIndexProps, ReviewIndexState> {
           editUpdateReview={this.editUpdateReview}
         />
       ) : (
-        <h2>Make a post!</h2>
+        <h2>None yet! Create one!</h2>
       );
     return (
-      <div
-        style={{ textAlign: 'center', marginTop: '70px', marginBottom: '50px' }}
-      >
-        <h1>Hello from ReviewIndex</h1>
+      <div style={{ textAlign: 'center', margin: '70px 0px 55px 0px' }}>
         <div className="container">
           <div className="row">
-            <div className="col-md-6">
+            <div className="col-md-6 mb-1">
+              <h1>Create a Review</h1>
               <CreateReview
                 token={this.props.token}
                 fetchReviews={this.fetchReviews}
               />
             </div>
-            <div className="col-md-6">{reviews}</div>
+            <div className="col-md-6 mb-1">
+              <h1>Your Reviews</h1>
+
+              {reviews}
+            </div>
           </div>
           {this.state.updateActive ? (
             <UpdateReview
