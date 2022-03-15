@@ -1,14 +1,6 @@
 import { Component } from 'react';
-import {
-  Col,
-  Container,
-  Row,
-  Input,
-  Button,
-  Form,
-  FormGroup,
-  Label,
-} from 'reactstrap';
+import { Input, Button, Form, FormGroup, Label, Container } from 'reactstrap';
+import FetchBooks from './FetchBooks';
 import SearchGenre from './SearchGenre';
 import SearchTitle from './SearchTitle';
 interface SearchIndexProps {
@@ -18,8 +10,7 @@ interface SearchIndexProps {
 interface SearchIndexState {
   searchGenres: genre[];
   searchTitles: title[];
-  searchGenre: string;
-  searchTitle: string;
+  searchItem: string;
 }
 
 export interface genre {
@@ -43,13 +34,12 @@ class SearchIndex extends Component<SearchIndexProps, SearchIndexState> {
     this.state = {
       searchGenres: [],
       searchTitles: [],
-      searchTitle: '',
-      searchGenre: '',
+      searchItem: '',
     };
   }
 
   fetchGenre = () => {
-    fetch(`http://localhost:4000/post/genre/${this.state.searchGenre}`, {
+    fetch(`http://localhost:4000/post/genre/${this.state.searchItem}`, {
       method: 'GET',
       headers: new Headers({
         'Content-Type': 'application/json',
@@ -69,7 +59,7 @@ class SearchIndex extends Component<SearchIndexProps, SearchIndexState> {
   };
 
   fetchTitle = () => {
-    fetch(`http://localhost:4000/post/title/${this.state.searchTitle}`, {
+    fetch(`http://localhost:4000/post/title/${this.state.searchItem}`, {
       method: 'GET',
       headers: new Headers({
         'Content-Type': 'application/json',
@@ -87,55 +77,74 @@ class SearchIndex extends Component<SearchIndexProps, SearchIndexState> {
         console.error('Error:', err);
       });
   };
+  enterBtn = (
+    e: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLInputElement>
+  ) => {
+    e.currentTarget.style.background = '#eeebe2';
+    e.currentTarget.style.color = '#181d31';
+  };
+  leaveBtn = (
+    e: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLInputElement>
+  ) => {
+    e.currentTarget.style.background = '#181d31';
+    e.currentTarget.style.color = '#eeebe2';
+  };
 
   render() {
     return (
-      <div style={{ textAlign: 'center' }}>
-        <h1>Hello From SearchIndex</h1>
-        <Form>
-          <FormGroup>
-            <Label for="genre">By Genre:</Label>
-            <Input
-              id="genre"
-              name="genre"
-              type="text"
-              placeholder="Search By Genre"
-              value={this.state.searchGenre}
-              onChange={(e) => this.setState({ searchGenre: e.target.value })}
-            />
-            <FormGroup>
-              <Label for="title">By Title:</Label>
-              <Input
-                id="title"
-                name="title"
-                type="text"
-                placeholder="Search By Title"
-                value={this.state.searchTitle}
-                onChange={(e) => this.setState({ searchTitle: e.target.value })}
-              />
-            </FormGroup>
-            <div>
-              <Button
-                onClick={() => {
-                  this.fetchTitle();
-                  this.fetchGenre();
-                }}
-              >
-                Search
-              </Button>
+      <div style={{ textAlign: 'center', margin: '70px 0px 55px 0px' }}>
+        <div className="container">
+          <div className="row">
+            <div className="col-md-6 mb-1">
+              <h3>Search Books By Our Authors</h3>
+              <Container>
+                <Form>
+                  <FormGroup>
+                    <Input
+                      id="posts"
+                      name="posts"
+                      type="text"
+                      placeholder="Search By Title or Genre"
+                      value={this.state.searchItem}
+                      onChange={(e) =>
+                        this.setState({ searchItem: e.target.value })
+                      }
+                    />
+                  </FormGroup>
+                  <FormGroup>
+                    <Button
+                      onClick={() => {
+                        this.fetchTitle();
+                        this.fetchGenre();
+                      }}
+                      style={{ backgroundColor: '#181d31', color: '#eeebe2' }}
+                      onMouseEnter={this.enterBtn}
+                      onMouseLeave={this.leaveBtn}
+                    >
+                      Search
+                    </Button>
+                  </FormGroup>
+                </Form>
+                <div>
+                  <SearchGenre
+                    token={this.props.token}
+                    searchGenres={this.state.searchGenres}
+                    fetchGenre={this.fetchGenre}
+                  />
+                  <SearchTitle
+                    token={this.props.token}
+                    searchTitles={this.state.searchTitles}
+                    fetchTitle={this.fetchTitle}
+                  />
+                </div>
+              </Container>
             </div>
-          </FormGroup>
-        </Form>
-        <SearchGenre
-          token={this.props.token}
-          searchGenres={this.state.searchGenres}
-          fetchGenre={this.fetchGenre}
-        />
-        <SearchTitle
-          token={this.props.token}
-          searchTitles={this.state.searchTitles}
-          fetchTitle={this.fetchTitle}
-        />
+            <div className="col-md-6 mb-1">
+              <h3>Search Other Books:</h3>
+              <FetchBooks />
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

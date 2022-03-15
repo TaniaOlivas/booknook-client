@@ -1,14 +1,12 @@
 import { Component } from 'react';
 import {
   Button,
-  Col,
   Card,
   CardBody,
   CardText,
   CardSubtitle,
   CardTitle,
-  Input,
-  Row,
+  CardHeader,
 } from 'reactstrap';
 import { genre } from './SearchIndex';
 
@@ -26,27 +24,55 @@ class SearchGenre extends Component<SearchGenreProps, SearchGenreState> {
     this.state = { searchGenres: [] };
     this.genreMapper = this.genreMapper.bind(this);
   }
+  enterBtn = (
+    e: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLInputElement>
+  ) => {
+    e.currentTarget.style.background = '#eeebe2';
+    e.currentTarget.style.color = '#181d31';
+  };
+  leaveBtn = (
+    e: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLInputElement>
+  ) => {
+    e.currentTarget.style.background = '#181d31';
+    e.currentTarget.style.color = '#eeebe2';
+  };
 
   genreMapper = () => {
     return this.props.searchGenres.map((genre, index) => {
       return (
         <Card key={index} className="mb-3" style={{ maxWidth: '540px' }}>
           <div className="row g-0">
-            <CardBody className="col-md-4">
+            <CardHeader>
+              <CardTitle tag="h5">{genre.title}</CardTitle>
+            </CardHeader>
+            <CardBody className="col-4">
               <img
                 src={genre.picture}
                 className="img-fluid rounded-start"
-                alt="Card Image Cap"
+                alt="Book Cover"
+                width="115px"
               />
             </CardBody>
-            <div className="col-md-8">
+            <div className="col-8">
               <CardBody className="card-body">
-                <CardTitle tag="h5">{genre.title}</CardTitle>
-                <CardSubtitle>{genre.genre}</CardSubtitle>
-                <CardText className="card-text">
-                  <small className="text-muted">{genre.pageLength}</small>{' '}
+                <CardText>
+                  <CardSubtitle tag="h6">Author:</CardSubtitle>
                 </CardText>
-                <Button>Add to Book List</Button>
+                <CardText>
+                  <small>Genre: {genre.genre}</small>
+                </CardText>
+                <CardText>
+                  <small>Pages: {genre.pageLength}</small>
+                </CardText>
+              </CardBody>
+              <CardBody>
+                <Button
+                  style={{ backgroundColor: '#181d31', color: '#eeebe2' }}
+                  onMouseEnter={this.enterBtn}
+                  onMouseLeave={this.leaveBtn}
+                >
+                  Add to Reading List
+                </Button>
               </CardBody>
             </div>
           </div>

@@ -1,21 +1,116 @@
 import * as React from 'react';
 import { Component } from 'react';
+import CreateBook from './CreateBook/CreateBook';
+import MyBookFeed from './BookFeed/MyBookFeed';
+import UpdateBook from './UpdateBook/UpdateBook';
+
 interface BooksIndexProps {
   token: string;
 }
 
-interface BooksIndexState {}
+interface BooksIndexState {
+  books: book[];
+  updateActive: boolean;
+  bookToUpdate: book;
+}
+
+export interface book {
+  id: number;
+  title: string;
+  author: string;
+  genre: string;
+  pageLength: number | string;
+  picture: string;
+}
 
 class BooksIndex extends Component<BooksIndexProps, BooksIndexState> {
-  // constructor(props: BooksIndexProps) {
-  //     super(props);
-  //     this.state = { :  };
-  // }
+  constructor(props: BooksIndexProps) {
+    super(props);
+    this.state = {
+      books: [],
+      updateActive: false,
+      bookToUpdate: {} as book,
+    };
+  }
+
+  fetchBooks = () => {
+    fetch('http://localhost:4000/book/mine', {
+      method: 'GET',
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        Authorization: this.props.token,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data: book[]) => {
+        console.log(data);
+        this.setState({
+          books: data,
+        });
+      })
+      .catch((err) => {
+        console.error('Error:', err);
+      });
+  };
+
+  componentDidMount() {
+    this.fetchBooks();
+  }
+
+  editUpdateBook = (book: book) => {
+    this.setState({ bookToUpdate: book });
+    console.log(book);
+  };
+
+  updateOn = () => {
+    this.setState({ updateActive: true });
+  };
+
+  updateOff = () => {
+    this.setState({ updateActive: false });
+  };
+
   render() {
+    const books =
+      this.state.books.length >= 1 ? (
+        <MyBookFeed
+          books={this.state.books}
+          fetchBooks={this.fetchBooks}
+          token={this.props.token}
+          updateOn={this.updateOn}
+          editUpdateBook={this.editUpdateBook}
+        />
+      ) : (
+        <h2>None yet! Add a Book</h2>
+      );
     return (
-      <div>
-        <h1>Hello From BooksIndex</h1>
-        <h3>Books To Read</h3>
+      <div style={{ textAlign: 'center', margin: '70px 0px 55px 0px' }}>
+        <div className="container">
+          <div className="row">
+            <div className="col-md-6 mb-1">
+              <h1>Add a Book</h1>
+              <CreateBook
+                token={this.props.token}
+                fetchBooks={this.fetchBooks}
+              />
+            </div>
+            <div className="col-md-6 mb-1">
+              <h1>Your Books</h1>
+
+              {books}
+            </div>
+          </div>
+          {this.state.updateActive ? (
+            <UpdateBook
+              bookToUpdate={this.state.bookToUpdate}
+              updateOff={this.updateOff}
+              token={this.props.token}
+              fetchBooks={this.fetchBooks}
+            />
+          ) : (
+            <div></div>
+          )}
+        </div>
       </div>
     );
   }

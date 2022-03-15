@@ -4,51 +4,50 @@ import {
   CardBody,
   CardText,
   CardTitle,
-  CardSubtitle,
   Button,
-  Container,
   Carousel,
   CarouselIndicators,
-  CarouselControl,
   CarouselItem,
+  CarouselControl,
+  CardSubtitle,
+  Container,
 } from 'reactstrap';
-import { post } from '../PostingIndex';
+import { book } from '../BooksIndex';
 
-interface PostsFeedProps {
-  posts: post[];
-  fetchPosts: Function;
+interface MyBookFeedProps {
+  books: book[];
+  fetchBooks: Function;
   token: string;
   updateOn: Function;
-  editUpdatePost: Function;
+  editUpdateBook: Function;
 }
 
-interface PostsFeedState {
+interface MyBookFeedState {
   activeIndex: number;
   animating: boolean;
 }
 
-class PostsFeed extends Component<PostsFeedProps, PostsFeedState> {
-  constructor(props: PostsFeedProps) {
+class MyBookFeed extends Component<MyBookFeedProps, MyBookFeedState> {
+  constructor(props: MyBookFeedProps) {
     super(props);
     this.state = { activeIndex: 0, animating: false };
-
-    this.postsMapper = this.postsMapper.bind(this);
+    this.bookMapper = this.bookMapper.bind(this);
   }
 
-  postDelete = (post: post) => {
-    fetch(`http://localhost:4000/post/${post.id}`, {
+  bookDelete = (book: book) => {
+    fetch(`http://localhost:4000/book/${book.id}`, {
       method: 'DELETE',
       headers: new Headers({
         'Content-Type': 'application/json',
         Authorization: this.props.token,
       }),
-    }).then((res) => this.props.fetchPosts());
+    }).then((res) => this.props.fetchBooks());
   };
 
   next = () => {
     if (this.state.animating) return;
     const nextIndex =
-      this.state.activeIndex === this.props.posts.length - 1
+      this.state.activeIndex === this.props.books.length - 1
         ? 0
         : this.state.activeIndex + 1;
     this.setState({ activeIndex: nextIndex });
@@ -58,7 +57,7 @@ class PostsFeed extends Component<PostsFeedProps, PostsFeedState> {
     if (this.state.animating) return;
     const nextIndex =
       this.state.activeIndex === 0
-        ? this.props.posts.length - 1
+        ? this.props.books.length - 1
         : this.state.activeIndex - 1;
     this.setState({ activeIndex: nextIndex });
   };
@@ -81,8 +80,8 @@ class PostsFeed extends Component<PostsFeedProps, PostsFeedState> {
     e.currentTarget.style.color = '#eeebe2';
   };
 
-  postsMapper = () => {
-    return this.props.posts.map((post, index) => {
+  bookMapper = () => {
+    return this.props.books.map((book, index) => {
       return (
         <CarouselItem
           onExiting={() => this.setState({ animating: true })}
@@ -96,15 +95,15 @@ class PostsFeed extends Component<PostsFeedProps, PostsFeedState> {
           >
             <div className="row">
               <CardBody style={{ textAlign: 'left' }} className="col-9">
-                <CardTitle tag="h4">{post.title}</CardTitle>
+                <CardTitle tag="h4">{book.title}</CardTitle>
                 <CardSubtitle className="text-muted" tag="h6">
-                  {post.genre}
+                  {book.genre}
                 </CardSubtitle>
               </CardBody>
               <CardBody className="col-3">
                 <CardText className="card-text">
                   <small className="text-muted">Pages:</small>{' '}
-                  <small className="text-muted">{post.pageLength}</small>
+                  <small className="text-muted">{book.pageLength}</small>
                 </CardText>
               </CardBody>
             </div>
@@ -114,18 +113,19 @@ class PostsFeed extends Component<PostsFeedProps, PostsFeedState> {
             >
               <img
                 style={{ textAlign: 'center' }}
-                src={post.picture}
+                src={book.picture}
                 className="img-fluid rounded"
                 width="200px"
                 alt="Book Cover"
               />
             </CardBody>
             <CardBody className="card-body mb-3">
+              <CardText>{book.author}</CardText>
               <CardBody>
                 <Button
                   style={{ backgroundColor: '#181d31', color: '#eeebe2' }}
                   onClick={() => {
-                    this.props.editUpdatePost(post);
+                    this.props.editUpdateBook(book);
                     this.props.updateOn();
                   }}
                   onMouseEnter={this.enterBtn}
@@ -136,7 +136,7 @@ class PostsFeed extends Component<PostsFeedProps, PostsFeedState> {
                 <Button
                   style={{ backgroundColor: '#181d31', color: '#eeebe2' }}
                   onClick={() => {
-                    this.postDelete(post);
+                    this.bookDelete(book);
                   }}
                   onMouseEnter={this.enterBtn}
                   onMouseLeave={this.leaveBtn}
@@ -168,11 +168,11 @@ class PostsFeed extends Component<PostsFeedProps, PostsFeedState> {
         >
           <CarouselIndicators
             activeIndex={this.state.activeIndex}
-            items={this.props.posts}
+            items={this.props.books}
             onClickHandler={this.goToIndex}
             className="mb-1"
           />
-          {this.postsMapper()}
+          {this.bookMapper()}
           <CarouselControl
             direction="prev"
             directionText="Previous"
@@ -189,4 +189,4 @@ class PostsFeed extends Component<PostsFeedProps, PostsFeedState> {
   }
 }
 
-export default PostsFeed;
+export default MyBookFeed;
