@@ -23,6 +23,7 @@ interface ReviewFeedState {
 export interface review {
   id: number;
   title: string;
+  author: string;
   genre: string;
   pageLength: number | string;
   picture: string;
@@ -90,13 +91,14 @@ class ReviewFeed extends Component<ReviewFeedProps, ReviewFeedState> {
             <CardBody style={{ textAlign: 'left' }} className="col-9">
               <CardTitle tag="h4">{review.title}</CardTitle>
               <CardSubtitle className="text-muted" tag="h6">
-                {review.genre}
+                {review.author}
               </CardSubtitle>
             </CardBody>
             <CardBody className="col-3">
               <CardText className="card-text">
                 <small className="text-muted">Pages:</small>{' '}
-                <small className="text-muted">{review.pageLength}</small>
+                <small className="text-muted">{review.pageLength}</small>{' '}
+                <small>{review.genre}</small>
               </CardText>
             </CardBody>
           </div>

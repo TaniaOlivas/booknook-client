@@ -24,6 +24,7 @@ interface SearchIndexState {
 export interface genre {
   id: number;
   title: string;
+  author: string;
   genre: string;
   pageLength: number;
   picture: string;
@@ -31,6 +32,7 @@ export interface genre {
 export interface title {
   id: number;
   title: string;
+  author: string;
   genre: string;
   pageLength: number;
   picture: string;

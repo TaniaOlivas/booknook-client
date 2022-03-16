@@ -57,7 +57,7 @@ class SearchTitle extends Component<SearchTitleProps, SearchTitleState> {
             <div className="col-8">
               <CardBody className="card-body">
                 <CardText>
-                  <CardSubtitle tag="h6">Author:</CardSubtitle>
+                  <CardSubtitle tag="h6">{title.author}</CardSubtitle>
                 </CardText>
                 <CardText>
                   <small>Genre: {title.genre}</small>

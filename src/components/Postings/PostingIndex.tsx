@@ -16,6 +16,7 @@ interface PostIndexState {
 export interface post {
   id: number;
   title: string;
+  author: string;
   genre: string;
   pageLength: number | string;
   picture: string;

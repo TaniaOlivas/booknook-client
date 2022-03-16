@@ -25,6 +25,7 @@ interface UpdateReviewProps {
 interface UpdateReviewState {
   editId: number;
   editTitle: string;
+  editAuthor: string;
   editGenre: string;
   editPageLength: number | string;
   editPicture: string;
@@ -40,6 +41,7 @@ class UpdateReview extends Component<UpdateReviewProps, UpdateReviewState> {
     this.state = {
       editId: this.props.reviewToUpdate.id,
       editTitle: this.props.reviewToUpdate.title,
+      editAuthor: this.props.reviewToUpdate.author,
       editGenre: this.props.reviewToUpdate.genre,
       editPageLength: this.props.reviewToUpdate.pageLength,
       editPicture: this.props.reviewToUpdate.picture,
@@ -56,6 +58,7 @@ class UpdateReview extends Component<UpdateReviewProps, UpdateReviewState> {
       method: 'PUT',
       body: JSON.stringify({
         title: this.state.editTitle,
+        author: this.state.editAuthor,
         genre: this.state.editGenre,
         pageLength: this.state.editPageLength,
         picture: this.state.editPicture,
@@ -107,23 +110,39 @@ class UpdateReview extends Component<UpdateReviewProps, UpdateReviewState> {
           <ModalBody style={{ backgroundColor: '#eeebe2', color: '#181d31' }}>
             <Form onSubmit={(e) => this.reviewUpdate(e)}>
               <Row>
-                <Col xs="9">
+                <FormGroup>
+                  <Label for="Title">Title</Label>
+                  <Input
+                    style={{ borderColor: '#181d31' }}
+                    id="Title"
+                    type="text"
+                    name="Title"
+                    value={this.state.editTitle}
+                    placeholder="Title"
+                    onChange={(e) =>
+                      this.setState({ editTitle: e.target.value })
+                    }
+                  />
+                </FormGroup>
+              </Row>
+              <Row>
+                <Col xs="8">
                   <FormGroup>
-                    <Label for="Title">Title</Label>
+                    <Label for="author">Author</Label>
                     <Input
                       style={{ borderColor: '#181d31' }}
-                      id="Title"
+                      id="author"
                       type="text"
-                      name="Title"
-                      value={this.state.editTitle}
-                      placeholder="Title"
+                      name="author"
+                      value={this.state.editAuthor}
+                      placeholder="Author"
                       onChange={(e) =>
-                        this.setState({ editTitle: e.target.value })
+                        this.setState({ editAuthor: e.target.value })
                       }
                     />
                   </FormGroup>
                 </Col>
-                <Col xs="3">
+                <Col xs="4">
                   <FormGroup>
                     <Label for="pageLength">Pages</Label>
                     <Input

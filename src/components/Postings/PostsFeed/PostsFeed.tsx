@@ -98,13 +98,14 @@ class PostsFeed extends Component<PostsFeedProps, PostsFeedState> {
               <CardBody style={{ textAlign: 'left' }} className="col-9">
                 <CardTitle tag="h4">{post.title}</CardTitle>
                 <CardSubtitle className="text-muted" tag="h6">
-                  {post.genre}
+                  {post.author}
                 </CardSubtitle>
               </CardBody>
               <CardBody className="col-3">
                 <CardText className="card-text">
                   <small className="text-muted">Pages:</small>{' '}
-                  <small className="text-muted">{post.pageLength}</small>
+                  <small className="text-muted">{post.pageLength}</small>{' '}
+                  <small>{post.genre}</small>
                 </CardText>
               </CardBody>
             </div>

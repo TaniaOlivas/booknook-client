@@ -16,6 +16,7 @@ interface ReviewIndexState {
 export interface review {
   id: number;
   title: string;
+  author: string;
   genre: string;
   pageLength: number | string;
   picture: string;
@@ -84,10 +85,10 @@ class ReviewIndex extends Component<ReviewIndexProps, ReviewIndexState> {
         <h2>None yet! Create one!</h2>
       );
     return (
-      <div style={{ textAlign: 'center', margin: '70px 0px 55px 0px' }}>
+      <div style={{ textAlign: 'center', margin: '75px 0px 55px 0px' }}>
         <div className="container">
           <div className="row">
-            <div className="col-md-6 mb-1">
+            <div className="col-md-6 mb-1 rounded">
               <h1>Create a Review</h1>
               <CreateReview
                 token={this.props.token}

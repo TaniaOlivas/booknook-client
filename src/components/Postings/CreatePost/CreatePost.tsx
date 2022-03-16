@@ -17,6 +17,7 @@ interface CreatePostProps {
 
 interface CreatePostState {
   title: string;
+  author: string;
   genre: string;
   pageLength: number | string;
   picture: string;
@@ -29,6 +30,7 @@ class CreatePost extends Component<CreatePostProps, CreatePostState> {
     super(props);
     this.state = {
       title: '',
+      author: '',
       genre: '',
       pageLength: '',
       picture: '',
@@ -64,6 +66,7 @@ class CreatePost extends Component<CreatePostProps, CreatePostState> {
       method: 'POST',
       body: JSON.stringify({
         title: this.state.title,
+        author: this.state.author,
         genre: this.state.genre,
         pageLength: this.state.pageLength,
         picture: this.state.picture,
@@ -80,6 +83,7 @@ class CreatePost extends Component<CreatePostProps, CreatePostState> {
 
         this.setState({
           title: '',
+          author: '',
           genre: '',
           pageLength: '',
           picture: '',
@@ -119,36 +123,22 @@ class CreatePost extends Component<CreatePostProps, CreatePostState> {
           }}
           onSubmit={this.handleSubmit}
         >
-          <Row>
-            <FormGroup>
-              <Label for="title">Title</Label>
-              <Input
-                style={{ borderColor: '#181d31' }}
-                id="title"
-                name="title"
-                placeholder="Title"
-                type="text"
-                value={this.state.title}
-                onChange={(e) => this.setState({ title: e.target.value })}
-              />
-            </FormGroup>
-          </Row>
-          <Row>
-            <Col>
+          <Row xs="2">
+            <Col xs="9">
               <FormGroup>
-                <Label for="genre">Genre</Label>
+                <Label for="title">Title</Label>
                 <Input
                   style={{ borderColor: '#181d31' }}
-                  id="genre"
-                  name="genre"
-                  placeholder="Genre"
+                  id="title"
+                  name="title"
+                  placeholder="Title"
                   type="text"
-                  value={this.state.genre}
-                  onChange={(e) => this.setState({ genre: e.target.value })}
+                  value={this.state.title}
+                  onChange={(e) => this.setState({ title: e.target.value })}
                 />
               </FormGroup>
             </Col>
-            <Col>
+            <Col xs="3">
               <FormGroup>
                 <Label for="pageLength">Pages</Label>
                 <Input
@@ -161,6 +151,36 @@ class CreatePost extends Component<CreatePostProps, CreatePostState> {
                   onChange={(e) =>
                     this.setState({ pageLength: e.target.value })
                   }
+                />
+              </FormGroup>
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <FormGroup>
+                <Label for="author">Author</Label>
+                <Input
+                  style={{ borderColor: '#181d31' }}
+                  id="author"
+                  name="author"
+                  type="text"
+                  placeholder="Author"
+                  value={this.state.author}
+                  onChange={(e) => this.setState({ author: e.target.value })}
+                />
+              </FormGroup>
+            </Col>
+            <Col>
+              <FormGroup>
+                <Label for="genre">Genre</Label>
+                <Input
+                  style={{ borderColor: '#181d31' }}
+                  id="genre"
+                  name="genre"
+                  placeholder="Genre"
+                  type="text"
+                  value={this.state.genre}
+                  onChange={(e) => this.setState({ genre: e.target.value })}
                 />
               </FormGroup>
             </Col>

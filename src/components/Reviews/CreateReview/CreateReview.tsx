@@ -18,6 +18,7 @@ interface CreateReviewProps {
 
 interface CreateReviewState {
   title: string;
+  author: string;
   genre: string;
   pageLength: number | string;
   picture: string;
@@ -33,6 +34,7 @@ class CreateReview extends Component<CreateReviewProps, CreateReviewState> {
     super(props);
     this.state = {
       title: '',
+      author: '',
       genre: '',
       pageLength: '',
       picture: '',
@@ -72,6 +74,7 @@ class CreateReview extends Component<CreateReviewProps, CreateReviewState> {
       method: 'POST',
       body: JSON.stringify({
         title: this.state.title,
+        author: this.state.author,
         genre: this.state.genre,
         pageLength: this.state.pageLength,
         picture: this.state.picture,
@@ -90,6 +93,7 @@ class CreateReview extends Component<CreateReviewProps, CreateReviewState> {
 
         this.setState({
           title: '',
+          author: '',
           genre: '',
           pageLength: '',
           picture: '',
@@ -119,7 +123,7 @@ class CreateReview extends Component<CreateReviewProps, CreateReviewState> {
   render() {
     return (
       <Container
-        className="rounded"
+        className="rounded pt-2"
         style={{
           backgroundColor: 'white',
           border: '1px solid #ccc',
@@ -131,18 +135,32 @@ class CreateReview extends Component<CreateReviewProps, CreateReviewState> {
             backgroundColor: 'white',
           }}
         >
+          <Row>
+            <FormGroup>
+              <Label for="title">Title</Label>
+              <Input
+                style={{ borderColor: '#181d31' }}
+                id="title"
+                name="title"
+                placeholder="Title"
+                type="text"
+                value={this.state.title}
+                onChange={(e) => this.setState({ title: e.target.value })}
+              />
+            </FormGroup>
+          </Row>
           <Row xs="2">
             <Col xs="8">
               <FormGroup>
-                <Label for="title">Title</Label>
+                <Label for="author">Author</Label>
                 <Input
                   style={{ borderColor: '#181d31' }}
-                  id="title"
-                  name="title"
-                  placeholder="Title"
+                  id="author"
+                  name="author"
+                  placeholder="Author"
                   type="text"
-                  value={this.state.title}
-                  onChange={(e) => this.setState({ title: e.target.value })}
+                  value={this.state.author}
+                  onChange={(e) => this.setState({ author: e.target.value })}
                 />
               </FormGroup>
             </Col>

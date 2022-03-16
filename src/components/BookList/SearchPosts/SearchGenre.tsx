@@ -56,7 +56,7 @@ class SearchGenre extends Component<SearchGenreProps, SearchGenreState> {
             <div className="col-8">
               <CardBody className="card-body">
                 <CardText>
-                  <CardSubtitle tag="h6">Author:</CardSubtitle>
+                  <CardSubtitle tag="h6">{genre.author}</CardSubtitle>
                 </CardText>
                 <CardText>
                   <small>Genre: {genre.genre}</small>
