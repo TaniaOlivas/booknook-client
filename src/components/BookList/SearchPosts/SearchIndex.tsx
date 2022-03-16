@@ -1,5 +1,13 @@
 import { Component } from 'react';
-import { Input, Button, Form, FormGroup, Label, Container } from 'reactstrap';
+import {
+  Input,
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Container,
+  Row,
+} from 'reactstrap';
 import FetchBooks from './FetchBooks';
 import SearchGenre from './SearchGenre';
 import SearchTitle from './SearchTitle';
@@ -96,52 +104,48 @@ class SearchIndex extends Component<SearchIndexProps, SearchIndexState> {
         <div className="container">
           <div className="row">
             <div className="col-md-6 mb-1">
-              <h3>Search Books By Our Authors</h3>
-              <Container>
-                <Form>
-                  <FormGroup>
-                    <Input
-                      id="posts"
-                      name="posts"
-                      type="text"
-                      placeholder="Search By Title or Genre"
-                      value={this.state.searchItem}
-                      onChange={(e) =>
-                        this.setState({ searchItem: e.target.value })
-                      }
-                    />
-                  </FormGroup>
-                  <FormGroup>
-                    <Button
-                      onClick={() => {
-                        this.fetchTitle();
-                        this.fetchGenre();
-                      }}
-                      style={{ backgroundColor: '#181d31', color: '#eeebe2' }}
-                      onMouseEnter={this.enterBtn}
-                      onMouseLeave={this.leaveBtn}
-                    >
-                      Search
-                    </Button>
-                  </FormGroup>
-                </Form>
-                <div>
-                  <SearchGenre
-                    token={this.props.token}
-                    searchGenres={this.state.searchGenres}
-                    fetchGenre={this.fetchGenre}
+              <Form>
+                <FormGroup>
+                  <Input
+                    id="posts"
+                    name="posts"
+                    type="text"
+                    placeholder="Search By Title or Genre"
+                    value={this.state.searchItem}
+                    onChange={(e) =>
+                      this.setState({ searchItem: e.target.value })
+                    }
                   />
-                  <SearchTitle
-                    token={this.props.token}
-                    searchTitles={this.state.searchTitles}
-                    fetchTitle={this.fetchTitle}
-                  />
-                </div>
-              </Container>
+                </FormGroup>
+                <FormGroup>
+                  <Button
+                    onClick={() => {
+                      this.fetchTitle();
+                      this.fetchGenre();
+                    }}
+                    style={{ backgroundColor: '#181d31', color: '#eeebe2' }}
+                    onMouseEnter={this.enterBtn}
+                    onMouseLeave={this.leaveBtn}
+                  >
+                    Search
+                  </Button>
+                </FormGroup>
+              </Form>
+              <div>
+                <SearchGenre
+                  token={this.props.token}
+                  searchGenres={this.state.searchGenres}
+                  fetchGenre={this.fetchGenre}
+                />
+                <SearchTitle
+                  token={this.props.token}
+                  searchTitles={this.state.searchTitles}
+                  fetchTitle={this.fetchTitle}
+                />
+              </div>
             </div>
             <div className="col-md-6 mb-1">
-              <h3>Search Other Books:</h3>
-              <FetchBooks />
+              <FetchBooks token={this.props.token} />
             </div>
           </div>
         </div>

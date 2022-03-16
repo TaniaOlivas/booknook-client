@@ -15,12 +15,19 @@ import {
   Label,
   Row,
 } from 'reactstrap';
-interface FetchBooksProps {}
+interface FetchBooksProps {
+  token: string;
+}
 
 interface FetchBooksState {
   searchTerm: string;
   BookResponse: Item[];
   searchResponse: Item[];
+  title: string;
+  author: string;
+  genre: string;
+  pageLength: number | string;
+  picture: string;
 }
 
 interface BookResponse {
@@ -47,6 +54,11 @@ class FetchBooks extends Component<FetchBooksProps, FetchBooksState> {
       searchTerm: '',
       BookResponse: [],
       searchResponse: [],
+      title: '',
+      author: '',
+      genre: '',
+      pageLength: '',
+      picture: '',
     };
     this.bookMapper = this.bookMapper.bind(this);
   }
@@ -63,6 +75,39 @@ class FetchBooks extends Component<FetchBooksProps, FetchBooksState> {
         });
       })
       .catch((err) => console.log(err));
+  };
+
+  handleClick = (e: React.MouseEvent<HTMLButtonElement>, Item: Item) => {
+    console.log('Button Clicked');
+
+    fetch('http://localhost:4000/book/create', {
+      method: 'POST',
+      body: JSON.stringify({
+        title: Item.volumeInfo.title,
+        author: Item.volumeInfo.authors[0],
+        genre: Item.volumeInfo.categories[0],
+        pageLength: Item.volumeInfo.pageCount,
+        picture: Item.volumeInfo.imageLinks?.thumbnail,
+      }),
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        Authorization: this.props.token,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        this.setState({
+          title: '',
+          author: '',
+          genre: '',
+          pageLength: '',
+          picture: '',
+        });
+      })
+      .catch((err) => {
+        console.error('Error:', err);
+      });
   };
 
   enterBtn = (
@@ -101,7 +146,7 @@ class FetchBooks extends Component<FetchBooksProps, FetchBooksState> {
                   </CardSubtitle>
                 </CardText>
                 <CardText>
-                  <small>Genre: {Item.volumeInfo.categories[0]}</small>
+                  <small>Genre: {Item.volumeInfo.categories}</small>
                 </CardText>
                 <CardText>
                   <small>Pages: {Item.volumeInfo.pageCount}</small>
@@ -109,6 +154,7 @@ class FetchBooks extends Component<FetchBooksProps, FetchBooksState> {
               </CardBody>
               <CardBody>
                 <Button
+                  onClick={(e) => this.handleClick(e, Item)}
                   style={{ backgroundColor: '#181d31', color: '#eeebe2' }}
                   onMouseEnter={this.enterBtn}
                   onMouseLeave={this.leaveBtn}
@@ -124,37 +170,35 @@ class FetchBooks extends Component<FetchBooksProps, FetchBooksState> {
   };
   render() {
     return (
-      <Container>
+      <div>
         <Form>
-          <Row>
-            <FormGroup>
-              <Input
-                id="genre"
-                name="genre"
-                type="text"
-                placeholder="Search By Author, Title, Genre"
-                value={this.state.searchTerm}
-                onChange={(e) => this.setState({ searchTerm: e.target.value })}
-              />
-            </FormGroup>
+          <FormGroup>
+            <Input
+              id="genre"
+              name="genre"
+              type="text"
+              placeholder="Search By Author, Title, Genre"
+              value={this.state.searchTerm}
+              onChange={(e) => this.setState({ searchTerm: e.target.value })}
+            />
+          </FormGroup>
 
-            <FormGroup>
-              <Button
-                onClick={() => {
-                  this.fetchBooks();
-                }}
-                style={{ backgroundColor: '#181d31', color: '#eeebe2' }}
-                onMouseEnter={this.enterBtn}
-                onMouseLeave={this.leaveBtn}
-              >
-                Search
-              </Button>
-            </FormGroup>
-          </Row>
+          <FormGroup>
+            <Button
+              onClick={() => {
+                this.fetchBooks();
+              }}
+              style={{ backgroundColor: '#181d31', color: '#eeebe2' }}
+              onMouseEnter={this.enterBtn}
+              onMouseLeave={this.leaveBtn}
+            >
+              Search
+            </Button>
+          </FormGroup>
         </Form>
 
         <div>{this.bookMapper()}</div>
-      </Container>
+      </div>
     );
   }
 }

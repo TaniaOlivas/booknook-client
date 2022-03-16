@@ -8,7 +8,7 @@ import { BsViewList } from 'react-icons/bs';
 
 import 'react-pro-sidebar/dist/css/styles.css';
 import ReviewFeed from '../Reviews/Feed/ReviewFeed';
-import SearchIndex from '../Postings/SearchPost/SearchIndex';
+import SearchIndex from '../BookList/SearchPosts/SearchIndex';
 import PostIndex from '../Postings/PostingIndex';
 import ReviewIndex from '../Reviews/ReviewIndex';
 import BooksIndex from '../BookList/BooksIndex';

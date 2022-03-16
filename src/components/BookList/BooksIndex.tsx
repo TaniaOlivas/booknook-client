@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Component } from 'react';
-import CreateBook from './CreateBook/CreateBook';
 import MyBookFeed from './BookFeed/MyBookFeed';
 import UpdateBook from './UpdateBook/UpdateBook';
 
@@ -33,7 +32,7 @@ class BooksIndex extends Component<BooksIndexProps, BooksIndexState> {
     };
   }
 
-  fetchBooks = () => {
+  fetchList = () => {
     fetch('http://localhost:4000/book/mine', {
       method: 'GET',
       headers: new Headers({
@@ -54,7 +53,7 @@ class BooksIndex extends Component<BooksIndexProps, BooksIndexState> {
   };
 
   componentDidMount() {
-    this.fetchBooks();
+    this.fetchList();
   }
 
   editUpdateBook = (book: book) => {
@@ -75,7 +74,7 @@ class BooksIndex extends Component<BooksIndexProps, BooksIndexState> {
       this.state.books.length >= 1 ? (
         <MyBookFeed
           books={this.state.books}
-          fetchBooks={this.fetchBooks}
+          fetchBooks={this.fetchList}
           token={this.props.token}
           updateOn={this.updateOn}
           editUpdateBook={this.editUpdateBook}
@@ -87,16 +86,8 @@ class BooksIndex extends Component<BooksIndexProps, BooksIndexState> {
       <div style={{ textAlign: 'center', margin: '70px 0px 55px 0px' }}>
         <div className="container">
           <div className="row">
-            <div className="col-md-6 mb-1">
-              <h1>Add a Book</h1>
-              <CreateBook
-                token={this.props.token}
-                fetchBooks={this.fetchBooks}
-              />
-            </div>
-            <div className="col-md-6 mb-1">
+            <div>
               <h1>Your Books</h1>
-
               {books}
             </div>
           </div>
@@ -105,7 +96,7 @@ class BooksIndex extends Component<BooksIndexProps, BooksIndexState> {
               bookToUpdate={this.state.bookToUpdate}
               updateOff={this.updateOff}
               token={this.props.token}
-              fetchBooks={this.fetchBooks}
+              fetchBooks={this.fetchList}
             />
           ) : (
             <div></div>
