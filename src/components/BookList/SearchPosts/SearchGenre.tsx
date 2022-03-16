@@ -24,6 +24,39 @@ class SearchGenre extends Component<SearchGenreProps, SearchGenreState> {
     this.state = { searchGenres: [] };
     this.genreMapper = this.genreMapper.bind(this);
   }
+
+  handleClick = (e: React.MouseEvent<HTMLButtonElement>, genre: genre) => {
+    console.log('Button Clicked');
+
+    fetch('http://localhost:4000/book/create', {
+      method: 'POST',
+      body: JSON.stringify({
+        title: genre.title,
+        author: genre.author,
+        genre: genre.genre,
+        pageLength: genre.pageLength,
+        picture: genre.picture,
+      }),
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        Authorization: this.props.token,
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        this.setState({
+          title: '',
+          author: '',
+          genre: '',
+          pageLength: '',
+          picture: '',
+        });
+      })
+      .catch((err) => {
+        console.error('Error:', err);
+      });
+  };
   enterBtn = (
     e: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLInputElement>
   ) => {
@@ -67,6 +100,7 @@ class SearchGenre extends Component<SearchGenreProps, SearchGenreState> {
               </CardBody>
               <CardBody>
                 <Button
+                  onClick={(e) => this.handleClick(e, genre)}
                   style={{ backgroundColor: '#181d31', color: '#eeebe2' }}
                   onMouseEnter={this.enterBtn}
                   onMouseLeave={this.leaveBtn}

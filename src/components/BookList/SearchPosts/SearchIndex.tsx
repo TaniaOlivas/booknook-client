@@ -102,7 +102,7 @@ class SearchIndex extends Component<SearchIndexProps, SearchIndexState> {
 
   render() {
     return (
-      <div style={{ textAlign: 'center', margin: '70px 0px 55px 0px' }}>
+      <div style={{ textAlign: 'center', margin: '75px 0px 55px 0px' }}>
         <div className="container">
           <div className="row">
             <div className="col-md-6 mb-1">

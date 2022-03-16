@@ -104,14 +104,14 @@ class ReviewFeed extends Component<ReviewFeedProps, ReviewFeedState> {
           </div>
           <CardBody
             className="my-0 rounded"
-            style={{ backgroundColor: '#eeebe2' }}
+            style={{ backgroundColor: '#f5f1e5' }}
           >
             <img
               style={{ textAlign: 'center' }}
               src={review.picture}
               className="img-fluid rounded"
               width="200px"
-              alt="Card Image Cap"
+              alt="Book Cover"
             />
           </CardBody>
           <CardBody className="card-body mb-3">
@@ -139,7 +139,7 @@ class ReviewFeed extends Component<ReviewFeedProps, ReviewFeedState> {
               {this.state.isOpen === true ? (
                 <CardBody
                   className="rounded"
-                  style={{ backgroundColor: '#eeebe2', color: '#181d31' }}
+                  style={{ backgroundColor: '#f5f1e5', color: '#181d31' }}
                 >
                   <CardTitle
                     onClick={this.handleToggle}
@@ -169,7 +169,7 @@ class ReviewFeed extends Component<ReviewFeedProps, ReviewFeedState> {
               {this.state.isOpen === true ? (
                 <CardBody
                   className=""
-                  style={{ backgroundColor: '#f5f1e5', color: '#181d31' }}
+                  style={{ backgroundColor: '#fffef7', color: '#181d31' }}
                 >
                   <CommentIndex
                     token={this.props.token}

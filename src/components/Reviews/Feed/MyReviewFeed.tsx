@@ -93,7 +93,7 @@ class MyReviewFeed extends Component<MyReviewFeedProps, MyReviewFeedState> {
               borderColor: '#ccc',
             }}
           >
-            <div className="row">
+            <div className="row mx-0">
               <CardBody style={{ textAlign: 'left' }} className="col-9">
                 <CardTitle tag="h4">{review.title}</CardTitle>
                 <CardSubtitle className="text-muted" tag="h6">
@@ -109,8 +109,8 @@ class MyReviewFeed extends Component<MyReviewFeedProps, MyReviewFeedState> {
               </CardBody>
             </div>
             <CardBody
-              className="my-0 rounded"
-              style={{ backgroundColor: '#eeebe2' }}
+              className="my-0 mx-3 rounded"
+              style={{ backgroundColor: '#f5f1e5' }}
             >
               <img
                 style={{ textAlign: 'center' }}

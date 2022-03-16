@@ -91,15 +91,15 @@ class UpdatePost extends Component<UpdatePostProps, UpdatePostState> {
         <Modal isOpen={true} toggle={this.toggle}>
           <ModalHeader
             style={{
-              backgroundColor: '#f5f1e5',
-              color: '#181d31',
+              backgroundColor: '#181d31',
+              color: '#fffef7',
               borderBottomColor: '#181d31',
             }}
             toggle={this.toggle}
           >
             Update Book
           </ModalHeader>
-          <ModalBody style={{ backgroundColor: '#eeebe2', color: '#181d31' }}>
+          <ModalBody style={{ backgroundColor: '#fffef7', color: '#181d31' }}>
             <Form onSubmit={(e) => this.postUpdate(e)}>
               <Row xs="2">
                 <Col xs="9">
@@ -177,25 +177,19 @@ class UpdatePost extends Component<UpdatePostProps, UpdatePostState> {
                   imageSet={this.imageSet}
                 />
               </FormGroup>
+              <FormGroup>
+                <Button
+                  style={{ backgroundColor: '#181d31', color: '#eeebe2' }}
+                  type="submit"
+                  onMouseEnter={this.enterBtn}
+                  onMouseLeave={this.leaveBtn}
+                >
+                  {' '}
+                  Submit{' '}
+                </Button>
+              </FormGroup>
             </Form>
           </ModalBody>
-          <ModalFooter
-            style={{
-              backgroundColor: '#f5f1e5',
-              color: '#181d31',
-              borderTopColor: '#181d31',
-            }}
-          >
-            <Button
-              style={{ backgroundColor: '#181d31', color: '#eeebe2' }}
-              type="submit"
-              onMouseEnter={this.enterBtn}
-              onMouseLeave={this.leaveBtn}
-            >
-              {' '}
-              Submit{' '}
-            </Button>
-          </ModalFooter>
         </Modal>
       </div>
     );

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component } from 'react';
 import MyBookFeed from './BookFeed/MyBookFeed';
-import UpdateBook from './UpdateBook/UpdateBook';
+import ReviewBook from './ReviewBook/ReviewBook';
 
 interface BooksIndexProps {
   token: string;
@@ -86,13 +86,10 @@ class BooksIndex extends Component<BooksIndexProps, BooksIndexState> {
       <div style={{ textAlign: 'center', margin: '70px 0px 55px 0px' }}>
         <div className="container">
           <div className="row">
-            <div>
-              <h1>Your Books</h1>
-              {books}
-            </div>
+            <div>{books}</div>
           </div>
           {this.state.updateActive ? (
-            <UpdateBook
+            <ReviewBook
               bookToUpdate={this.state.bookToUpdate}
               updateOff={this.updateOff}
               token={this.props.token}

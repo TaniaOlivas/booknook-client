@@ -8,78 +8,89 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter,
   Row,
   Col,
 } from 'reactstrap';
-import ImageUpload from '../../ImageUpload/ImageUpload';
-import { review } from '../ReviewIndex';
+import { book } from '../BooksIndex';
 
-interface UpdateReviewProps {
-  reviewToUpdate: review;
+interface ReviewBookProps {
+  bookToUpdate: book;
   updateOff: Function;
   token: string;
-  fetchReviews: Function;
+  fetchBooks: Function;
 }
 
-interface UpdateReviewState {
-  editId: number;
-  editTitle: string;
-  editAuthor: string;
-  editGenre: string;
-  editPageLength: number | string;
-  editPicture: string;
-  editContent: string;
-  editRating: string | number;
+interface ReviewBookState {
+  title: string;
+  author: string;
+  genre: string;
+  pageLength: number | string;
+  picture: string;
+  content: string;
+  rating: number | string;
   modal: boolean;
   hover: number | string;
 }
 
-class UpdateReview extends Component<UpdateReviewProps, UpdateReviewState> {
-  constructor(props: UpdateReviewProps) {
+class ReviewBook extends Component<ReviewBookProps, ReviewBookState> {
+  constructor(props: ReviewBookProps) {
     super(props);
     this.state = {
-      editId: this.props.reviewToUpdate.id,
-      editTitle: this.props.reviewToUpdate.title,
-      editAuthor: this.props.reviewToUpdate.author,
-      editGenre: this.props.reviewToUpdate.genre,
-      editPageLength: this.props.reviewToUpdate.pageLength,
-      editPicture: this.props.reviewToUpdate.picture,
-      editContent: this.props.reviewToUpdate.content,
-      editRating: this.props.reviewToUpdate.rating,
+      title: this.props.bookToUpdate.title,
+      author: this.props.bookToUpdate.author,
+      genre: this.props.bookToUpdate.genre,
+      pageLength: this.props.bookToUpdate.pageLength,
+      picture: this.props.bookToUpdate.picture,
+      content: '',
+      rating: 0,
       modal: false,
       hover: 0,
     };
   }
 
-  reviewUpdate = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    fetch(`http://localhost:4000/review/${this.props.reviewToUpdate.id}`, {
-      method: 'PUT',
+  handleSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    fetch('http://localhost:4000/review/create', {
+      method: 'POST',
       body: JSON.stringify({
-        title: this.state.editTitle,
-        author: this.state.editAuthor,
-        genre: this.state.editGenre,
-        pageLength: this.state.editPageLength,
-        picture: this.state.editPicture,
-        content: this.state.editContent,
-        rating: this.state.editRating,
+        title: this.state.title,
+        author: this.state.author,
+        genre: this.state.genre,
+        pageLength: this.state.pageLength,
+        picture: this.state.picture,
+        rating: this.state.rating,
+        content: this.state.content,
       }),
       headers: new Headers({
         'Content-Type': 'application/json',
         Authorization: this.props.token,
       }),
-    }).then((res) => {
-      this.props.fetchReviews();
-      this.props.updateOff();
-    });
+    })
+      .then((res) => {
+        res.json();
+      })
+      .then((data) => {
+        console.log(data);
+        this.setState({
+          title: '',
+          author: '',
+          genre: '',
+          pageLength: '',
+          picture: '',
+          rating: 0,
+          content: '',
+        });
+      })
+      .catch((err) => {
+        console.error('Error:', err);
+      });
   };
 
   toggle = () => {
     this.props.updateOff();
   };
   imageSet = (image: string) => {
-    this.setState({ editPicture: image });
+    this.setState({ picture: image });
   };
   enterBtn = (
     e: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLInputElement>
@@ -105,10 +116,10 @@ class UpdateReview extends Component<UpdateReviewProps, UpdateReviewState> {
             }}
             toggle={this.toggle}
           >
-            Update Review
+            Create Review
           </ModalHeader>
-          <ModalBody style={{ backgroundColor: '#eeebe2', color: '#181d31' }}>
-            <Form onSubmit={(e) => this.reviewUpdate(e)}>
+          <ModalBody style={{ backgroundColor: '#fffef7', color: '#181d31' }}>
+            <Form onSubmit={this.handleSubmit}>
               <Row>
                 <FormGroup>
                   <Label for="Title">Title</Label>
@@ -117,27 +128,25 @@ class UpdateReview extends Component<UpdateReviewProps, UpdateReviewState> {
                     id="Title"
                     type="text"
                     name="Title"
-                    value={this.state.editTitle}
+                    value={this.state.title}
                     placeholder="Title"
-                    onChange={(e) =>
-                      this.setState({ editTitle: e.target.value })
-                    }
+                    onChange={(e) => this.setState({ title: e.target.value })}
                   />
                 </FormGroup>
               </Row>
-              <Row>
+              <Row xs="2">
                 <Col xs="8">
                   <FormGroup>
                     <Label for="author">Author</Label>
                     <Input
                       style={{ borderColor: '#181d31' }}
                       id="author"
-                      type="text"
                       name="author"
-                      value={this.state.editAuthor}
                       placeholder="Author"
+                      type="text"
+                      value={this.state.author}
                       onChange={(e) =>
-                        this.setState({ editAuthor: e.target.value })
+                        this.setState({ author: e.target.value })
                       }
                     />
                   </FormGroup>
@@ -150,10 +159,10 @@ class UpdateReview extends Component<UpdateReviewProps, UpdateReviewState> {
                       id="pageLength"
                       type="text"
                       name="pageLength"
-                      value={this.state.editPageLength}
+                      value={this.state.pageLength}
                       placeholder="Pages"
                       onChange={(e) =>
-                        this.setState({ editPageLength: e.target.value })
+                        this.setState({ pageLength: e.target.value })
                       }
                     />
                   </FormGroup>
@@ -168,10 +177,8 @@ class UpdateReview extends Component<UpdateReviewProps, UpdateReviewState> {
                       type="text"
                       name="genre"
                       id="genre"
-                      value={this.state.editGenre}
-                      onChange={(e) =>
-                        this.setState({ editGenre: e.target.value })
-                      }
+                      value={this.state.genre}
+                      onChange={(e) => this.setState({ genre: e.target.value })}
                       placeholder="Genre"
                     />
                   </FormGroup>
@@ -187,12 +194,12 @@ class UpdateReview extends Component<UpdateReviewProps, UpdateReviewState> {
                             type="button"
                             key={index}
                             className={
-                              index <= this.state.editRating ? 'on' : 'off'
+                              index <= this.state.rating ? 'on' : 'off'
                             }
-                            onClick={() => this.setState({ editRating: index })}
+                            onClick={() => this.setState({ rating: index })}
                             onMouseEnter={() => this.setState({ hover: index })}
                             onMouseLeave={() =>
-                              this.setState({ hover: this.state.editRating })
+                              this.setState({ hover: this.state.rating })
                             }
                           >
                             <span className="star">&#9733;</span>
@@ -203,39 +210,33 @@ class UpdateReview extends Component<UpdateReviewProps, UpdateReviewState> {
                   </FormGroup>
                 </Col>
               </Row>
-
-              <FormGroup>
-                <Label for="content">Content</Label>
-                <Input
-                  style={{ borderColor: '#181d31' }}
-                  id="content"
-                  type="textarea"
-                  name="content"
-                  value={this.state.editContent}
-                  placeholder="Content"
-                  onChange={(e) =>
-                    this.setState({ editContent: e.target.value })
-                  }
-                />
-              </FormGroup>
-              <FormGroup>
-                <Label for="picture">Picture</Label>
-                <ImageUpload
-                  token={this.props.token}
-                  imageSet={this.imageSet}
-                />
-              </FormGroup>
-              <FormGroup>
-                <Button
-                  style={{ backgroundColor: '#181d31', color: '#fffef7' }}
-                  type="submit"
-                  onMouseEnter={this.enterBtn}
-                  onMouseLeave={this.leaveBtn}
-                >
-                  {' '}
-                  Submit{' '}
-                </Button>
-              </FormGroup>
+              <Row>
+                <FormGroup>
+                  <Label for="content">Review</Label>
+                  <Input
+                    id="content"
+                    name="content"
+                    style={{ borderColor: '#181d31' }}
+                    type="textarea"
+                    placeholder="Review"
+                    value={this.state.content}
+                    onChange={(e) => this.setState({ content: e.target.value })}
+                  />
+                </FormGroup>
+              </Row>
+              <Row>
+                <FormGroup>
+                  <Button
+                    style={{ backgroundColor: '#181d31', color: '#eeebe2' }}
+                    type="submit"
+                    onMouseEnter={this.enterBtn}
+                    onMouseLeave={this.leaveBtn}
+                  >
+                    {' '}
+                    Submit{' '}
+                  </Button>
+                </FormGroup>
+              </Row>
             </Form>
           </ModalBody>
         </Modal>
@@ -244,4 +245,4 @@ class UpdateReview extends Component<UpdateReviewProps, UpdateReviewState> {
   }
 }
 
-export default UpdateReview;
+export default ReviewBook;

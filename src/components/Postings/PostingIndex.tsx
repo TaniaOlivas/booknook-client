@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { Container } from 'reactstrap';
 import CreatePost from './CreatePost/CreatePost';
 import PostsFeed from './PostsFeed/PostsFeed';
 import UpdatePost from './UpdatePost/UpdatePost';
@@ -79,18 +80,34 @@ class PostIndex extends Component<PostIndexProps, PostIndexState> {
         <h2>Make a post!</h2>
       );
     return (
-      <div style={{ textAlign: 'center', margin: '70px 0px 55px 0px' }}>
+      <div style={{ textAlign: 'center', margin: '75px 0px 55px 0px' }}>
         <div className="container">
           <div className="row">
-            <div className="col-md-6 mb-1">
-              <h1>Add your Book</h1>
+            <div className="col-md-6 mb-3">
+              <Container
+                className="rounded mb-2"
+                style={{
+                  backgroundColor: 'white',
+                  border: '1px solid #ccc',
+                }}
+              >
+                <h1>Add Your Book</h1>
+              </Container>
               <CreatePost
                 token={this.props.token}
                 fetchPosts={this.fetchPosts}
               />
             </div>
             <div className="col-md-6 mb-1">
-              <h1>Your Books</h1>
+              <Container
+                className="rounded mb-2"
+                style={{
+                  backgroundColor: 'white',
+                  border: '1px solid #ccc',
+                }}
+              >
+                <h1>Your Books</h1>
+              </Container>
               {posts}
             </div>
           </div>

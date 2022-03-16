@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import { Container } from 'reactstrap';
 import CreateReview from './CreateReview/CreateReview';
 import MyReviewFeed from './Feed/MyReviewFeed';
 import UpdateReview from './UpdateReview/UpdateReview';
@@ -88,15 +89,31 @@ class ReviewIndex extends Component<ReviewIndexProps, ReviewIndexState> {
       <div style={{ textAlign: 'center', margin: '75px 0px 55px 0px' }}>
         <div className="container">
           <div className="row">
-            <div className="col-md-6 mb-1 rounded">
-              <h1>Create a Review</h1>
+            <div className="col-md-6 mb-3 rounded">
+              <Container
+                className="rounded mb-2"
+                style={{
+                  backgroundColor: 'white',
+                  border: '1px solid #ccc',
+                }}
+              >
+                <h1>Create a Review</h1>
+              </Container>
               <CreateReview
                 token={this.props.token}
                 fetchReviews={this.fetchReviews}
               />
             </div>
             <div className="col-md-6 mb-1">
-              <h1>Your Reviews</h1>
+              <Container
+                className="rounded mb-2"
+                style={{
+                  backgroundColor: 'white',
+                  border: '1px solid #ccc',
+                }}
+              >
+                <h1>Your Reviews</h1>
+              </Container>
 
               {reviews}
             </div>

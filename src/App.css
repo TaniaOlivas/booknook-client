@@ -17,3 +17,8 @@ button {
 .off {
   color: #ccc;
 }
+
+.btn-close {
+  background-color: #f5f1e5;
+  opacity: 0.9;
+}
