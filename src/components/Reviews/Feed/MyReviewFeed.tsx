@@ -102,9 +102,13 @@ class MyReviewFeed extends Component<MyReviewFeedProps, MyReviewFeedState> {
               </CardBody>
               <CardBody style={{ textAlign: 'right' }} className="col-4">
                 <CardText className="card-text">
-                  <small className="text-muted">Pages:</small>{' '}
-                  <small className="text-muted">{review.pageLength}</small>{' '}
-                  <small>{review.genre}</small>
+                  <div>
+                    <small className="text-muted">Pages:</small>{' '}
+                    <small className="text-muted">{review.pageLength}</small>{' '}
+                  </div>
+                  <div>
+                    <small>{review.genre}</small>
+                  </div>
                 </CardText>
               </CardBody>
             </div>

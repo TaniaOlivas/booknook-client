@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Component } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import { Button, Nav, Navbar, NavbarBrand, NavItem, NavLink } from 'reactstrap';
-import { ImBooks } from 'react-icons/im';
+import { AiOutlineHome } from 'react-icons/ai';
 import { BiBookAdd, BiCommentAdd, BiSearchAlt } from 'react-icons/bi';
 import { BsViewList } from 'react-icons/bs';
 
@@ -11,6 +11,7 @@ import ReviewFeed from '../Reviews/Feed/ReviewFeed';
 import PostIndex from '../Postings/PostingIndex';
 import ReviewIndex from '../Reviews/ReviewIndex';
 import BooksIndex from '../BookList/BooksIndex';
+import HomePage from '../Home/HomePage';
 
 interface NavigationProps {
   clearLocalStorage: () => void;
@@ -88,19 +89,20 @@ class Navigation extends Component<NavigationProps, NavigationState> {
             zIndex: '1030',
           }}
         >
-          <Nav justified pills>
+          <Nav justified>
             <NavItem>
               <NavLink
-                href="/"
+                href="/home"
                 style={{
-                  border: '1px solid #181D31',
+                  border: '0',
                   height: '50px',
                   color: '#f5f1e5',
+                  borderRadius: '0',
                 }}
                 onMouseEnter={this.enterBtn}
                 onMouseLeave={this.leaveBtn}
               >
-                <ImBooks
+                <AiOutlineHome
                   style={{
                     height: '100%',
                   }}
@@ -111,9 +113,10 @@ class Navigation extends Component<NavigationProps, NavigationState> {
               <NavLink
                 href="/search"
                 style={{
-                  border: '1px solid #181D31',
+                  border: '0',
                   height: '50px',
                   color: '#f5f1e5',
+                  borderRadius: '0',
                 }}
                 onMouseEnter={this.enterBtn}
                 onMouseLeave={this.leaveBtn}
@@ -125,9 +128,10 @@ class Navigation extends Component<NavigationProps, NavigationState> {
               <NavLink
                 href="/review"
                 style={{
-                  border: '1px solid #181D31',
+                  border: '0',
                   height: '50px',
                   color: '#f5f1e5',
+                  borderRadius: '0',
                 }}
                 onMouseEnter={this.enterBtn}
                 onMouseLeave={this.leaveBtn}
@@ -139,8 +143,10 @@ class Navigation extends Component<NavigationProps, NavigationState> {
               <NavLink
                 href="/feed"
                 style={{
+                  border: '0',
                   height: '50px',
                   color: '#f5f1e5',
+                  borderRadius: '0',
                 }}
                 onMouseEnter={this.enterBtn}
                 onMouseLeave={this.leaveBtn}
@@ -154,9 +160,10 @@ class Navigation extends Component<NavigationProps, NavigationState> {
                 <NavLink
                   href="/posts"
                   style={{
-                    border: '1px solid #181D31',
+                    border: '0',
                     height: '50px',
                     color: '#f5f1e5',
+                    borderRadius: '0',
                   }}
                   onMouseEnter={this.enterBtn}
                   onMouseLeave={this.leaveBtn}
@@ -171,7 +178,7 @@ class Navigation extends Component<NavigationProps, NavigationState> {
         </div>
         <div>
           <Routes>
-            <Route path="/"></Route>
+            <Route path="/home" element={<HomePage />}></Route>
             <Route
               path="/search"
               element={<BooksIndex token={this.props.token} />}
@@ -189,7 +196,6 @@ class Navigation extends Component<NavigationProps, NavigationState> {
                 />
               }
             ></Route>
-
             <Route
               path="/posts"
               element={<PostIndex token={this.props.token} />}

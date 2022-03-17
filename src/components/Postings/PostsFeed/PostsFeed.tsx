@@ -103,9 +103,13 @@ class PostsFeed extends Component<PostsFeedProps, PostsFeedState> {
               </CardBody>
               <CardBody style={{ textAlign: 'right' }} className="col-4">
                 <CardText className="card-text">
-                  <small className="text-muted">Pages:</small>{' '}
-                  <small className="text-muted">{post.pageLength}</small>{' '}
-                  <small>{post.genre}</small>
+                  <div>
+                    <small className="text-muted">Pages:</small>{' '}
+                    <small className="text-muted">{post.pageLength}</small>{' '}
+                  </div>
+                  <div>
+                    <small>{post.genre}</small>
+                  </div>
                 </CardText>
               </CardBody>
             </div>

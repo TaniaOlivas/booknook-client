@@ -117,6 +117,7 @@ class Signup extends Component<SignupProps, SignupState> {
                 name="email"
                 placeholder="Email"
                 type="email"
+                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2, 4}$"
                 style={{ backgroundColor: 'white', color: '#181d31' }}
                 value={this.state.email}
                 onChange={(e) => this.setState({ email: e.target.value })}
@@ -129,6 +130,7 @@ class Signup extends Component<SignupProps, SignupState> {
                 name="password"
                 placeholder="Password"
                 type="password"
+                minLength={5}
                 style={{ backgroundColor: 'white', color: '#181d31' }}
                 value={this.state.password}
                 onChange={(e) => this.setState({ password: e.target.value })}

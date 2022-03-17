@@ -7,7 +7,6 @@ import {
   CardSubtitle,
   Container,
   Row,
-  Col,
 } from 'reactstrap';
 import CommentIndex from './Comments/CommentIndex';
 
@@ -103,9 +102,13 @@ class ReviewFeed extends Component<ReviewFeedProps, ReviewFeedState> {
             </CardBody>
             <CardBody style={{ textAlign: 'right' }} className="col-4 pe-0">
               <CardText className="card-text">
-                <small className="text-muted">Pages:</small>{' '}
-                <small className="text-muted">{review.pageLength}</small>{' '}
-                <small>{review.genre}</small>
+                <div>
+                  <small className="text-muted">Pages:</small>{' '}
+                  <small className="text-muted">{review.pageLength}</small>{' '}
+                </div>
+                <div>
+                  <small>{review.genre}</small>
+                </div>
               </CardText>
             </CardBody>
           </div>
