@@ -56,7 +56,7 @@ class CommentFeed extends Component<CommentFeedProps, CommentFeedState> {
               style={{
                 height: '30px',
                 padding: 0,
-                backgroundColor: '#fffef7',
+                backgroundColor: '#f5f1e5',
                 border: '0',
               }}
             >
