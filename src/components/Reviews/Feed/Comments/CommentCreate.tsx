@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
+import APIURL from '../../../../helpers/environment';
 import { Form, FormGroup, Input, Button, Row } from 'reactstrap';
 
 interface CreateCommentProps {
@@ -22,7 +23,7 @@ class CreateComment extends Component<CreateCommentProps, CreateCommentState> {
   }
   handleSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
     event.preventDefault();
-    fetch('http://localhost:4000/comment/comment', {
+    fetch(`${APIURL}/comment/comment`, {
       method: 'POST',
       body: JSON.stringify({
         content: this.state.content,

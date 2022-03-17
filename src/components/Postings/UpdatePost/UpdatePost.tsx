@@ -11,6 +11,7 @@ import {
   Row,
   Col,
 } from 'reactstrap';
+import APIURL from '../../../helpers/environment';
 import ImageUpload from '../../ImageUpload/ImageUpload';
 import { post } from '../PostingIndex';
 
@@ -47,7 +48,7 @@ class UpdatePost extends Component<UpdatePostProps, UpdatePostState> {
 
   postUpdate = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    fetch(`http://localhost:4000/post/${this.props.postToUpdate.id}`, {
+    fetch(`${APIURL}/post/${this.props.postToUpdate.id}`, {
       method: 'PUT',
       body: JSON.stringify({
         title: this.state.editTitle,

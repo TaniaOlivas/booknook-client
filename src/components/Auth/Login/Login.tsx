@@ -9,6 +9,7 @@ import {
   Container,
   Row,
 } from 'reactstrap';
+import APIURL from '../../../helpers/environment';
 
 interface LoginProps {
   updateLocalStorage: (newToken: string) => void;
@@ -32,7 +33,7 @@ class Signup extends Component<LoginProps, LoginState> {
 
   handleSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
     event.preventDefault();
-    fetch('http://localhost:4000/user/login', {
+    fetch(`${APIURL}/user/login`, {
       method: 'POST',
       body: JSON.stringify({
         email: this.state.email,

@@ -1,6 +1,7 @@
 import { Component } from 'react';
 import { Button, Card, CardBody, CardText, Col, Row } from 'reactstrap';
 import { book } from '../BooksIndex';
+import APIURL from '../../../helpers/environment';
 
 interface MyBookFeedProps {
   books: book[];
@@ -23,7 +24,7 @@ class MyBookFeed extends Component<MyBookFeedProps, MyBookFeedState> {
   }
 
   bookDelete = (book: book) => {
-    fetch(`http://localhost:4000/book/${book.id}`, {
+    fetch(`${APIURL}/book/${book.id}`, {
       method: 'DELETE',
       headers: new Headers({
         'Content-Type': 'application/json',

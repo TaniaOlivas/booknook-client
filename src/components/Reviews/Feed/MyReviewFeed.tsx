@@ -12,6 +12,7 @@ import {
   CardSubtitle,
   Container,
 } from 'reactstrap';
+import APIURL from '../../../helpers/environment';
 import { review } from '../ReviewIndex';
 
 interface MyReviewFeedProps {
@@ -35,7 +36,7 @@ class MyReviewFeed extends Component<MyReviewFeedProps, MyReviewFeedState> {
   }
 
   reviewDelete = (review: review) => {
-    fetch(`http://localhost:4000/review/${review.id}`, {
+    fetch(`${APIURL}/review/${review.id}`, {
       method: 'DELETE',
       headers: new Headers({
         'Content-Type': 'application/json',

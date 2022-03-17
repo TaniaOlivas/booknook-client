@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { Container } from 'reactstrap';
+import APIURL from '../../helpers/environment';
 import CreateReview from './CreateReview/CreateReview';
 import MyReviewFeed from './Feed/MyReviewFeed';
 import UpdateReview from './UpdateReview/UpdateReview';
@@ -36,7 +37,7 @@ class ReviewIndex extends Component<ReviewIndexProps, ReviewIndexState> {
   }
 
   fetchReviews = () => {
-    fetch('http://localhost:4000/review/mine', {
+    fetch(`${APIURL}/review/mine`, {
       method: 'GET',
       headers: new Headers({
         'Content-Type': 'application/json',

@@ -8,6 +8,7 @@ import {
   CardTitle,
   CardHeader,
 } from 'reactstrap';
+import APIURL from '../../../helpers/environment';
 import { genre } from '../BooksIndex';
 
 interface SearchGenreProps {
@@ -27,7 +28,7 @@ class SearchGenre extends Component<SearchGenreProps, SearchGenreState> {
   }
 
   handleClick = (e: React.MouseEvent<HTMLButtonElement>, genre: genre) => {
-    fetch('http://localhost:4000/book/create', {
+    fetch(`${APIURL}/book/create`, {
       method: 'POST',
       body: JSON.stringify({
         title: genre.title,

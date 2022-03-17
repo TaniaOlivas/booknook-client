@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import APIURL from '../../../../helpers/environment';
 import CreateComment from './CommentCreate';
 import CommentFeed from './CommentFeed';
 import UpdateComment from './UpdateComment';
@@ -35,7 +36,7 @@ class CommentIndex extends Component<CommentIndexProps, CommentIndexState> {
   }
 
   fetchComments = () => {
-    fetch(`http://localhost:4000/comment/${this.props.review}`, {
+    fetch(`${APIURL}/comment/${this.props.review}`, {
       method: 'GET',
       headers: new Headers({
         'Content-Type': 'application/json',

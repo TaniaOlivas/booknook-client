@@ -12,6 +12,7 @@ import {
   CarouselControl,
   CarouselItem,
 } from 'reactstrap';
+import APIURL from '../../../helpers/environment';
 import { post } from '../PostingIndex';
 
 interface PostsFeedProps {
@@ -36,7 +37,7 @@ class PostsFeed extends Component<PostsFeedProps, PostsFeedState> {
   }
 
   postDelete = (post: post) => {
-    fetch(`http://localhost:4000/post/${post.id}`, {
+    fetch(`${APIURL}/post/${post.id}`, {
       method: 'DELETE',
       headers: new Headers({
         'Content-Type': 'application/json',

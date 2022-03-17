@@ -1,4 +1,5 @@
 import { Component } from 'react';
+import APIURL from '../../../helpers/environment';
 import {
   Form,
   FormGroup,
@@ -61,7 +62,7 @@ class CreatePost extends Component<CreatePostProps, CreatePostState> {
   };
   handleSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
     event.preventDefault();
-    fetch('http://localhost:4000/post/publish', {
+    fetch(`${APIURL}/post/publish`, {
       method: 'POST',
       body: JSON.stringify({
         title: this.state.title,

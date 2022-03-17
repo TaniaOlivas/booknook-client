@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Component } from 'react';
+import APIURL from '../../../helpers/environment';
 import {
   Form,
   FormGroup,
@@ -69,7 +70,7 @@ class CreateReview extends Component<CreateReviewProps, CreateReviewState> {
   };
   handleSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
     event.preventDefault();
-    fetch('http://localhost:4000/review/create', {
+    fetch(`${APIURL}/review/create`, {
       method: 'POST',
       body: JSON.stringify({
         title: this.state.title,

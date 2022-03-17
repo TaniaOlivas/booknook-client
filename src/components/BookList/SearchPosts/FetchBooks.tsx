@@ -15,6 +15,8 @@ import {
   Label,
   Row,
 } from 'reactstrap';
+import APIURL from '../../../helpers/environment';
+
 interface FetchBooksProps {
   token: string;
   fetchList: Function;
@@ -78,7 +80,7 @@ class FetchBooks extends Component<FetchBooksProps, FetchBooksState> {
   };
 
   handleClick = (e: React.MouseEvent<HTMLButtonElement>, Item: Item) => {
-    fetch('http://localhost:4000/book/create', {
+    fetch(`${APIURL}/book/create`, {
       method: 'POST',
       body: JSON.stringify({
         title: Item.volumeInfo.title,

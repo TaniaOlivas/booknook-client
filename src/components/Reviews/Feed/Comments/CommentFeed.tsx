@@ -7,7 +7,7 @@ import {
   Container,
   Row,
 } from 'reactstrap';
-
+import APIURL from '../../../../helpers/environment';
 import { comment } from './CommentIndex';
 
 interface CommentFeedProps {
@@ -30,7 +30,7 @@ class CommentFeed extends Component<CommentFeedProps, CommentFeedState> {
   }
 
   commentDelete = (comment: comment) => {
-    fetch(`http://localhost:4000/comment/${comment.id}`, {
+    fetch(`${APIURL}/comment/${comment.id}`, {
       method: 'DELETE',
       headers: new Headers({
         'Content-Type': 'application/json',

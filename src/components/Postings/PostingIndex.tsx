@@ -1,5 +1,6 @@
 import { Component } from 'react';
 import { Container } from 'reactstrap';
+import APIURL from '../../helpers/environment';
 import CreatePost from './CreatePost/CreatePost';
 import PostsFeed from './PostsFeed/PostsFeed';
 import UpdatePost from './UpdatePost/UpdatePost';
@@ -30,7 +31,7 @@ class PostIndex extends Component<PostIndexProps, PostIndexState> {
   }
 
   fetchPosts = () => {
-    fetch('http://localhost:4000/post/mine', {
+    fetch(`${APIURL}/post/mine`, {
       method: 'GET',
       headers: new Headers({
         'Content-Type': 'application/json',

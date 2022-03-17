@@ -8,6 +8,7 @@ import {
   Container,
   Row,
 } from 'reactstrap';
+import APIURL from '../../../helpers/environment';
 import CommentIndex from './Comments/CommentIndex';
 
 interface ReviewFeedProps {
@@ -40,7 +41,7 @@ class ReviewFeed extends Component<ReviewFeedProps, ReviewFeedState> {
   }
 
   fetchReviews = () => {
-    fetch('http://localhost:4000/review/all', {
+    fetch(`${APIURL}/review/all`, {
       method: 'GET',
       headers: new Headers({
         'Content-Type': 'application/json',

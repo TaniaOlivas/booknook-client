@@ -10,6 +10,7 @@ import {
   Label,
   Row,
 } from 'reactstrap';
+import APIURL from '../../helpers/environment';
 import MyBookFeed from './BookFeed/MyBookFeed';
 import ReviewBook from './ReviewBook/ReviewBook';
 import FetchBooks from './SearchPosts/FetchBooks';
@@ -69,7 +70,7 @@ class BooksIndex extends Component<BooksIndexProps, BooksIndexState> {
   }
 
   fetchList = () => {
-    fetch('http://localhost:4000/book/mine', {
+    fetch(`${APIURL}/book/mine`, {
       method: 'GET',
       headers: new Headers({
         'Content-Type': 'application/json',
@@ -88,7 +89,7 @@ class BooksIndex extends Component<BooksIndexProps, BooksIndexState> {
   };
 
   fetchGenre = () => {
-    fetch(`http://localhost:4000/post/genre/${this.state.searchItem}`, {
+    fetch(`${APIURL}/post/genre/${this.state.searchItem}`, {
       method: 'GET',
       headers: new Headers({
         'Content-Type': 'application/json',
@@ -107,7 +108,7 @@ class BooksIndex extends Component<BooksIndexProps, BooksIndexState> {
   };
 
   fetchTitle = () => {
-    fetch(`http://localhost:4000/post/title/${this.state.searchItem}`, {
+    fetch(`${APIURL}/post/title/${this.state.searchItem}`, {
       method: 'GET',
       headers: new Headers({
         'Content-Type': 'application/json',

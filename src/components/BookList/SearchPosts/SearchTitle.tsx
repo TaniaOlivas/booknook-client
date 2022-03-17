@@ -9,6 +9,7 @@ import {
   CardTitle,
   CardHeader,
 } from 'reactstrap';
+import APIURL from '../../../helpers/environment';
 import { title } from '../BooksIndex';
 
 interface SearchTitleProps {
@@ -28,7 +29,7 @@ class SearchTitle extends Component<SearchTitleProps, SearchTitleState> {
   }
 
   handleClick = (e: React.MouseEvent<HTMLButtonElement>, title: title) => {
-    fetch('http://localhost:4000/book/create', {
+    fetch(`${APIURL}/book/create`, {
       method: 'POST',
       body: JSON.stringify({
         title: title.title,

@@ -11,6 +11,7 @@ import {
   Row,
   Col,
 } from 'reactstrap';
+import APIURL from '../../../helpers/environment';
 import { book } from '../BooksIndex';
 
 interface ReviewBookProps {
@@ -50,7 +51,7 @@ class ReviewBook extends Component<ReviewBookProps, ReviewBookState> {
 
   handleSubmit = (event: React.MouseEvent<HTMLFormElement>) => {
     event.preventDefault();
-    fetch('http://localhost:4000/review/create', {
+    fetch(`${APIURL}/review/create`, {
       method: 'POST',
       body: JSON.stringify({
         title: this.state.title,

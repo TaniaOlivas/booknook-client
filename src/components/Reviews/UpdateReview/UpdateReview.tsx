@@ -11,6 +11,7 @@ import {
   Row,
   Col,
 } from 'reactstrap';
+import APIURL from '../../../helpers/environment';
 import ImageUpload from '../../ImageUpload/ImageUpload';
 import { review } from '../ReviewIndex';
 
@@ -53,7 +54,7 @@ class UpdateReview extends Component<UpdateReviewProps, UpdateReviewState> {
 
   reviewUpdate = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    fetch(`http://localhost:4000/review/${this.props.reviewToUpdate.id}`, {
+    fetch(`${APIURL}/review/${this.props.reviewToUpdate.id}`, {
       method: 'PUT',
       body: JSON.stringify({
         title: this.state.editTitle,
