@@ -1,3 +1,4 @@
+import * as React from 'react';
 import { Component } from 'react';
 import {
   Button,
@@ -8,12 +9,13 @@ import {
   CardTitle,
   CardHeader,
 } from 'reactstrap';
-import { title } from './SearchIndex';
+import { title } from '../BooksIndex';
 
 interface SearchTitleProps {
   token: string;
   searchTitles: title[];
   fetchTitle: Function;
+  fetchList: Function;
 }
 
 interface SearchTitleState {}
@@ -26,8 +28,6 @@ class SearchTitle extends Component<SearchTitleProps, SearchTitleState> {
   }
 
   handleClick = (e: React.MouseEvent<HTMLButtonElement>, title: title) => {
-    console.log('Button Clicked');
-
     fetch('http://localhost:4000/book/create', {
       method: 'POST',
       body: JSON.stringify({
@@ -44,7 +44,7 @@ class SearchTitle extends Component<SearchTitleProps, SearchTitleState> {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        this.props.fetchList();
         this.setState({
           title: '',
           author: '',

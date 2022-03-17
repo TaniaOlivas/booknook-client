@@ -42,10 +42,9 @@ class CommentFeed extends Component<CommentFeedProps, CommentFeedState> {
   commentsMapper = () => {
     return this.props.comments.map((comment, index) => {
       return (
-        <Row>
+        <Row key={index}>
           <Card
             className="rounded"
-            key={index}
             style={{ border: '0', paddingLeft: '0', paddingRight: '0' }}
           >
             <CardBody>
@@ -57,7 +56,7 @@ class CommentFeed extends Component<CommentFeedProps, CommentFeedState> {
               style={{
                 height: '30px',
                 padding: 0,
-                backgroundColor: '#f5f1e5',
+                backgroundColor: '#fffef7',
                 border: '0',
               }}
             >

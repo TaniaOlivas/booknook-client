@@ -7,6 +7,7 @@ import {
   CardSubtitle,
   Container,
   Row,
+  Col,
 } from 'reactstrap';
 import CommentIndex from './Comments/CommentIndex';
 
@@ -49,7 +50,6 @@ class ReviewFeed extends Component<ReviewFeedProps, ReviewFeedState> {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
         this.setState({
           reviews: data,
         });
@@ -86,15 +86,22 @@ class ReviewFeed extends Component<ReviewFeedProps, ReviewFeedState> {
   reviewMapper = () => {
     return this.state.reviews.map((review, index) => {
       return (
-        <Card key={index} className="mb-3">
-          <div className="row">
-            <CardBody style={{ textAlign: 'left' }} className="col-9">
+        <Card
+          key={index}
+          className="mb-3"
+          style={{
+            borderColor: '#ccc',
+          }}
+        >
+          {' '}
+          <div className="row mx-0">
+            <CardBody style={{ textAlign: 'left' }} className="col-8 ps-0">
               <CardTitle tag="h4">{review.title}</CardTitle>
               <CardSubtitle className="text-muted" tag="h6">
                 {review.author}
               </CardSubtitle>
             </CardBody>
-            <CardBody className="col-3">
+            <CardBody style={{ textAlign: 'right' }} className="col-4 pe-0">
               <CardText className="card-text">
                 <small className="text-muted">Pages:</small>{' '}
                 <small className="text-muted">{review.pageLength}</small>{' '}
@@ -115,25 +122,24 @@ class ReviewFeed extends Component<ReviewFeedProps, ReviewFeedState> {
             />
           </CardBody>
           <CardBody className="card-body mb-3">
-            <CardText className="card-text">
-              <div className="star-rating">
-                {[...Array(5)].map((star, index) => {
-                  index += 1;
-                  return (
-                    <button
-                      type="button"
-                      key={index}
-                      className={index <= review.rating ? 'on' : 'off'}
-                    >
-                      <span className="star">&#9733;</span>
-                    </button>
-                  );
-                })}
-              </div>
-            </CardText>
-            <CardText>{review.content}</CardText>
+            <div className="star-rating">
+              {[...Array(5)].map((star, index) => {
+                index += 1;
+                return (
+                  <button
+                    type="button"
+                    key={index}
+                    className={index <= review.rating ? 'on' : 'off'}
+                  >
+                    <span className="star">&#9733;</span>
+                  </button>
+                );
+              })}
+            </div>
+            <div className="mt-2">
+              <CardText>{review.content}</CardText>
+            </div>
           </CardBody>
-
           <div className="mb-3 rounded">
             <Card>
               {this.state.isOpen === true ? (
@@ -189,9 +195,11 @@ class ReviewFeed extends Component<ReviewFeedProps, ReviewFeedState> {
   render() {
     return (
       <div
-        style={{ textAlign: 'center', marginTop: '70px', marginBottom: '50px' }}
+        style={{ textAlign: 'center', marginTop: '65px', marginBottom: '50px' }}
       >
-        <h1>Book Reviews</h1>
+        <div style={{ color: '#f5f1e5', backgroundColor: '#181d31' }}>
+          <h1 className="py-2">Book Reviews Feed</h1>
+        </div>
         <Container>
           <Row className="mx-1">{this.reviewMapper()}</Row>
         </Container>

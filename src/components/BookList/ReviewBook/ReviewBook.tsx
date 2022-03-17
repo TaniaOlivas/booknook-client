@@ -68,9 +68,9 @@ class ReviewBook extends Component<ReviewBookProps, ReviewBookState> {
     })
       .then((res) => {
         res.json();
+        // this.props.updateOff();
       })
       .then((data) => {
-        console.log(data);
         this.setState({
           title: '',
           author: '',

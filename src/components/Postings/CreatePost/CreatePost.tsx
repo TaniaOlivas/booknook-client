@@ -55,7 +55,6 @@ class CreatePost extends Component<CreatePostProps, CreatePostState> {
       }
     );
     const File = await res.json();
-    console.log(File.secure_url);
     this.setState({ image: File.secure_url });
     this.setState({ picture: File.secure_url });
     this.setState({ loading: false });
@@ -79,7 +78,6 @@ class CreatePost extends Component<CreatePostProps, CreatePostState> {
       .then((res) => res.json())
       .then((data) => {
         this.props.fetchPosts();
-        console.log(data);
 
         this.setState({
           title: '',

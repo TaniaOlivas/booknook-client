@@ -36,7 +36,6 @@ class CreateComment extends Component<CreateCommentProps, CreateCommentState> {
       .then((res) => res.json())
       .then((data) => {
         this.props.fetchComments();
-        console.log(data);
         this.setState({
           content: '',
         });

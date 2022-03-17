@@ -8,12 +8,13 @@ import {
   CardTitle,
   CardHeader,
 } from 'reactstrap';
-import { genre } from './SearchIndex';
+import { genre } from '../BooksIndex';
 
 interface SearchGenreProps {
   token: string;
   searchGenres: genre[];
   fetchGenre: Function;
+  fetchList: Function;
 }
 
 interface SearchGenreState {}
@@ -26,8 +27,6 @@ class SearchGenre extends Component<SearchGenreProps, SearchGenreState> {
   }
 
   handleClick = (e: React.MouseEvent<HTMLButtonElement>, genre: genre) => {
-    console.log('Button Clicked');
-
     fetch('http://localhost:4000/book/create', {
       method: 'POST',
       body: JSON.stringify({
@@ -44,7 +43,7 @@ class SearchGenre extends Component<SearchGenreProps, SearchGenreState> {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        this.props.fetchList();
         this.setState({
           title: '',
           author: '',

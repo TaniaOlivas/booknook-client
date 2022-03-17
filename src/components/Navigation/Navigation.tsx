@@ -8,7 +8,6 @@ import { BsViewList } from 'react-icons/bs';
 
 import 'react-pro-sidebar/dist/css/styles.css';
 import ReviewFeed from '../Reviews/Feed/ReviewFeed';
-import SearchIndex from '../BookList/SearchPosts/SearchIndex';
 import PostIndex from '../Postings/PostingIndex';
 import ReviewIndex from '../Reviews/ReviewIndex';
 import BooksIndex from '../BookList/BooksIndex';
@@ -77,6 +76,7 @@ class Navigation extends Component<NavigationProps, NavigationState> {
             </Nav>
           </Navbar>
         </div>
+
         <div
           style={{
             backgroundColor: '#181D31',
@@ -91,15 +91,34 @@ class Navigation extends Component<NavigationProps, NavigationState> {
           <Nav justified pills>
             <NavItem>
               <NavLink
-                href="/feed"
+                href="/"
                 style={{
+                  border: '1px solid #181D31',
                   height: '50px',
                   color: '#f5f1e5',
                 }}
                 onMouseEnter={this.enterBtn}
                 onMouseLeave={this.leaveBtn}
               >
-                <BsViewList style={{ height: '100%' }} />
+                <ImBooks
+                  style={{
+                    height: '100%',
+                  }}
+                />
+              </NavLink>
+            </NavItem>
+            <NavItem>
+              <NavLink
+                href="/search"
+                style={{
+                  border: '1px solid #181D31',
+                  height: '50px',
+                  color: '#f5f1e5',
+                }}
+                onMouseEnter={this.enterBtn}
+                onMouseLeave={this.leaveBtn}
+              >
+                <BiSearchAlt style={{ height: '100%' }} />
               </NavLink>
             </NavItem>
             <NavItem>
@@ -116,6 +135,20 @@ class Navigation extends Component<NavigationProps, NavigationState> {
                 <BiCommentAdd style={{ height: '100%' }} />
               </NavLink>
             </NavItem>
+            <NavItem>
+              <NavLink
+                href="/feed"
+                style={{
+                  height: '50px',
+                  color: '#f5f1e5',
+                }}
+                onMouseEnter={this.enterBtn}
+                onMouseLeave={this.leaveBtn}
+              >
+                <BsViewList style={{ height: '100%' }} />
+              </NavLink>
+            </NavItem>
+
             {this.props.user === 'Author' ? (
               <NavItem>
                 <NavLink
@@ -134,42 +167,19 @@ class Navigation extends Component<NavigationProps, NavigationState> {
             ) : (
               <></>
             )}
-            <NavItem>
-              <NavLink
-                href="/search"
-                style={{
-                  border: '1px solid #181D31',
-                  height: '50px',
-                  color: '#f5f1e5',
-                }}
-                onMouseEnter={this.enterBtn}
-                onMouseLeave={this.leaveBtn}
-              >
-                <BiSearchAlt style={{ height: '100%' }} />
-              </NavLink>
-            </NavItem>
-            <NavItem>
-              <NavLink
-                href="/books"
-                style={{
-                  border: '1px solid #181D31',
-                  height: '50px',
-                  color: '#f5f1e5',
-                }}
-                onMouseEnter={this.enterBtn}
-                onMouseLeave={this.leaveBtn}
-              >
-                <ImBooks
-                  style={{
-                    height: '100%',
-                  }}
-                />
-              </NavLink>
-            </NavItem>
           </Nav>
         </div>
         <div>
           <Routes>
+            <Route path="/"></Route>
+            <Route
+              path="/search"
+              element={<BooksIndex token={this.props.token} />}
+            ></Route>
+            <Route
+              path="/review"
+              element={<ReviewIndex token={this.props.token} />}
+            ></Route>
             <Route
               path="/feed"
               element={
@@ -179,21 +189,10 @@ class Navigation extends Component<NavigationProps, NavigationState> {
                 />
               }
             ></Route>
-            <Route
-              path="/review"
-              element={<ReviewIndex token={this.props.token} />}
-            ></Route>
+
             <Route
               path="/posts"
               element={<PostIndex token={this.props.token} />}
-            ></Route>
-            <Route
-              path="/search"
-              element={<SearchIndex token={this.props.token} />}
-            ></Route>
-            <Route
-              path="/books"
-              element={<BooksIndex token={this.props.token} />}
             ></Route>
           </Routes>
         </div>

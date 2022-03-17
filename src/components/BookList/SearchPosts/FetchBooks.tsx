@@ -8,7 +8,7 @@ import {
   CardSubtitle,
   CardText,
   CardTitle,
-  Container,
+  Col,
   Form,
   FormGroup,
   Input,
@@ -17,6 +17,7 @@ import {
 } from 'reactstrap';
 interface FetchBooksProps {
   token: string;
+  fetchList: Function;
 }
 
 interface FetchBooksState {
@@ -65,21 +66,18 @@ class FetchBooks extends Component<FetchBooksProps, FetchBooksState> {
 
   fetchBooks = () => {
     const API_Key = 'AIzaSyBFwgVd0mk8AyhraRSm71loZgaALIDazvs';
-    const URL = 'https://www.googleapis.com/books/v1/volumes';
-    fetch(URL + `?q=${this.state.searchTerm}` + `&key=${API_Key}`)
+    const URL = `https://www.googleapis.com/books/v1/volumes?q=${this.state.searchTerm}&key=${API_Key}`;
+    fetch(URL)
       .then((res) => res.json())
       .then((data: BookResponse) => {
-        console.log(data.items);
         this.setState({
           searchResponse: data.items,
         });
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error('Error:', err));
   };
 
   handleClick = (e: React.MouseEvent<HTMLButtonElement>, Item: Item) => {
-    console.log('Button Clicked');
-
     fetch('http://localhost:4000/book/create', {
       method: 'POST',
       body: JSON.stringify({
@@ -96,7 +94,7 @@ class FetchBooks extends Component<FetchBooksProps, FetchBooksState> {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
+        this.props.fetchList();
         this.setState({
           title: '',
           author: '',
@@ -140,11 +138,9 @@ class FetchBooks extends Component<FetchBooksProps, FetchBooksState> {
             </CardBody>
             <div className="col-8">
               <CardBody className="card-body">
-                <CardText>
-                  <CardSubtitle tag="h6">
-                    {Item.volumeInfo.authors[0]}
-                  </CardSubtitle>
-                </CardText>
+                <CardBody>
+                  <CardSubtitle>{Item.volumeInfo.authors[0]}</CardSubtitle>
+                </CardBody>
                 <CardText>
                   <small>Genre: {Item.volumeInfo.categories}</small>
                 </CardText>
@@ -172,29 +168,37 @@ class FetchBooks extends Component<FetchBooksProps, FetchBooksState> {
     return (
       <div>
         <Form>
-          <FormGroup>
-            <Input
-              id="genre"
-              name="genre"
-              type="text"
-              placeholder="Search By Author, Title, Genre"
-              value={this.state.searchTerm}
-              onChange={(e) => this.setState({ searchTerm: e.target.value })}
-            />
-          </FormGroup>
-
-          <FormGroup>
-            <Button
-              onClick={() => {
-                this.fetchBooks();
-              }}
-              style={{ backgroundColor: '#181d31', color: '#eeebe2' }}
-              onMouseEnter={this.enterBtn}
-              onMouseLeave={this.leaveBtn}
-            >
-              Search
-            </Button>
-          </FormGroup>
+          <Row xs="2">
+            <Label>From Other Authors:</Label>
+            <Col xs="9">
+              <FormGroup>
+                <Input
+                  id="genre"
+                  name="genre"
+                  type="text"
+                  placeholder="Search By Author, Title, Genre"
+                  value={this.state.searchTerm}
+                  onChange={(e) =>
+                    this.setState({ searchTerm: e.target.value })
+                  }
+                />
+              </FormGroup>
+            </Col>
+            <Col xs="3">
+              <FormGroup>
+                <Button
+                  onClick={() => {
+                    this.fetchBooks();
+                  }}
+                  style={{ backgroundColor: '#181d31', color: '#eeebe2' }}
+                  onMouseEnter={this.enterBtn}
+                  onMouseLeave={this.leaveBtn}
+                >
+                  Search
+                </Button>
+              </FormGroup>
+            </Col>
+          </Row>
         </Form>
 
         <div>{this.bookMapper()}</div>

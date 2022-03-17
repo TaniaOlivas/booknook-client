@@ -8,7 +8,6 @@ import {
   Modal,
   ModalHeader,
   ModalBody,
-  ModalFooter,
   Row,
   Col,
 } from 'reactstrap';

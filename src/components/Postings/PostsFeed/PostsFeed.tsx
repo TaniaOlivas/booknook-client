@@ -85,23 +85,23 @@ class PostsFeed extends Component<PostsFeedProps, PostsFeedState> {
     return this.props.posts.map((post, index) => {
       return (
         <CarouselItem
+          key={index}
           onExiting={() => this.setState({ animating: true })}
           onExited={() => this.setState({ animating: false })}
         >
           <Card
-            key={index}
             style={{
               borderColor: '#ccc',
             }}
           >
             <div className="row mx-0">
-              <CardBody style={{ textAlign: 'left' }} className="col-9">
+              <CardBody style={{ textAlign: 'left' }} className="col-8">
                 <CardTitle tag="h4">{post.title}</CardTitle>
                 <CardSubtitle className="text-muted" tag="h6">
                   {post.author}
                 </CardSubtitle>
               </CardBody>
-              <CardBody className="col-3">
+              <CardBody style={{ textAlign: 'right' }} className="col-4">
                 <CardText className="card-text">
                   <small className="text-muted">Pages:</small>{' '}
                   <small className="text-muted">{post.pageLength}</small>{' '}

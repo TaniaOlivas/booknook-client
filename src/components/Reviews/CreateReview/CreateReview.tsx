@@ -63,7 +63,6 @@ class CreateReview extends Component<CreateReviewProps, CreateReviewState> {
       }
     );
     const File = await res.json();
-    console.log(File.secure_url);
     this.setState({ image: File.secure_url });
     this.setState({ picture: File.secure_url });
     this.setState({ loading: false });
@@ -89,8 +88,6 @@ class CreateReview extends Component<CreateReviewProps, CreateReviewState> {
       .then((res) => res.json())
       .then((data) => {
         this.props.fetchReviews();
-        console.log(data);
-
         this.setState({
           title: '',
           author: '',

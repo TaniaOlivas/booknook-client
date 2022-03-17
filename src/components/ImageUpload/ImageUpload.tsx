@@ -35,7 +35,6 @@ class ImageUpload extends Component<ImageUploadProps, ImageUploadState> {
       }
     );
     const File = await res.json();
-    console.log(File.secure_url);
     this.setState({ image: File.secure_url });
     this.setState({ loading: false });
     this.props.imageSet(this.state.image);

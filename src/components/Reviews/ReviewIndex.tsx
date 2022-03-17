@@ -45,7 +45,6 @@ class ReviewIndex extends Component<ReviewIndexProps, ReviewIndexState> {
     })
       .then((res) => res.json())
       .then((data: review[]) => {
-        console.log(data);
         this.setState({
           reviews: data,
         });
@@ -61,7 +60,6 @@ class ReviewIndex extends Component<ReviewIndexProps, ReviewIndexState> {
 
   editUpdateReview = (review: review) => {
     this.setState({ reviewToUpdate: review });
-    console.log(review);
   };
 
   updateOn = () => {
@@ -83,10 +81,16 @@ class ReviewIndex extends Component<ReviewIndexProps, ReviewIndexState> {
           editUpdateReview={this.editUpdateReview}
         />
       ) : (
-        <h2>None yet! Create one!</h2>
+        <div className="mt-4">
+          <h3>None yet.</h3>
+          <h3>Create one!</h3>
+        </div>
       );
     return (
-      <div style={{ textAlign: 'center', margin: '75px 0px 55px 0px' }}>
+      <div style={{ textAlign: 'center', margin: '65px 0px 55px 0px' }}>
+        <div style={{ color: '#f5f1e5', backgroundColor: '#181d31' }}>
+          <h1 className="py-2">Review Home Page</h1>
+        </div>
         <div className="container">
           <div className="row">
             <div className="col-md-6 mb-3 rounded">
@@ -97,7 +101,7 @@ class ReviewIndex extends Component<ReviewIndexProps, ReviewIndexState> {
                   border: '1px solid #ccc',
                 }}
               >
-                <h1>Create a Review</h1>
+                <h2>Create a Review</h2>
               </Container>
               <CreateReview
                 token={this.props.token}
@@ -112,7 +116,7 @@ class ReviewIndex extends Component<ReviewIndexProps, ReviewIndexState> {
                   border: '1px solid #ccc',
                 }}
               >
-                <h1>Your Reviews</h1>
+                <h2>Your Reviews</h2>
               </Container>
 
               {reviews}

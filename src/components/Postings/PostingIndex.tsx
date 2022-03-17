@@ -39,7 +39,6 @@ class PostIndex extends Component<PostIndexProps, PostIndexState> {
     })
       .then((res) => res.json())
       .then((data: post[]) => {
-        console.log(data);
         this.setState({
           posts: data,
         });
@@ -55,7 +54,6 @@ class PostIndex extends Component<PostIndexProps, PostIndexState> {
 
   editUpdatePost = (post: post) => {
     this.setState({ postToUpdate: post });
-    console.log(post);
   };
 
   updateOn = () => {
@@ -77,10 +75,16 @@ class PostIndex extends Component<PostIndexProps, PostIndexState> {
           editUpdatePost={this.editUpdatePost}
         />
       ) : (
-        <h2>Make a post!</h2>
+        <div className="mt-4">
+          <h3>None yet.</h3>
+          <h3>Add your book!</h3>
+        </div>
       );
     return (
-      <div style={{ textAlign: 'center', margin: '75px 0px 55px 0px' }}>
+      <div style={{ textAlign: 'center', margin: '65px 0px 55px 0px' }}>
+        <div style={{ color: '#f5f1e5', backgroundColor: '#181d31' }}>
+          <h1 className="py-2">Book Posting Home Page</h1>
+        </div>
         <div className="container">
           <div className="row">
             <div className="col-md-6 mb-3">
@@ -91,7 +95,7 @@ class PostIndex extends Component<PostIndexProps, PostIndexState> {
                   border: '1px solid #ccc',
                 }}
               >
-                <h1>Add Your Book</h1>
+                <h2>Add Your Book</h2>
               </Container>
               <CreatePost
                 token={this.props.token}
@@ -106,7 +110,7 @@ class PostIndex extends Component<PostIndexProps, PostIndexState> {
                   border: '1px solid #ccc',
                 }}
               >
-                <h1>Your Books</h1>
+                <h2>Your Books</h2>
               </Container>
               {posts}
             </div>

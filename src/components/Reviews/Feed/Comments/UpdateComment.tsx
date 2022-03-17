@@ -71,15 +71,15 @@ class UpdateComment extends Component<UpdateCommentProps, UpdateCommentState> {
         <Modal isOpen={true} toggle={this.toggle}>
           <ModalHeader
             style={{
-              backgroundColor: '#eeebe2',
-              color: '#181d31',
+              backgroundColor: '#181d31',
+              color: '#fffef7',
               borderBottomColor: '#181d31',
             }}
             toggle={this.toggle}
           >
             Update Comment
           </ModalHeader>
-          <ModalBody style={{ backgroundColor: '#f5f1e5', color: '#181d31' }}>
+          <ModalBody style={{ backgroundColor: '#fffef7', color: '#181d31' }}>
             <Form onSubmit={(e) => this.commentUpdate(e)}>
               <FormGroup>
                 <Label for="content">Comment</Label>

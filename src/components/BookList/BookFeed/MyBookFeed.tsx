@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import { Button, Col, Container, Row, Table } from 'reactstrap';
+import { Button, Card, CardBody, CardText, Col, Row } from 'reactstrap';
 import { book } from '../BooksIndex';
 
 interface MyBookFeedProps {
@@ -71,119 +71,134 @@ class MyBookFeed extends Component<MyBookFeedProps, MyBookFeedState> {
   bookMapper = () => {
     return this.props.books.map((book, index) => {
       return (
-        <tr key={index} style={{ borderBottom: '1px solid #181d31' }}>
-          <th scope="row">
-            <img
-              style={{ textAlign: 'center' }}
-              src={book.picture}
-              className="img-fluid rounded"
-              width="50px"
-              alt="Book Cover"
-            />
-          </th>
-          <td>{book.title}</td>
-          <td style={{ width: '100px' }}>{book.author}</td>
-          <td>{book.genre}</td>
-          <td>{book.pageLength}</td>
+        <Card
+          key={index}
+          style={{
+            borderTop: 0,
+            borderLeft: 0,
+            borderRight: 0,
+            borderRadius: 0,
+            marginTop: '1px',
+            paddingBottom: '1px',
+          }}
+        >
+          <div className="row g-0">
+            <CardBody className="col-2 p-0">
+              <img
+                src={book.picture}
+                className="img-fluid rounded-start"
+                alt="Book Cover"
+              />
+            </CardBody>
 
-          <td style={{ width: '100px' }}>
-            <Button
-              style={{
-                backgroundColor: '#181d31',
-                color: '#eeebe2',
-                width: '70px',
-                padding: '4px',
-                marginBottom: '7px',
-              }}
-              onClick={() => {
-                this.props.editUpdateBook(book);
-                this.props.updateOn();
-              }}
-              onMouseEnter={this.enterBtn}
-              onMouseLeave={this.leaveBtn}
-            >
-              Review
-            </Button>{' '}
-            <Button
-              style={{
-                backgroundColor: '#181d31',
-                color: '#eeebe2',
-                width: '70px',
-                padding: '4px',
-              }}
-              onClick={() => {
-                this.bookDelete(book);
-              }}
-              onMouseEnter={this.enterBtn}
-              onMouseLeave={this.leaveBtn}
-            >
-              Delete
-            </Button>
-          </td>
-        </tr>
+            <div className="col-10 ">
+              <CardBody className="card-body py-0 px-2 m-1">
+                <Row xs="4">
+                  <Col xs="4" className="p-0">
+                    <CardText>{book.title}</CardText>
+                  </Col>
+                  <Col xs="3" className="p-0">
+                    <CardText>{book.author}</CardText>
+                  </Col>
+                  <Col xs="3" className="p-0">
+                    <CardText>{book.genre}</CardText>
+                  </Col>
+                  <Col xs="2" className="p-0">
+                    <CardText>{book.pageLength}</CardText>
+                  </Col>
+                </Row>
+              </CardBody>
+              <CardBody className="pb-0">
+                <Button
+                  style={{
+                    backgroundColor: '#181d31',
+                    color: '#eeebe2',
+                    width: '70px',
+                    padding: '4px',
+                  }}
+                  onClick={() => {
+                    this.props.editUpdateBook(book);
+                    this.props.updateOn();
+                  }}
+                  onMouseEnter={this.enterBtn}
+                  onMouseLeave={this.leaveBtn}
+                >
+                  Review
+                </Button>{' '}
+                <Button
+                  style={{
+                    backgroundColor: '#181d31',
+                    color: '#eeebe2',
+                    width: '70px',
+                    padding: '4px',
+                  }}
+                  onClick={() => {
+                    this.bookDelete(book);
+                  }}
+                  onMouseEnter={this.enterBtn}
+                  onMouseLeave={this.leaveBtn}
+                >
+                  Delete
+                </Button>
+              </CardBody>
+            </div>
+          </div>
+        </Card>
       );
     });
   };
   render() {
     return (
-      <Container
-        className="rounded"
-        style={{
-          padding: 0,
-          border: '1px solid #181d31',
-          width: '500px',
-          backgroundColor: '#fffef7',
-        }}
-      >
-        <Row>
-          <Col>
-            <Table hover>
-              <thead>
-                <tr
-                  style={{
-                    borderBottom: '2px solid #181d31',
-                    color: '#f5f1e5',
-                    backgroundColor: '#181d31',
-                  }}
-                >
-                  <th></th>
-                  <th
-                    style={{
-                      borderLeft: '1px solid white',
-                    }}
-                  >
-                    Title
-                  </th>
-                  <th
-                    style={{
-                      borderLeft: '1px solid white',
-                    }}
-                  >
-                    Author
-                  </th>
-                  <th
-                    style={{
-                      borderLeft: '1px solid white',
-                    }}
-                  >
-                    Genre
-                  </th>
-                  <th
-                    style={{
-                      borderLeft: '1px solid white',
-                      borderRight: '1px solid white',
-                    }}
-                  >
-                    Pages
-                  </th>
-                  <th></th>
-                </tr>
-              </thead>
-              <tbody>{this.bookMapper()}</tbody>
-            </Table>
-          </Col>
-        </Row>
-      </Container>
+      <div>
+        <Card
+          className="rounded-top"
+          style={{
+            backgroundColor: '#181d31',
+            color: 'white',
+            borderRadius: 0,
+          }}
+        >
+          <div className="row g-0">
+            <CardBody className="col-2 p-0"></CardBody>
+
+            <div className="col-10 ">
+              <CardBody className="card-body py-0 px-2 m-1">
+                <Row xs="4">
+                  <Col xs="4" className="p-0">
+                    <CardText
+                      style={{
+                        borderLeft: '1px solid white',
+                      }}
+                    >
+                      Title
+                    </CardText>
+                  </Col>
+                  <Col xs="3" className="p-0">
+                    <CardText style={{ borderLeft: '1px solid white' }}>
+                      Author
+                    </CardText>
+                  </Col>
+                  <Col xs="3" className="p-0">
+                    <CardText style={{ borderLeft: '1px solid white' }}>
+                      Genre
+                    </CardText>
+                  </Col>
+                  <Col xs="2" className="p-0">
+                    <CardText
+                      style={{
+                        borderLeft: '1px solid white',
+                      }}
+                    >
+                      Pages
+                    </CardText>
+                  </Col>
+                </Row>
+              </CardBody>
+            </div>
+          </div>
+        </Card>
+        <div className="rounded-bottom">{this.bookMapper()}</div>
+      </div>
     );
   }
 }

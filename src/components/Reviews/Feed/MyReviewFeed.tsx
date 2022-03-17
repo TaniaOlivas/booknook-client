@@ -86,21 +86,21 @@ class MyReviewFeed extends Component<MyReviewFeedProps, MyReviewFeedState> {
         <CarouselItem
           onExiting={() => this.setState({ animating: true })}
           onExited={() => this.setState({ animating: false })}
+          key={index}
         >
           <Card
-            key={index}
             style={{
               borderColor: '#ccc',
             }}
           >
             <div className="row mx-0">
-              <CardBody style={{ textAlign: 'left' }} className="col-9">
+              <CardBody style={{ textAlign: 'left' }} className="col-8">
                 <CardTitle tag="h4">{review.title}</CardTitle>
                 <CardSubtitle className="text-muted" tag="h6">
                   {review.author}
                 </CardSubtitle>
               </CardBody>
-              <CardBody className="col-3">
+              <CardBody style={{ textAlign: 'right' }} className="col-4">
                 <CardText className="card-text">
                   <small className="text-muted">Pages:</small>{' '}
                   <small className="text-muted">{review.pageLength}</small>{' '}

@@ -56,14 +56,14 @@ class Signup extends Component<LoginProps, LoginState> {
   enterBtn = (
     e: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLInputElement>
   ) => {
-    e.currentTarget.style.background = '#eeebe2';
+    e.currentTarget.style.background = '#f5f1e5';
     e.currentTarget.style.color = '#181d31';
   };
   leaveBtn = (
     e: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLInputElement>
   ) => {
     e.currentTarget.style.background = '#181d31';
-    e.currentTarget.style.color = '#eeebe2';
+    e.currentTarget.style.color = '#f5f1e5';
   };
 
   render() {
@@ -81,7 +81,7 @@ class Signup extends Component<LoginProps, LoginState> {
                 name="email"
                 placeholder="Email"
                 type="email"
-                style={{ backgroundColor: '#eeebe2', color: '#181d31' }}
+                style={{ backgroundColor: 'white', color: '#181d31' }}
                 value={this.state.email}
                 onChange={(e) => this.setState({ email: e.target.value })}
               />
@@ -93,7 +93,7 @@ class Signup extends Component<LoginProps, LoginState> {
                 name="password"
                 placeholder="Password"
                 type="password"
-                style={{ backgroundColor: '#eeebe2', color: '#181d31' }}
+                style={{ backgroundColor: 'white', color: '#181d31' }}
                 value={this.state.password}
                 onChange={(e) => this.setState({ password: e.target.value })}
               />

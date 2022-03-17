@@ -30,18 +30,18 @@ class Auth extends Component<AuthProps, AuthState> {
   enterBtn = (
     e: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLInputElement>
   ) => {
-    e.currentTarget.style.background = '#eeebe2';
+    e.currentTarget.style.background = '#f5f1e5';
     e.currentTarget.style.color = '#181d31';
   };
   leaveBtn = (
     e: React.MouseEvent<HTMLButtonElement> | React.MouseEvent<HTMLInputElement>
   ) => {
     e.currentTarget.style.background = '#181d31';
-    e.currentTarget.style.color = '#eeebe2';
+    e.currentTarget.style.color = '#f5f1e5';
   };
   render() {
     return (
-      <div style={{ marginTop: '35%' }}>
+      <div style={{ marginTop: '5%' }}>
         <div>
           {this.state.isLoginVisible === true ? (
             <Login

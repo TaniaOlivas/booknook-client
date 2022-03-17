@@ -59,7 +59,6 @@ class CommentIndex extends Component<CommentIndexProps, CommentIndexState> {
 
   editUpdateComment = (comment: comment) => {
     this.setState({ commentToUpdate: comment });
-    console.log(comment);
   };
 
   updateOn = () => {
