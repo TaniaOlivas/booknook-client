@@ -1,4 +1,14 @@
-# Getting Started with Create React App
+# BookNook Client
+
+BookNook is an app that is primarily made for book lovers. The main function of the app is to complie a reading list and share books reviews with other users. This portion is the client side of the application, the server side can be found [here](https://github.com/TaniaOlivas/bookNook-server). It has been fully deployed using Heroku and can be found [here](https://tdo-booknook-client.herokuapp.com/home).
+
+## Description
+
+ The app has two user-functionality: an Author and a User. The Users have the ability to share book reviews of books they have read and the Authors have the ability to POST their own books into a database. Both users have a "Reading List" page where they can add books to a reading list through either a search through the database for books from Authors on the app, or through the Google Books API. From this list, both users have the ability to post a review of the book once they finish reading it. If the book is not on their reading list, they also have the option to manually enter the book information in the review tab.The book reviews are then posted on a feed that all users are able to scroll through, read and comment on. All comments are shown on a post but only the original user can either UPDATE or DELETE their own comments.
+
+ ## Tech Used
+
+ This project was done using the PERN full-stack and the client side utilized TypeScript and Class Components of React.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
